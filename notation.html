@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notation</title>
+    <!--
+    <link rel="stylesheet" type="text/css" href="styles.css" /> 
+    -->
+    <style type="text/css">
+        body { 
+            background-color: #CCCC99; 
+            font-family: Verdana, sans-serif;
+            font-size: 12 px;
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+<script type="text/javascript" src="functions.js"></script></head>
+<body>
+<h2> Notation and Technical Terminology </h2>
+<table cellspacing="10">
+
+<tr> 
+    <th style="text-align:left">Symbol or Term</th>
+    <th style="text-align:left">Definition</th>
+</tr>
+
+<tr> 
+    <td>$\Phi$</td>
+    <td>The electrostatic potential, which generally will vary in space and different cellular compartments.
+    See <a href="javascript:changeTo('ionsNernst','notation','0')">Ion Gradients</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$[\mathrm{X}]$</td>
+    <td>The concentration of species (or state) $\mathrm{X}$, generally equal to $N_X/V$.
+    See <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('equil','notation','0')">Equilibrium</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$\langle A \rangle$</td>
+    <td>
+    Thermodynamic average of the quantity $A$ (under specified conditions).
+    See <a href="javascript:changeTo('freeThermo','notation','0')">Free Energy & Work</a>.
+    </td>
+</tr>
+<tr>
+    <td>$F$</td>
+    <td>Helmholtz free energy, $\langle E \rangle - TS$ .
+    See <a href="javascript:changeTo('freeThermo','notation','0')">Free Energy & Work</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$k_B$</td>
+    <td>Boltzmann's constant.  $k_B \, T \sim R T$ is the natural scale of thermal energy at temperature $T$.
+    See 
+    <a href="javascript:changeTo('idealGas','notation','0')">The Ideal Gas</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$k_{ij}$</td>
+    <td>Rate constant for transitions from $i$ to $j$.  Probability per unit time to transition from $i$ to $j$.
+    See 
+    <a href="javascript:changeTo('massAction','notation','0')">Mass-Action Kinetics</a>,
+    <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('catalysis','notation','0')">Catalysis</a>,
+    <a href="javascript:changeTo('equil','notation','0')">Equilibrium</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$k_{\mathrm{off}}$</td>
+    <td>Rate constant for unbinding - i.e., for bi-molecular dissociation.
+    Probability per $s$ for a bi-molecular complex to dissociate.
+    See 
+    <a href="javascript:changeTo('massAction','notation','0')">Mass-Action Kinetics</a>,
+    <a href="javascript:changeTo('carriers','notation','0')">Activated Carriers</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$k_{\mathrm{on}}$</td>
+    <td>Rate constant for binding - i.e., for bi-molecular association.
+    Probability per $s$ for a single molecule to bind one molecule of another species, with the latter at the reference 1M concentration. 
+    See 
+    <a href="javascript:changeTo('massAction','notation','0')">Mass-Action Kinetics</a>,
+    <a href="javascript:changeTo('carriers','notation','0')">Activated Carriers</a>.
+    </td>
+</tr>
+<tr> 
+    <td>$k_X$</td>
+    <td>Rate constant for a process "X", which might be a chemical reaction, isomerization, or (un)binding process - and should be determined by the context.
+    See 
+    <a href="javascript:changeTo('massAction','notation','0')">Mass-Action Kinetics</a>,
+    <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('catalysis','notation','0')">Catalysis</a>,
+    <a href="javascript:changeTo('synthesis','notation','0')">Synthesis</a>.
+    </td>
+</tr>
+<tr>
+    <td>$N_i$</td>
+    <td>Number of systems or molecules in state $i$.
+    See <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('equil','notation','0')">Equilibrium</a>.
+    </td>
+</tr>
+<tr>
+    <td>$N_X$</td>
+    <td>Number of copies of species (e.g., molecule) $\mathrm{X}$.
+    See <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('equil','notation','0')">Equilibrium</a>.
+    </td>
+</tr>
+<tr>
+    <td>$p_i$</td>
+    <td>Probability of state $i$, generally equal to $N_i/N$.
+    See <a href="javascript:changeTo('statesRates','notation','0')">States & Kinetics</a>,
+    <a href="javascript:changeTo('equil','notation','0')">Equilibrium</a>.
+    </td>
+</tr>
+<tr>
+    <td>$R$</td>
+    <td>The gas constant.  $k_B \, T = R T$ is the natural scale of thermal energy at temperature $T$.
+    See 
+    <a href="javascript:changeTo('idealGas','notation','0')">The Ideal Gas</a>.
+    </td>
+</tr>
+<tr>
+    <td>$\mathbf{r}^N$</td>
+    <td>The configuration of a system of $N$ atoms or molecules, it is short-hand for the full set of Cartesian coordinates: $ \mathbf{r}^N = \{ x_1, y_1, z_1, \, x_2, y_2, z_2, \, \ldots, \, x_N, y_N, z_N \}$.
+    See 
+    <a href="javascript:changeTo('idealGas','notation','0')">The Ideal Gas</a>,
+    <a href="javascript:changeTo('freeGradient','notation','0')">Free Energy Storage in a Concentration Gradient</a>.
+    </td>
+</tr>
+<tr>
+    <td>$T$</td>
+    <td>Absolute temperature, in degrees Kelvin.
+    See <a href="javascript:changeTo('freeThermo','notation','0')">Free Energy & Work</a>,
+    <a href="javascript:changeTo('idealGas','notation','0')">The Ideal Gas</a>.
+    </td>
+</tr>
+<tr>
+    <td>$V$</td>
+    <td>Volume of system.
+    See <a href="javascript:changeTo('idealGas','notation','0')">The Ideal Gas</a>,
+    <a href="javascript:changeTo('freeGradient','notation','0')">Free Energy Storage in a Concentration Gradient</a>.
+    </td>
+</tr>
+</table>
+
+</body>
+</html>

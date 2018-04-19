@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Free Energy</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Free Energy is the Cell's Available Energy
+</h2>
+
+<b>Free energy</b> is energy <a href="javascript:changeTo('free','freeThermo')">available to do work</a>.
+<ul>
+<li> It can be considered the analog of potential energy in a "thermal
+   environment" (where molecular collisions substantially alter the potential
+   and/or kinetic energies of objects of interest - i.e., proteins, solvent, etc.). </li>
+<li> Systems will move from a condition of high to low free energy if it is
+   possible: a ball will roll downhill in the absence of a barrier. </li>
+<li> The cell stores free energy in two primary ways: </li> 
+   <ul>
+   <li>(1) a gradient - i.e.,  <a href="javascript:changeTo('free','freeGradient')">
+   differing concentrations of ions or small molecules 
+   across a membrane</a>, as is the case for some <a href="javascript:changeTo('free','transport')">transporters</a>. </li>
+   <li>(2) <a href="javascript:changeTo('free','carriers')">activated carriers</a> - i.e., molecules capable of dissociating, but which
+   are maintained at a concentration well above the equilibrium value, such
+   as <a href="javascript:changeTo('free','atp')">ATP</a> and GTP. </li>  
+   </ul>
+<li> Any system that is out of <a href="javascript:changeTo('free','equil')">equilibrium</a> stores free energy that can be used
+   for work - e.g., to drive cellular processes such as transport, locomotion,
+   <a href="javascript:changeTo('free','synthesis')">synthesis</a> - or signalling processes. 
+   Conversely, <i>an equilibrium system stores no free/usable energy</i> unless the conditions are changed. </li>
+</ul>
+
+
+<h3>
+Activated Carriers Store Free Energy
+</h3>
+
+<p style="text-align:center"><img src="images/freeEnergyCarriers.gif" alt="Free Energy - Activated Carrier" /></p>
+
+The cell maintains the concentration of an activated carrier (e.g., GTP or ATP) well above its equilibrium value so that there is always a driving force toward equilibrium (via the decomposition reaction).
+Because there is a drive toward equilibrium, there is free energy which can be harnessed for work - as in the example of <a href="javascript:changeTo('free','atpTransport')">ATP-driven transporters</a>.
+
+
+<h3>
+Concentration Gradients across Membranes Store Free Energy
+</h3>
+
+<p style="text-align:center"><img src="images/freeEnergyGradient.gif" alt="Free Energy - Gradient" /></p>
+
+As in the case of activated carriers, gradients are also out of equlibrium: there is a driving force to equalize the concentrations of species across a membrane (assuming for simplicity no coupling among species).
+A <a href="javascript:changeTo('free','freeGradient')">more quantitative discussion of this phenomenon</a> is available.
+The cell can use gradient-stored free energy, for instance in the case of active 
+   <a href="javascript:changeTo('free','antiporter')">transport</a>.
+
+
+<h3>
+The Cell Uses Free Energy in Different Ways
+</h3>
+
+In general, the cell uses free energy it stores in gradients and activated
+   carriers to accomplish two types of things:
+<ul>
+   <li> (1) <a href="javascript:changeTo('free','freeThermo')">Work</a> in the usual sense - i.e., energetically unfavorable tasks such as
+   transport (against a gradient), locomotion, and chemical synthesis. </li>
+   <li> (2) Energy-neutral signalling processes, such as phosphorylation,
+   which involve a specific sequence of events that may leave the signal 
+   carriers (e.g., proteins) unchanged. </li>
+</ul>
+
+<p>
+<i> How does the free energy remain stored without "running downhill"? </i>
+   Free energy in the cell will not dissipate unless the transition from
+   the high-free-energy non-equilibrium state toward a lower free-energy state
+   is <a href="javascript:changeTo('free','catalysis')">catalyzed</a>: for <a href="javascript:changeTo('free','carriers')">activated carriers</a>, enzymes are required; for gradients
+   across membranes, flow is enabled by channels or <a href="javascript:changeTo('free','transport')">transporters</a>.
+</p>
+
+<p>
+<i>How does the cell get energy?</i>
+The cell maintains its supply of ATP and other stored energy by metabolizing nutrients in an 
+   <a href="javascript:changeTo('free','atpCycle')">ongoing cycle of ATP synthesis</a>.
+</p>
+
+
+<h3>
+Cycles and the Cell's Non-equilibrium Use of Free Energy
+</h3>
+
+<p style="text-align:center"><img src="images/MM-cycle-freeEnergy-driving.gif" alt="Driving Michaelis Menten" /></p>
+
+Cellular processes typically function in <a href="javascript:changeTo('free','cycles')">cycles</a> to re-use molecular
+   components, and free energy is used to drive such cycles in a single
+   direction by maintaining some components out of equilibrium - e.g.,
+   supplying excess ATP or other substrates for catalysis.
+
+<p style="text-align:center"><img src="images/phosphorCycleDriving.gif" alt="Driving Phosphorylation Cycle" /></p>
+
+</body>
+</html>

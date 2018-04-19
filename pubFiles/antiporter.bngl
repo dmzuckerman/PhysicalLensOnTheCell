@@ -1,0 +1,81 @@
+# antiporter model - when A moves in one direction, B moves in the other
+# started July 9, 2013 by Dan Z
+
+begin model
+
+begin parameters
+    # Universal constants
+    N_Avo 6.022e23 # per mol
+
+    # Model-specific
+    V				1e-18    # reference volume, taken to be (1 micron)^3 volume, in M^3
+    vol_EC          1.0      # volume, extracellular (fraction of ref volume, V)
+    vol_CP          1.0      # volume, cytoplasm  (fraction of ref volume, V)
+    SA              6e-12    # (1 micron)^2 in M^2 and 6 faces     
+    sa_PM           SA       # membrane surface area
+    eff_width       5e-9     # effective surface width, in M
+
+    k_bi  1e6              # bimolecular rate - in units of volume / time
+    Kbind 1e6              # association constant (1 / K_d)
+    k_conf 1e0            # rate of conformational change
+    
+    # Kinetic Rate Constants
+    k_on   k_bi/N_Avo      # units:  /(#/vol)/time
+    k_off  k_bi/Kbind      # units:  /time
+    
+    # Initial Concentrations/counts
+    nProt    1              # number of proteins
+    A_conc   1e-4           # total conc of A, in M
+    B_conc   1e-4           # total conc of B, in M
+    A_count  A_conc*V*N_Avo # total count of A
+    B_count  B_conc*V*N_Avo # total count of B
+    EC_fac_A 1.0            # fraction of total A conc initially in EC
+    EC_fac_B 0.4            # fraction of total B conc initially in EC
+    A0_EC    EC_fac_A*A_count*vol_EC   # initial EC A count
+    B0_EC    EC_fac_B*B_count*vol_EC   # initial EC B count
+    A0_CP    A_count - A0_EC # initial CP A count (assumes 0 in PM)
+    B0_CP    B_count - B0_EC # initial CP B count (assumes 0 in PM)
+end parameters
+
+begin compartments
+    EC  3  vol_EC*V                            # extracellular
+    PM  2  sa_PM * eff_width          EC       # plasma membrane
+    CP  3  vol_CP*V                   PM       # cytoplasm
+end compartments
+
+begin molecule types
+    R(ligA,ligB,conf~in~out)   # 'receptor' - i.e., transporter, binds A and B and
+                               # has both inward and outward facing conformations
+    A(rec)         # ligand A
+    B(rec)         # ligand B
+end molecule types
+
+begin species
+    R(ligA,ligB,conf~out)@PM  nProt      # transporters in plasma membrane
+    A(rec)@EC  A0_EC      # extracellular ligand
+    A(rec)@CP  A0_CP      # cytoplasmic ligand
+    B(rec)@EC  B0_EC      # extracellular ligand
+    B(rec)@CP  B0_CP      # cytoplasmic ligand
+end species
+
+begin reaction rules
+    A(rec)@EC + R(ligA,ligB,conf~out)@PM <-> A(rec!0)@PM.R(ligA!0,ligB,conf~out)@PM   k_on, k_off
+        # A binds empty outward facing receptor
+    B(rec)@EC + R(ligA,ligB,conf~out)@PM <-> B(rec!1)@PM.R(ligA,ligB!1,conf~out)@PM   k_on, k_off
+        # B binds empty outward facing receptor
+    A(rec!0)@PM.R(ligA!0,ligB,conf~out)@PM <-> A(rec!0)@PM.R(ligA!0,ligB,conf~in)@PM  k_conf, k_conf
+        # A-bound outward-facing receptor switches to inward-facing
+    B(rec!1)@PM.R(ligA,ligB!1,conf~out)@PM <-> B(rec!1)@PM.R(ligA,ligB!1,conf~in)@PM  k_conf, k_conf
+        # B-bound outward-facing receptor switches to inward-facing
+    A(rec)@CP + B(rec!1)@PM.R(ligA,ligB!1,conf~in)@PM <-> A(rec!0)@PM.B(rec!1)@PM.R(ligA!0,ligB!1,conf~in)@PM   k_on, k_off
+        # A binds to B-bound inward-facing receptor
+    B(rec)@CP + A(rec!0)@PM.R(ligA!0,ligB,conf~in)@PM <-> A(rec!0)@PM.B(rec!1)@PM.R(ligA!0,ligB!1,conf~in)@PM   k_on, k_off
+        # B binds to A-bound inward-facing receptor
+end reaction rules
+
+end model
+
+# actions (no need for block here)
+generate_network({overwrite=>1})
+simulate({method=>"ssa",t_start=>0,t_end=>1e4,n_steps=>200})
+

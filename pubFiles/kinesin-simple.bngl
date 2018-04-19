@@ -1,0 +1,98 @@
+begin model
+
+# Requires BioNetGen >= 2.2.4
+version("2.2.5")
+
+# BNG uses the following value, along with compartment volumes, to convert
+# intensive units (concentration) to extensive units (numbers). If you are
+# measuring quanity in moles, set this to Avogadro's number. If quantity is
+# measured by pure numbers, then set to 1, etc.
+setOption("NumberPerQuantityUnit",6.0221e23)
+
+begin parameters
+# Fundamental constants
+RT 2.5774863 # product of Universal gas constant and Temperature, kJ/mol
+NA 6.0221418e23 # Avogadro's Number, /mol
+PI 3.1415927 # Pi, no units
+# Geometry parameters
+rad_cell 1e-4 # radius of cell, dm
+sa_PM           4*PI*rad_cell^2       # membrane surface area
+eff_width       5e-8     # effective surface width, in dm
+vol_CP 4/3*PI*rad_cell^3 # volume of cytoplasm, L
+vol_EC 2*vol_CP
+vol_PM sa_PM*eff_width
+# Initial species concentrations, M
+conc_motor_0 2.5e-15
+conc_ATP_0 1e-3
+conc_ADP_0 1e-10
+conc_Pi_0  1e-10
+# Free energy parameters. See "energy patterns" block for more info.
+# Bond energy terms, kJ/mol. (NOTE: -47.5 kJ/mol ~= Kd=10nM)
+Gf_ATPbinding -25.52
+Gf_stepforward -36.17
+Gf_ADPreleasing 13.65
+Gf_ATPhydrolysis 26.30
+# Rate distribution parameter, no units. Phi=1/2 is a good choice.
+phi 0.5
+# Baseline activation energy terms, kJ/mol. See reaction rules block for
+# an explanation of how kinetic rates are computed from phi and Ea0.
+Ea0_ATPbinding -24.62
+Ea0_stepforward -14.41
+Ea0_ADPreleasing -18.69
+Ea0_ATPhydrolysis  -12.37
+end parameters
+
+begin compartments
+CP 3 vol_CP                      
+end compartments
+
+begin molecule types
+motor(rear,front)       
+ATP(M)          
+ADP(M)
+Pi()         
+end molecule types
+begin seed species
+# seed species units should counts, not concentration
+motor(rear!1,front)@CP.ADP(M!1)@CP   conc_motor_0*vol_CP*NA   
+ATP(M)@CP              conc_ATP_0*vol_CP*NA
+ADP(M)@CP              conc_ADP_0*vol_CP*NA
+Pi()@CP                conc_Pi_0*vol_CP*NA
+end seed species
+
+begin observables
+Species ATP ATP(M)@CP     # total ATP - bound and unbound
+end observables
+#
+begin functions  # these can also be printed via option 'print_functions=>1' in simulate command
+ATP_consumed conc_ATP_0*vol_CP*NA - ATP
+#ATP_consumed N_ATP - ATP
+end functions
+
+begin energy patterns
+# bond energy motifs
+motor(rear,front!1).ATP(M!1) Gf_ATPbinding/RT
+
+end energy patterns
+
+begin reaction rules
+# Arrhenius(phi, Ea0/RT)
+
+# Kinetic rates are computed as follows:
+#
+# k+ = C*exp(-(Ea0 + phi*DeltaG)/RT)
+# k- = C*exp(-(Ea0 + (phi-1)*DeltaG)/RT)
+motor(rear!1,front)@CP.ADP(M!1)@CP+ATP(M)@CP <->motor(rear!1,front!2)@CP.ADP(M!1)@CP.ATP(M!2)@CP  Arrhenius(phi,Ea0_ATPbinding/RT)   
+motor(rear!1,front!2)@CP.ADP(M!1)@CP.ATP(M!2)@CP<->motor(rear!1,front!2)@CP.ADP(M!2)@CP.ATP(M!1)@CP  Arrhenius(phi,Ea0_stepforward/RT)  
+motor(rear!1,front!2)@CP.ADP(M!2)@CP.ATP(M!1)@CP <-> motor(rear!1,front)@CP.ATP(M!1)@CP+ADP(M)@CP  Arrhenius(phi,Ea0_ADPreleasing/RT)
+motor(rear!1,front)@CP.ATP(M!1)@CP<->motor(rear!1,front)@CP.ADP(M!1)@CP+Pi()@CP  Arrhenius(phi,Ea0_ATPhydrolysis/RT)
+
+end reaction rules
+end model
+
+
+# Generate the network. Kinetics are computed as the reactions are constructed.
+generate_network({overwrite=>1})
+# Simulate with ODE or SSA only. NFsim does not yet support energy models =(.
+simulate_ssa({t_start=>0,t_end=>1e5,n_steps=>2000,atol=>1e-4,rtol=>1e-6,print_functions=>1})
+#simulate_ode({t_start=>0,t_end=>2e12,n_steps=>2000,atol=>1e-4,rtol=>1e-6})

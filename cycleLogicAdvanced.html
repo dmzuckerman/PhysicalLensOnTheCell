@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Cycle Logic</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Advanced Cycle Logic
+</h2>
+
+<a href="javascript:changeTo('cycleLogicAdvanced','cycles')">Cycles</a> are essential to biochemistry and cell biology for the simple reason that the cell re-uses molecular components like enzymes.
+<a href="javascript:changeTo('cycleLogicAdvanced','cycleLogic')">The basic "logic" of cycles</a> has been described.
+
+<p>
+Here, we want to build on the example of the <a href="javascript:changeTo('cycleLogicAdvanced','antiporter')">antiporter/exchanger</a> to understand the "space" of states in which machine cycles tend to exist and also how those states are "wired" together.
+</p>
+
+
+<h3>
+Seeing the antiporter in an extended space
+</h3>
+
+Compare the original <a href="javascript:changeTo('cycleLogicAdvanced','antiporter')">antiporter cycle</a> to the equivalent representation below.
+Here, the binding events are "implicit" - if a new molecule appears along a given line (process) then a binding event must occur.
+
+<p style="text-align:center"> <img src="images/antiporter-cycle-expanded.gif" height = "350"/> </p>
+
+We have categorized the states as inward and outward facing to emphasize additional states which are not visited in the original antiporter cycle.
+Indeed, further states might occur, which are not shown - for example, mixed states including one binding site facing inward and the other outward.
+
+
+<h3>
+Adding "slippage" to the antiporter cycle
+</h3>
+
+Our original antiporter cycle is a perfect 1:1 transporter - each time one A molecule moves in one direction (e.g., out-to-in) a B molecule moves in the opposite direction (e.g., in-to-out).
+But there is no reason to expect that molecular machines, which function in a thermal environment, function so precisely.
+Moreover, there may be functional (regulatory) reasons why slippage, or inefficiency, could be helpful.
+
+<p style="text-align:center"> <img src="images/antiporter-slippage-cycle.gif" height = "350"/> </p>
+
+The added brown connections in this cycle do not contribute to the 1:1 exchange of molecules.
+You should follow the cycle around various possible pathways from an initial state (e.g., top left) and all the way back to the same state to see that the unproductive processes cause the molecule to act as a simple channel.
+
+<p>
+The relative magnitudes of the rate constants will determine the effectiveness of this molecule as an antiporter.
+Generally, you should expect that slippage processes can occur.
+</p>
+
+
+<h3>
+A symporter cycle in the same space
+</h3>
+
+Using the same set of states shown, we can wire together a "symporter" (co-transporter) which transports one A and one B molecule together.
+
+<p style="text-align:center"> <img src="images/symporter-cycle-expanded.gif" height = "350"/> </p>
+
+Comparing this diagram to the previous two, it is not difficult to imagine one system evolving from the others.
+
+<h3>
+Exercises
+</h3>
+<ol>
+<li> Sketch a symporter wiring diagram that includes a slippage process, and describe what happens during the slippage. </li>
+<li> Using the principles explained for general <a href="javascript:changeTo('cycleLogicAdvanced','cycles')">cycles</a>, determine the constraints that would apply for processes that include slippage.
+</ol>
+
+
+</body>
+</html>

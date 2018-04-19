@@ -1,0 +1,44 @@
+# Working on master script html/latex to html/png confStatMech.html
+\begin{align}
+N_A \kab &= N_B \kba \nonumber \\
+\conceq{A} \kab &= \conceq{B} \kba \; ,
+\end{align}
+\begin{equation}
+\rn = \left \{ (x_1, y_1, z_1), (x_2, y_2, z_2), \ldots \right \} \; .
+\end{equation}
+\begin{equation}
+\mathrm{prob}\left( \rn \right) \propto e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\end{equation}
+\begin{equation}
+\mathrm{prob} \left( \mbox{state A} \right) \propto
+  \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\label{aprob}
+\end{equation}
+\begin{align}
+\frac{ \mathrm{prob} \left( \mbox{state A} \right) }{ \mathrm{prob} \left( \mbox{state B} \right) }
+&= \frac { \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} }{ \int_B d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T}  } \nonumber \\
+&= \frac{ e^{ \left. -F_A \right/ k_B T} }{ e^{ \left. -F_B \right/ k_B T}  }
+\simeq \frac{ e^{ \left. -G_A \right/ k_B T} }{ e^{ \left. -G_B \right/ k_B T}  }
+\label{popratio}
+\end{align}
+\begin{equation}
+e^{ \left. -G_A \right/ k_B T} \kab = e^{ \left. -G_B \right/ k_B T} \kba \; .
+\end{equation}
+\begin{equation}
+\rn(t) = \left\{ \rn(t_0), \rn(t_1), \rn(t_2), \ldots
+         \right\}
+\end{equation}
+\begin{equation}
+\kab = \frac{1}{ \mathrm{MFPT}(A \rightarrow B) }
+\end{equation}
+\begin{equation}
+\frac{ \mathrm{prob} \left( \mbox{state A} \right) }{ \mathrm{prob} \left( \mbox{state B} \right) }
+= \frac{ \mbox{time spent in state A} }{ \mbox{time spent in state B} } .
+\end{equation}
+\begin{equation}
+e^{ \left. -G(q) \right/ k_B T} \propto
+  \mathrm{prob} (q) \propto
+  \int d\rnhat \; e^{ \left. -U \left(\rn \right) \right/ k_B T} 
+   \; .
+\label{gofq}
+\end{equation}

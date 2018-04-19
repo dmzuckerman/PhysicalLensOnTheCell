@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mass Action Kinetics</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Mass-Action Kinetics
+</h2>
+
+The "mass action" picture is a specific, simple version of how kinetic processes (binding, catalysis, conformational transitions, ...) occur in chemical systems.
+In essence, the mass-action picture describes an <a href="javascript:changeTo('massAction','idealGas')">ideal-gas</a> situation: molecules interact strictly according to their concentrations without regard to the size or shape of the species.
+There are no interactions except those explicitly described by the mass-action rate laws.
+
+<h3>
+First-order Kinetics: Catalysis, Conformational transitions, <em>Un</em>binding
+</h3>
+
+<p style="text-align:center">
+<img src="images/confTransn.gif" alt="Conformational transition"  height = "75" />
+</p>
+<p style="text-align:center">
+<img src="images/catalysisATP.gif" alt="ATP catalysis"  height = "75" />
+</p>
+
+In first-order kinetic processes, transitions occur in proportion to the quantity of (reactant) molecules or states present.
+Thus a rate constant $k_{ij}$ describes the probability per unit time for molecule (or state) $i$ to convert to $j$.
+This implies:
+<ul>
+<li> $N_i k_{ij}$ = the number of molecules (or states) $i$ transitioning to $j$ per unit time, with $N_i$ the number of molecules/states $i$ at the time of interest.</li>
+<li> $\conc{i} \, k_{ij}$ = the number of molecules (or states) $i$ transitioning to $j$ <em>per unit volume</em> per unit time, where $\conc{i}$ is the concetration of $i$.  This is the same as above except in concentration units.</li>
+<li> IMPORTANT: Although enzyme-catalyzed reactions will exhibit first-order kinetics, this applies <em>only</em> to the chemical reaction of the bound reactants/products - <em>not</em> to the binding process.  Binding processes typically are second order: see below.
+</ul>
+Rate constants, such as $k_{ij}$, are assumed not to change with time, although populations (e.g., $N_i$ or $\conc{i}$) tend to change in time except under steady-state conditions.
+This holds for mass-action kinetics of all orders.
+
+<h4>First-order examples</h4>
+<ul>
+<li> <b>Conformational transition.</b>
+A system undergoing first-order mass-action kinetics between two states, perhaps a conformational transition 
+\begin{equation*}
+A \rightleftharpoons B
+\end{equation*}
+has two overall rates or fluxes
+\begin{align*}
+\mbox{rate of A to B transitions, per unit volume} &= \conc{A} \, k_{AB}
+\\
+\mbox{rate of B to A transitions, per unit volume} &= \conc{B} \, k_{BA}
+\end{align*}
+These can be combined to characterize the overall time-dependent behavior by differential equations:
+\begin{equation}
+\frac{ d \conc{A} }{ dt} = - \conc{A} \, k_{AB} + \conc{B} \, k_{BA}
+\end{equation}
+
+\begin{equation}
+\frac{ d \conc{B} }{ dt} = - \conc{B} \, k_{BA} + \conc{A} \, k_{AB}
+\end{equation}
+The first equation, for example, says that the concentration of A changes by transitions out to B (in proportion to the concentration of A) as well as by transitions from B to A (in proportion to the concentration of B). 
+These mass-action kinetic equations determine how the concentrations of A and B change in time.
+A and B could be conformational states or chemical states if it's a catalytic process.
+</li>
+<li>
+<b>Enzyme catalysis.</b>
+The catalysis $ES \rightleftharpoons EP$ of an enzyme/substrate complex, ES, into the enzyme-product complex, EP, at a rate $\kcat$ is quantified by
+\begin{equation}
+\mbox{rate of EP production, per unit volume} = \conc{ES} \, \kcat ,
+\end{equation}
+which indicates the concentration of EP is increasing in proportion to the concentration of ES.
+As a concrete example, S could be <a href="javascript:changeTo('massAction','atp')">ATP</a> and P could be ADP (ignoring phosphate).
+</li>
+<li>
+<b>Unbinding.</b>
+Although binding is a second-order process because the two binding partners must "find" each other (see below), <em>un</em>binding is a first-order processes.
+Continuing the example above, we can quantify the rate of substrate unbinding from an enzyme via
+\begin{equation}
+\mbox{rate of E, P unbinding, per unit volume} = \conc{EP} \, \koff ,
+\end{equation}
+which indicates that the rate of concentration change due to unbinding is simply proportional to the number of EP complexes.
+In other words, a given complex has fixed probability per unit time (namely, $\koff$) to unbind.
+</li>
+</ul>
+
+
+<h3>
+Second-order (Binding) Kinetics
+</h3>
+
+<p style="text-align:center">
+<img src="images/ABbinding.gif" alt="A + B binding"  height = "75" />
+</p>
+
+Second-order kinetics is the highest order that we really need to understand (see below), but it's a bit trickier than first-order.
+Second-order, or binding kinetics depends on the concentrations of two species.
+There is a greater chance for collision/complexation as the concentrations of the two binding partners increase.
+In the mass-action picture, the probability of binding is simply proportional to the product of the two concentrations, so that if A and B can bind to form AB according to the scheme
+\begin{equation}
+\label{aplusb}
+A + B \rightleftharpoons AB
+\end{equation}
+then
+<ul>
+<li> $\conc{A} \conc{B} \, \kon$ = the number of binding events per unit time per unit volume </li>
+<li> The second-order rate $\kon$ is a probabilty per unit time <em>per molar concentration</em> - in contrast to first-order rates which are simple probabilities per unit time. </li>
+<li> In essence, a second-order rate is the probability per molar concentration of one species (say, A) to bind the other species (B) held at some fixed reference concentration (typically, 1M).  If B is at a different concentration, the product $\conc{A} \conc{B} \kon$ corrects for values above or below the reference. </li>
+</ul>
+
+<h4>
+Second-order/binding example
+</h4>
+Given the binding process \eqref{aplusb}, if we include both binding and unbinding (a first-order process), we have
+\begin{equation}
+\frac{ d \conc{AB} }{ dt } = \conc{A} \conc{B} \, \kon - \conc{AB} \, \koff
+\end{equation}
+Note that we could equally have used the $E + S \rightleftharpoons ES$ process.
+Including both binding and catalysis (from above: first-order) for ES, we can write
+\begin{equation}
+\frac{ d \conc{ES} }{ dt } = \conc{E} \conc{S} \, \kon - \conc{ES} \, \kcat
+\end{equation}
+where we have assumed catalysis is essentially irreversible, so that EP never converts to ES.
+(In truth, irreversibility is only an approximation for a very slow reverse process, as discussed in the context of <a href="javascript:changeTo('massAction','cycles')">cycles</a>.)
+
+<h3>
+Higher-order Kinetics
+</h3>
+Although higher-order kinetics (e.g., the simultaneous binding of three molecules) can be described mathematically, such kinetics largely represent an unnecessary approximation.
+Of course, numerous biological complexes consist of many more than three molecules, but it is not reasonable to expect that the binding needs to occur <i>simultaneously</i> - which would be extremely improbable.
+We expect, rather, that sequential pairwise binding events (described by second-order kinetics) will be a more physically realistic description for the buildup of multi-component complexes.
+
+<h3>
+"Zero-order" Kinetics
+</h3>
+Zero-order kinetics apparently represent something coming from nothing (a constant rate of creation or destruction of a species, <i>independent of concentration</i>).
+Really, however, zero-order kinetics are meant to stand in for processes that are not explicitly modeled.
+For example, if you were studying a molecular machine powered by ATP hydrolysis, to keep <a href="javascript:changeTo('massAction','atp')">ATP</a> and ADP at steady values (as the cell does viaevascript:changeTo('massAction','atpCycle')">complex machinery</a>), a steady input and output of these molecules could be modeled by differential equations including zero-order temrms:
+\begin{align}
+\frac{ d \conc{ATP} }{ dt } &= k_{\mathrm{in}} + \cdots
+\\
+\frac{ d \conc{ADP} }{ dt } &= k_{\mathrm{out}} + \cdots
+\end{align}
+Note the absence of a molecular concentration multiplying the "in" and "out" rates on the right-hand-sides of the equations.
+
+<h3>
+Limitations of the mass-action assumption
+</h3>
+
+<p style="text-align:center">
+<img src="images/crowdedBinding.gif" alt="Crowded binding"  height = "75" />
+</p>
+The mass action picture assumes <a href="javascript:changeTo('massAction','idealGas')">ideal gas behavior</a>: no concentration-dependence to interactions (except binding), and no volumetric effects.
+Of course, both these assumptions are wrong.
+For example, at higher concentrations, ions will interact differently with one another than at lower concentrations, due to the strong distance-dependence of Coulombic forces.
+Also, <i>any</i> molecules, at high enough concentrations, will not bind by simple proportionality rules: as sketched in the figure above, once the environment becomes sufficiently crowded, the number of neighbors of a given molecule will reach a maximum, independent of concentration.
+
+<p>
+An explicit example of the mass-action picture breaking down is given at the end of the discussion of <a href="javascript:changeTo('massAction','ionsNernst')">ionic gradients</a>.
+</p>
+
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activated Carriers</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dmu}{\Delta \mu}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\na}{N_A}
+    \newcommand{\nb}{N_B}
+    \newcommand{\nc}{N_{C}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Activated Carriers: Why chemical energy storage is "statistical"
+</h2>
+
+<!--
+<a href="javascript:changeTo('atpTransport','free')">Free energy</a> stored in the <a href="javascript:changeTo('atpTransport','carriers')">activated carrier</a> <a href="javascript:changeTo('atpTransport','atp')">ATP</a> can be used to drive the transport of an ion or small molecule against a gradient - i.e., transport from a region of low to high concentration.
+-->
+
+Any system that is out of <a href="javascript:changeTo('carriers','equil')">equilibrium</a> stores <a href="javascript:changeTo('carriers','free')">free energy</a>.
+The cell stores free energy using out-of-equilibrium chemically reacting systems involving molecules known as "activated carriers," as well as <a href="javascript:changeTo('carriers','freeGradient')">non-equilibrium concentration differences - gradients - across membranes</a>.
+
+<p>
+<b>Activated carriers</b> are molecules that can be split (C $\rightarrow$ A + B) to release free energy <i>but only if there is an excess of C relative to its equilibrium concnetration</i>.
+Key examples are <a href="javascript:changeTo('carriers','atp')">ATP</a>, GTP, NADH, FADH$_2$, and NADPH.
+</p>
+
+<p>
+In order for carriers like ATP to be a stable source of free energy, they must stay "activated" when not being used for cellular purposes.
+In other words, the decomposition/splitting reaction C $\rightarrow$ A + B must be slow compared to cellular timescales and unlikely to occur without <a href="javascript:changeTo('carriers','catalysis')">catalysis</a>.  
+</p>
+
+<p>For completeness, we emphasize that free energy is stored because the decompostion/synthesis reactions are maintained away from equilibrium - not because bond-breakage is involved.
+Free energy could equally well be stored in an isomerization "reaction" $A \rightleftharpoons A'$, in which the species populations were maintained away from equilibrium.
+
+
+<h3>
+The physical basis of carrier activation
+</h3>
+
+Understanding activated carriers begins with the <i>reversible</i> equation for a decomposition reaction
+<p style="text-align:center"><img src="images/carriers-abc-eqn.gif" /></p>
+where "C" could be any carrier such as ATP.
+We have used the rates $\kon$ and $\koff$ both because these have the corrects units (see <a href="javascript:changeTo('carriers','notation', '0')">notation</a>) and also to suggest that details of the chemical reaction are not important.
+Conceptually, we can understanding the equilibrium (or lack of it) in a chemical reaction in the same way as we understand binding.
+
+<p>
+Using a <a href="javascript:changeTo('carriers','massAction')">mass-action</a> picture, equilibrium occurs when the number of reactions occuring per second in the forward direction, $\conc{A} \conc{B} \, \kon$, balances the number in the reverse direction, $\conc{C} \, \koff$.
+That is, equilibrium occurs when
+\begin{equation}
+\label{equil}
+\conc{A} \conc{B} \, \kon = \conc{C} \, \koff ,
+\end{equation}
+and thus a carrier C is activated whenver the concentrations are such that
+\begin{equation}
+\label{activated}
+\conc{A} \conc{B} \, \kon < \conc{C} \, \koff ,
+\end{equation}
+meaning that more decomposition than synthesis events occur per second.
+
+</p>
+Pictorially, the conditions of equilibrium and out-of-equilibrium activation are shown below.
+<p style="text-align:center"><img src="images/carriers-equil-non.gif" /></p>
+Note that the system could be out of equilibrium in the opposite way - with an excess of "B" (e.g., ADP) relative to its equilibrium value - which would also store free energy.
+
+<p>
+A non-equilibrium condition -  one <i>not</i> satisfying \eqref{equil} - stores free energy because there is a tendency for the system to relax back to equilibrium.
+In the case of a carrier, there is a (strong) tendency for the system to decompose, and this will lead to net flow in one direction in biochemical <a href="javascript:changeTo('carriers','cycles')">cycles</a> using the carrier. 
+The tendency is strong because the cell maintains carrier concentrations far from equilibrium.
+</p>
+
+<h3>
+Other carriers
+</h3>
+
+The physical explanation just given suggests that ATP is not the only molecule that can be used as an activated carrier.
+Indeed, it is well known that GTP is used as a carrier for signaling processes and for translation.
+The logic here also explains energy storage in electron carriers like NADH, which participate in the <a href="javascript:extLink('http://en.wikipedia.org/wiki/Oxidative_phosphorylation')">oxidative phosphorylation process</a> that "activates" ATP in the first place by synthesizing it well beyond its equilibrium value.
+
+
+<h3>
+A Simple, Quantitative Model for Free Energy Storage in Activated Carriers
+</h3>
+
+We can use the same approach taken to analyze <a href="javascript:changeTo('carriers','binding')">binding</a> to see how free energy is stored in a very simple model.
+In particular, we can model the A, B, and C components (e.g., ADP, Pi, and <a href="javascript:changeTo('carriers','atp')">ATP</a>) as non-interacting except for their probilities to react or decompose.
+This is nothing other than a <a href="javascript:changeTo('carriers','massAction')">mass-action</a> picture - or, thermodynamically, treatment of the components as <a href="javascript:changeTo('carriers','idealGas')">ideal gases</a>. 
+
+<p>
+We treat the reaction $A + B \rightleftharpoons C$, as involving ideal gases of $\na$ A molecules, $\nb$ B molecules, and $\nc$ C molecules.
+We assume there is a (free) energy change of $\dmu$ for every C molecule synthesized.
+See the <a href="javascript:changeTo('carriers','binding')">binding discussion</a> for details.
+These assumptions lead to a total free energy of the system given by
+\begin{equation}
+\label{ftot}
+F(\na, \nb, \nc) = \fidl(\na) + \fidl(\nb) + \fidl(\nc) + \nc \dmu
+\end{equation}
+</p>
+
+<p>
+Based on Eq. \eqref{ftot} and <a href="javascript:changeTo('carriers','idealGas')">the function $\fidl$</a>, we can solve for the equilibrium point - the most probable state when $N$ values are large - and we find
+\begin{equation}
+\label{idlequil}
+\frac{ \conceq{A} \, \conceq{B} }{ \conceq{C} } = \frac{1}{ \lambda^3 e }
+                                            e^{ \left. \dmu \right/ k_BT} .
+\end{equation}
+Any concentrations that do not satisfy the relation given in Eq. \eqref{idlequil} are out of equilibrium and hence store free energy.
+</p>
+
+<p style="text-align:center"><img src="images/carriers-f-vs-atp-conc.gif" /></p>
+
+<p>
+In the case of $\mbox{ADP} + \mbox{Pi} \rightleftharpoons \mbox{ATP}$, as sketched in the figure, the equilibrium point greatly favors low ATP (high ADP) concentration.
+However, the cell maintains $\conc{ATP}$ much higher than its equilibrium value.
+Thus a driving force for hydrolysis of ATP is always present, like electricity in wall outlets.
+Again, <i>ATP is a source of energy only because it is maintained out of equilibrium with its hydrolysis product ADP.</i>
+If $\conc{ATP}$ were allowed to reach its equlibrium value, no free energy would be stored.
+From a microscopic point of view, at equilibrium, hydrolysis reactions would exactly be balanced by synthesis;
+reverse processes would balance forward processes.
+</p>
+
+
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+# simple model of ATP-driven transport - pumps inside to outside cell
+# phosphate not modeled, just ATP <-> ADP with ADP heavily favored
+# transport driven by non-equilibrium concentration of ATP, much higher than equil
+# started July 16, 2013 by Dan Z
+
+begin model
+
+begin parameters
+    # Universal constants
+    N_Avo 6.022e23 # per mol
+
+    # Model-specific
+    V				1e-18    # reference volume, taken to be (1 micron)^3 volume, in M^3
+    vol_EC          1.0      # volume, extracellular (fraction of ref volume, V)
+    vol_CP          1.0      # volume, cytoplasm  (fraction of ref volume, V)
+    SA              6e-12    # (1 micron)^2 in M^2 and 6 faces     
+    sa_PM           SA       # membrane surface area
+    eff_width       5e-9     # effective surface width, in M
+
+    k_bi  1e6              # bimolecular rate - in units of volume / time
+    Kbind 1e6              # association constant (1 / K_d)
+    k_conf 1e0             # rate of conformational change
+    K_atp 1e7              # equilibrium ratio [ADP]/[ATP] - very rough, since we are ignoring phosphate
+    
+    # Kinetic Rate Constants
+    k_on   k_bi/N_Avo      # units:  1/(#/vol)/time - used for all binding
+    k_off  k_bi/Kbind      # units:  1/time - used for all unbinding
+    k_conf 1e0             # reference rate of conformational change (and catalysis)
+    k_td   k_conf          # rate for ATP -> ADP
+    k_dt   k_td/K_atp      # rate for ADP -> ATP (assumes other rates don't affect equilibrium
+                                # which is true when all k_on and k_off are the same)
+    
+    # Initial Concentrations/counts
+    nProt    1              # number of proteins
+    A_conc   1e-4           # total conc of A, in M
+    nuc_conc   1e-2         # total conc of nucleotide, in M
+    A_count  A_conc*V*N_Avo # total count of A
+    nuc_count  nuc_conc*vol_CP*V*N_Avo # total count of nucloetide (always in cytoplasm)
+    EC_fac_A 0.0            # fraction of total A conc initially in EC
+    ATP_fac  0.5            # fraction of total nucleotide initially ATP
+    A0_EC    EC_fac_A*A_count*vol_EC   # initial EC A count
+    A0_CP    A_count - A0_EC           # initial CP A count (assumes 0 in PM)
+    ATP0     ATP_fac*nuc_count   # initial ATP count
+    ADP0     nuc_count - ATP0   # initial ADP count
+end parameters
+
+begin compartments
+    EC  3  vol_EC*V                            # extracellular
+    PM  2  sa_PM * eff_width          EC       # plasma membrane
+    CP  3  vol_CP*V                   PM       # cytoplasm
+end compartments
+
+begin molecule types
+    R(ligA,nuc,conf~in~out)   # 'receptor' - i.e., transporter, binds A and nucleotide (ATP/ADP)
+                              # has both inward and outward facing conformations
+    A(rec)         # ligand A
+    ATP(rec)
+    ADP(rec)
+end molecule types
+
+begin species
+    R(ligA,nuc,conf~in)@PM  nProt      # transporters in plasma membrane
+    A(rec)@EC  A0_EC      # extracellular ligand
+    A(rec)@CP  A0_CP      # cytoplasmic ligand
+    ATP(rec)@CP  ATP0     # cytoplasmic ATP
+    ADP(rec)@CP  ADP0     # cytoplasmic ATP
+end species
+
+begin reaction rules
+    A(rec)@CP + R(ligA,nuc,conf~in)@PM <-> A(rec!0)@PM.R(ligA!0,nuc,conf~in)@PM   k_on, k_off
+        # cytoplasmic A binds empty inward-facing receptor
+    A(rec!0)@PM.R(ligA!0,nuc,conf~in)@PM + ATP(rec)@CP <-> A(rec!0)@PM.R(ligA!0,nuc!1,conf~in)@PM.ATP(rec!1)@CP   k_on, k_off
+        # ATP (always cytoplasmic) binds A-bound inward-facing receptor
+    A(rec!0)@PM.R(ligA!0,nuc!1,conf~in)@PM.ATP(rec!1)@CP <-> A(rec!0)@PM.R(ligA!0,nuc!1,conf~out)@PM.ADP(rec!1)@CP  k_td, k_dt
+        # inward-to-outward conformational transition accompanied by ATP hydrolysis to ADP
+    A(rec!0)@PM.R(ligA!0,nuc!1,conf~out)@PM.ADP(rec!1)@CP <-> A(rec)@EC + R(ligA,nuc!1,conf~out)@PM.ADP(rec!1)@CP  k_off, k_on
+        # release of A on extracellular side
+    R(ligA,nuc!1,conf~out)@PM.ADP(rec!1)@CP <-> R(ligA,nuc,conf~out)@PM + ADP(rec)@CP k_off, k_on
+        # unbinding of ADP
+    R(ligA,nuc,conf~out)@PM <-> R(ligA,nuc,conf~in)@PM  k_conf, k_conf
+        # outward to inward conformational change of apo receptor             
+end reaction rules
+
+end model
+
+# actions (no need for block here)
+generate_network({overwrite=>1})
+simulate({method=>"ssa",t_start=>0,t_end=>2e7,n_steps=>200})
+

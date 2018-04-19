@@ -1,0 +1,149 @@
+# ATP synthase model: rotary
+
+# Requires BioNetGen >= 2.2.4
+
+# BNG uses the following value, along with compartment volumes, to convert
+# intensive units (concentration) to extensive units (numbers). If you are
+# measuring quanity in moles, set this to Avogadro's number. If quantity is
+# measured by pure numbers, then set to 1, etc.
+setOption("NumberPerQuantityUnit",6.0221e23)
+#setOption("NumberPerQuantityUnit",1)
+version("2.2.5")
+
+
+begin model
+
+begin parameters
+## General parameteres
+NA              6.02e23   # Avagadro's number
+kB              1.38e-23  # Boltzmann's const
+T               300       # Temperature (K)
+el              1.6e-19   # coul/elect
+# k_bi            1e7     #unit /molar/time
+# k_synth         1e1     # reference rate for synthesis reaction unit /sec
+## Conditions
+pot             0.125     # potential diff across membrane, mV
+atp_adp_ratio   5.5       # [ATP]/[ADP] conc ratio 
+## Geometric parameters
+vol_A           1e-15     # volume of A/alpha side
+vol_B           1e-15     # volume of B/beta side
+SA              6e-12     # (1 micron)^2 in M^2 and 6 faces     
+sa_PM           SA        # membrane surface area
+eff_width       5e-9      # effective surface width, in M
+## System governing parameters
+Kd_Pi           2e0     # M = molar # dissoc constant for Pi
+Kd_ADP          9e-6    # M = molar # dissoc constant for ADP
+Kd_ATP          5e-3    # M = molar # dissoc constant for ATP
+Kd_dt           10.0    # ratio of rate constants k_dt/k_td  (ADP phosphorylation) 
+Kd_ionB         2e-7    # M = molar # ion dissociation const on B side
+eq_TD_sol       3e-6    # equilibrium [ATP]/[ADP][Pi] ratio in solution
+eq_ion_ratio    exp(-el * pot / (kB * T))  # equilibrium ratio of proton conc across membrane 
+ratio_ion_Kd    eq_ion_ratio * ((Kd_dt / eq_TD_sol) * (Kd_ATP / Kd_ADP))^(1/3) # equil cycle constraint 
+#Kd_ion          2e-8    # Reference Kd (dissoc const) for ions
+#ratio_Kd        ((K_TD_F/K_TD_sol)*(Kd_ATP/Kd_ADP))^(1/3)  # cycle constraint for ratio of Kd_ion_a/Kd_ion_b
+## System-specific parameters
+Kd_ionA         Kd_ionB*ratio_ion_Kd
+#Kd_ion_b        Kd_ion
+k_on_a          4e11     # on rate for proton on A side
+k_on_b          4e11     # on rate for proton on B side
+k_off_a         k_on_a*Kd_ionA
+k_off_b         k_on_b*Kd_ionB
+k_on_pi         1e2
+k_on_adp        4e7
+k_on_atp        4e8
+k_off_atp       k_on_atp*Kd_ATP
+k_off_adp       k_on_adp*Kd_ADP
+k_off_pi        k_on_pi*Kd_Pi
+k_dt            1000               # rate of ADP phosphorylation
+k_td            k_dt/Kd_dt         # rate of ATP hydrolysis on ATP synthase
+## System initial values
+N_F 1               # number of initial ATP synthases
+conc_I_A_0 3.16e-7  # initial ion concentration on A side (pH = 6.5)
+conc_I_B_0 3.16e-8  # initial ion concentration on B side (pH = 7.5)
+conc_ADP_0 8e-2     # initial ADP concentration
+conc_Pi_0  120 / 1000      # initial Pi concentration
+conc_ATP_0 conc_ADP_0 * atp_adp_ratio # initial ATP concentration
+end parameters
+
+begin molecule types
+I(f)                     # ion (generic, in this toy model)
+F(i,j,k,n,p,act~0~1~2~3) # ATP synthase: 3 ion, nucleotide, and phosphate binding site, activation state
+ADP(f)
+Pi(f)
+ATP(f)
+#ATPsynth()
+end molecule types
+
+begin compartments
+    A   3  vol_A                            # A/alpha side
+    PM  2  sa_PM * eff_width        A       # plasma membrane
+    B   3  vol_B                    PM      # B/beta side
+end compartments
+
+begin seed species
+# seed (initial) species; units should be counts, not concentration
+F(i,j,k,n,p,act~0)@PM N_F
+$I(f)@A    conc_I_A_0*NA*vol_A
+$I(f)@B    conc_I_B_0*NA*vol_B
+$ADP(f)@B  conc_ADP_0*NA*vol_B
+$Pi(f)@B   conc_Pi_0*NA*vol_B
+ATP(f)@B  conc_ATP_0*NA*vol_B
+end seed species
+
+begin observables  # default seems to be number, not concentration
+Species  Ions_A       I(f)@A
+Species  Ions_B       I(f)@B
+Species  UnboundF1Fo  F(i,j,k,n,p,act~0)@PM
+Species  BoundADP     ADP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM
+Species  BoundPi      ADP(f!0)@PM.Pi(f!4).F(i,j,k,n!0,p!4,act~0)@PM
+Species  Bound1       ADP(f!0)@PM.Pi(f!4).F(i!1,j,k,n!0,p!4,act~0)@PM.I(f!1)@PM
+Species  Bound2       ADP(f!0)@PM.Pi(f!4).F(i,j!2,k,n!0,p!4,act~1)@PM.I(f!2)@PM
+Species  Bound3       ADP(f!0)@PM.Pi(f!4).F(i,j,k!3,n!0,p!4,act~2)@PM.I(f!3)@PM
+Species  Transp1      ADP(f!0)@PM.Pi(f!4).F(i,j,k,n!0,p!4,act~1)@PM
+Species  Transp2      ADP(f!0)@PM.Pi(f!4).F(i,j,k,n!0,p!4,act~2)@PM
+Species  Transp3      ADP(f!0)@PM.Pi(f!4).F(i,j,k,n!0,p!4,act~3)@PM
+#Species  Ready        ADP(f!0)@PM.F(i,n!0,act~3)@PM
+Species  BoundATP     ATP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM
+Species  ADP_free     ADP(f)@B
+Species  ATP_free     ATP(f)@B
+#Species  ATPsynth     ATPsynth()
+end observables
+
+begin functions
+Ions_transp() = Ions_B - conc_I_B_0*NA*vol_B
+Ions_left_A() = Ions_A - conc_I_A_0*NA*vol_A 
+ATP_synth()   = ATP_free - conc_ATP_0*NA*vol_B
+Constraint()  = (ADP_free/ATP_free)*eq_TD_sol*(Kd_ATP/Kd_ADP)*((Ions_A/Ions_B)^3)/(ratio_ion_Kd^3)  # =1 in equil
+Ion_ratio()   = Ions_A/Ions_B
+TD_ratio()    = ATP_free/ADP_free
+end functions
+
+begin reaction rules
+# ADP binding
+ADP(f)@B + F(i,j,k,n,p,act~0)@PM               <-> ADP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM k_on_adp, k_off_adp
+# Pi binding
+Pi(f)@B + ADP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM  <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~0)@PM k_on_pi, k_off_pi
+# 1st ion binding
+I(f)@A + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~0)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i!1,j,k,n!0,p!4,act~0)@PM.I(f!1)@PM k_on_a, k_off_a 
+# 1st ion transport
+I(f)@B + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~1)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i!1,j,k,n!0,p!4,act~0)@PM.I(f!1)@PM k_on_b, k_off_b 
+# 2nd ion binding
+I(f)@A + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~1)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i,j!2,k,n!0,p!4,act~1)@PM.I(f!2)@PM k_on_a, k_off_a
+# 2nd ion transport
+I(f)@B + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~2)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i,j!2,k,n!0,p!4,act~1)@PM.I(f!2)@PM k_on_b, k_off_b
+# 3rd ion binding
+I(f)@A + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~2)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k!3,n!0,p!4,act~2)@PM.I(f!3)@PM k_on_a, k_off_a
+# 3rd ion transport
+I(f)@B + ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~3)@PM <-> ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k!3,n!0,p!4,act~2)@PM.I(f!3)@PM k_on_b, k_off_b
+# ADP phosphorlylation
+ADP(f!0)@PM.Pi(f!4)@PM.F(i,j,k,n!0,p!4,act~3)@PM <-> ATP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM k_dt, k_td
+# ATP release
+ATP(f)@B + F(i,j,k,n,p,act~0)@PM                 <-> ATP(f!0)@PM.F(i,j,k,n!0,p,act~0)@PM k_on_atp, k_off_atp
+end reaction rules
+
+end model
+
+generate_network({overwrite=>1})
+#simulate({method=>"ode",t_start=>0,t_end=>1e3,n_steps=>1000,print_functions=>1})
+simulate({method=>"ssa",t_start=>0,t_end=>1e0,output_step_interval=>1,print_functions=>1})
+

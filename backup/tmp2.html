@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>carriers-atp-cs5</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <script type="text/javascript">
+function Changer(newlf, newcf, newrf) {
+    var lf = document.getElementById("left_frame");
+    var cf = document.getElementById("center_frame");
+    var rf = document.getElementById("right_frame");
+    lf.width = "500";
+    lf.src = newlf + ".html";
+    cf.src = newcf + ".html";
+    rf.src = arguments[2] + ".html";
+    // rf.src = "atp.html";
+    // cf.src = "atp.html";
+}
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<map name="image-map2">
+<area shape="rect" coords="15,15,85,85" href="javascript:alert('square')">
+<area shape="rect" coords="93,15,110,85" href="javascript:alert('rectangle')">
+<area shape="circle" coords="150,50,35" href="javascript:alert('circle')">
+</map>
+
+<img src="image.gif" border=0 width=200 height=100 usemap="#image-map2">
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Binding</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="styles.css" />
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["mhchem.js", "AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\comb}[1]{{#1}^{\mathrm{comb}}}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\conctot}[1]{[\mathrm{#1}]_{\mathrm{tot}}}
+    \newcommand{\dee}{\partial}
+    \newcommand{\dgbind}{\Delta G_0^{\mathrm{bind}}}
+    \newcommand{\dmu}{\Delta \mu}
+    \newcommand{\eq}[1]{{#1}^{\mathrm{eq}}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kd}{K_{\mathrm{d}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\nl}{N_L}
+    \newcommand{\nltot}{N_L^{\mathrm{tot}}}
+    \newcommand{\nr}{N_R}
+    \newcommand{\nrl}{N_{RL}}
+    \newcommand{\nrtot}{N_R^{\mathrm{tot}}}
+    \newcommand{\rn}[1]{\mathrm{r}^N_{#1}}
+    \newcommand{\ss}{\mathrm{SS}}
+    \newcommand{\totsub}[1]{{#1}_{\mathrm{tot}}}
+    \newcommand{\totsup}[1]{{#1}^{\mathrm{tot}}}
+    %\newcommand{\ztot}{Z^{\mathrm{tot}}}
+    $
+</div>
+
+<h2>
+Binding: Kinetics and Thermodynamics
+</h2>
+
+Binding is one of <b>the</b> essential processes in the cell.
+It is key to signaling and to the function of molecular machines.
+Because most biochemistry is <a href="javascript:changeTo('binding','catalysis')">catalyzed</a> by enzymes, binding of substrate to enzyme precedes most chemical reactions. 
+Further, the <a href="javascript:changeTo('binding','massAction')">mass-action formulation,</a> of binding is directly applicable to the analysis of chemical reactions and facilitates understanding energy storage in <a href="javascript:changeTo('binding','carriers')">activated carriers</a> such as ATP.
+
+<p style="text-align:center"><img src="images/binding-basic-eqn.gif" /></p>
+
+We will use the symbol "R" for receptor, "L" for ligand, and "RL" for the bound complex.
+Although it is often the case that R is a protein and L a small molecule, the analysis we develop could apply equally well if L were a second protein.
+
+<p style="text-align:center"><img src="images/binding-RL.gif" /></p>
+
+We will use the standard $\conc{\ldots}$ notation for concentration.
+Note that, by convention, the concentration of a species refers <i>only</i> to the specific form named.
+Thus, for the receptor R, which can be either "free" (unbound) or bound, we have
+\begin{align}
+\conctot{R} &= \conc{R} + \conc{RL} \nonumber \\
+\conctot{L} &= \conc{L} + \conc{RL} ,
+\label{totconc}
+\end{align}
+with a similar expression for ligand L.
+
+<h3>
+Binding Kinetics
+</h3>
+
+In a kinetic picture, we study the time evolution of a binding system using differential equations.
+We will use the simple (but standard) <a href="javascript:changeTo('binding','massAction')">mass-action</a> assumptions that (i) binding is proportional to the product of R and L concerntrations, and (ii) unbinding occurs in proportion RL concentration.
+
+<p>
+This leads to the basic equation 
+</p>
+\begin{equation}
+\label{rldt}
+\frac{ d \conc{RL} }{ dt } = \conc{R} \conc{L} \, \kon - \conc{RL} \, \koff ,
+\end{equation}
+where $\kon$ is the number of binding events per second per unit volume which would occur (nominally) if both $\conc{R} = \conc{L} = 1M$, and $\koff$ is the probability to unbind per second.
+Note that $\kon$ has to have "funny units", which reference a standard concentration, because a binding event depends on the concentrations of two molecules.
+
+<p style="text-align:center"><img src="images/binding-vs-time.gif" /></p>
+
+The figure sketches sample solutions of the behavior described by \eqref{rldt}.
+The time evolution of the fraction of bound receptors is shown for two different initial conditions - but a given system will always relax to the same equilibrium.
+Note that noisy lines are purposely shown: even though solutions to \eqref{rldt} are perfectly smooth, actual behavior is stochastic as sketched.
+
+
+<h3>
+Binding Equilibrium
+</h3>
+
+From <a href="javascript:changeTo('binding','equil')">the definition of equilibrium</a>, we expect the number of binding events per second will exactly balance the number of unbinding events. 
+In a mass-action picture, this condition amounts to
+\begin{equation}
+\label{equil}
+\conceq{R} \, \conceq{L} \, \kon = \conceq{RL} \, \koff ,
+\end{equation}
+
+(In this case setting $d \conc{RL} / dT = 0$ leads to equilibrium <i>only</i> because there are no inputs to, or outputs from, our binding system.
+In general, setting a time-derivative to zero leads only to a <a href="javascript:changeTo('binding','steady')">steady state</a> - which could be in or out of equilibrium.)
+
+<p>
+The equilibrium \eqref{equil} is usually re-written so that all concentrations are collected together, yielding
+\begin{equation}
+\label{kd}
+\frac{ \conceq{R} \, \conceq{L} }{ \conceq{RL} } = \frac{ \koff }{ \kon }
+  \equiv \kd
+\end{equation}
+where we have defined the dissociation constant $\kd$ in the last equality.
+Note that a <i>smaller</i> $\kd$ implies <i>stronger</i> binding.
+</p>
+
+<p>
+The equilibrium point - the equilibrium concentrations $\conceq{RL}$, $\conceq{R}$, and $\conceq{L}$ - depends on $\conctot{R}$ and $\conctot{L}$.
+That is, even for a given type of receptor and ligand, the fraction of bound complexes will depend on total concentrations of R and L.
+One consequence is that a weaker-binding ligand (higher $\kd$) could result in more bound complexes than a stronger-binding ligand (lower $\kd$) - if enough of the weaker binder is placed in solution.
+</p>
+
+For reference, we note that the dissociation constant is the basis for defining the "standard" free energy change of binding:
+\begin{equation}
+\label{dgbind}
+\frac{ \conceq{R} \, \conceq{L} }{ \conceq{RL} } = \kd
+  = 1 \mbox{M} \, e^{ \left. \dgbind \right/ k_BT } .
+\end{equation}
+$\dgbind$ refers to a standard state in which concentrations are measured in molar units.
+Note that a different choice of units (and pre-factor on the right) would lead to a different $\dgbind$ value for the same system.
+
+
+<h3>
+Binding Thermodynamics
+</h3>
+
+The thermodynamic equivalent of mass-action kinetics for binding is a mixture of ideal gases. 
+In mass-action kinetics, after all, particles interact only depending on their concentrations: specific interactions - e.g., electrostatic - are not accounted for.
+
+<p style="text-align:center"><img src="images/binding-RL-ideal-gas.gif" /></p>
+
+In our model, we will have <a href="javascript:changeTo('binding','idealGas')">ideal gases</a> of R, L, and RL particles.
+We will assume, however, that there is a (free) energy change of $\dmu$ for every bound complex, or $\nrl \dmu$ total.
+Presumably $\dmu < 0$ for favorable binding, although our formalism does not require that.
+The total free energy thus consists of the three ideal gas free energies, plus the binding term.
+\begin{equation}
+\label{ftot}
+F(\nr, \nl, \nrl) = \fidl(\nr) + \fidl(\nl) + \fidl(\nrl) + \nrl \dmu 
+\end{equation}
+Note that all three "gases" are in the same volume at the same temperature.
+The <a href="javascript:changeTo('binding','idealGas')">explicit form for $\fidl$</a> has been derived separately.
+
+<p>
+In analogy to Eqs. \eqref{totconc}, the numbers of particles are not independent because a binding event changes the identity of a molecule.
+\begin{align}
+\label{ntot}
+\nrtot &= \nr + \nrl \nonumber \\
+\nltot &= \nl + \nrl
+\end{align}
+</p>
+
+<p>
+The free energy then gives us <b>the probability to observe a given $\nrl$ value</b> via
+</p>
+\begin{equation}
+\label{nrlprob}
+p(\nrl) \propto e^{ -F \left. ( \nrtot - \nrl, \, \nltot - \nrl, \, \nrl) \right/ k_B T } .
+\end{equation}
+The reason for this is explained in <a href="javascript:changeTo('binding','freeGradient')">our discussion of free energy in a concentration gradient</a>.
+In brief, the Boltzmann factor of a free energy is <i>defined</i> to be the sum of all probability consistent with the specified condition - the $\nrl$ value in our case.
+
+<p style="text-align:center"><img src="images/binding-free-energy.gif" /></p>
+
+<p>
+In the limit of many molecules, the equilibrium point of the system is well approximated by the <i>most probable value</i>, which we can find by minimizing $F$ in Eq. \eqref{ftot}.
+Some algebra is required to get the derivative, but setting it to zero, collecting logs, and exponentiating, yields
+\begin{equation}
+\label{idlequil}
+\frac{ \conceq{R} \, \conceq{L} }{ \conceq{RL} } = \frac{1}{ \lambda^3 e } 
+                                            e^{ \left. \dmu \right/ k_BT} .
+\end{equation}
+This is the same form as Eq. \eqref{kd} or \eqref{dgbind}: the particular ratio of concentrations on the left is seen to depend only on constant parameters of the system. 
+We can see further that the ratio is proportional to the Boltzmann factor of the free energy change per complex formed.
+In other words, $\dmu = \dgbind + \mbox{const}$.
+</p>
+
+
+<h3>
+Exercises
+</h3>
+<ol>
+<li> Using Eqs. \eqref{totconc} and \eqref{rldt}, derive the time-dependence of $\conc{RL}$ in terms of the initial concentration(s) and the rate constants.  <i>Hint: The solution is exponential.</i>
+<li> Using Eq. \eqref{kd}, show that $\kd$ is equal to the equilibrium ligand concentration at which precisely half the receptors are bound.  This fact enables $\kd$ to be measured by titrating ligand in any experiment in which the measured signal is proportional to concentration.
+<li> Derive Eq. \eqref{idlequil}.</li>
+</ol>
+</body>
+</html>

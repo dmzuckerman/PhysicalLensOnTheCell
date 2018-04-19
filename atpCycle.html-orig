@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>carriers-atp-cs5</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!-- ImageReady Slices (carriers-atp.ai) -->
+<img src="atpCycle.gif" width="580" height="750" border="0" alt="" usemap="#atpCycle_Map">
+<map name="atpCycle_Map">
+<area shape="rect" alt="" coords="420,671,538,689" href="LINK-atpCycle-phosphor-END">
+<area shape="rect" alt="" coords="419,708,508,726" href="LINK-atpCycle-synthesis-END">
+<area shape="rect" alt="" coords="420,690,509,708" href="LINK-atpCycle-transport-END">
+<area shape="rect" alt="" coords="86,68,116,86" href="LINK-atpCycle-atp-END">
+<area shape="rect" alt="" coords="236,105,288,122" href="LINK-atpCycle-cycles-END">
+</map>
+<!-- End ImageReady Slices -->
+</body>
+</html>

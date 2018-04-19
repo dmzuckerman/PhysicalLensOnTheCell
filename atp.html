@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ATP</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\cc}[1]{[\mathrm{#1}]^{\mathrm{cell}}}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dmu}{\Delta \mu}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\na}{N_A}
+    \newcommand{\nb}{N_B}
+    \newcommand{\nc}{N_{C}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+ATP: The Great Carrier
+</h2>
+
+<!--
+<a href="javascript:changeTo('atpTransport','free')">Free energy</a> stored in the <a href="javascript:changeTo('atpTransport','carriers')">activated carrier</a> <a href="javascript:changeTo('atpTransport','atp')">ATP</a> can be used to drive the transport of an ion or small molecule against a gradient - i.e., transport from a region of low to high concentration.
+-->
+
+"ATP is the fuel of the cell."
+We have all heard this many times, but the reason why ATP (adenosine tri-phosphate) stores energy is not well understood.
+In essence, ATP is a standard <a href="javascript:changeTo('atp','carriers')">activated carrier</a>.
+It stores free energy <b>only</b> because the cell keeps $\conc{ATP}$ well above its equilibrium value.  
+
+<p style="text-align:center"><img src="images/atp-adp-rxn-eqn.gif" /></p>
+
+<h3>
+The ATP/ADP equilibrium greatly favors ADP
+</h3>
+
+<p>
+ATP does <i>not</i> store <a href="javascript:changeTo('atp','free')">free energy</a> because of a "high energy phosphate bond" or because heat is released upon ATP hydrolysis - even though these descriptors themselves may be accurate. 
+Rather, such details of the ATP molecule (which, presumably, are dominated by the proximity of like-charged phosphate groups) lead to an equilibrium which greatly favors ADP formation.
+That is, if both ATP and ADP are present in a solution, then after enough time very little ATP will remain.
+(How much time is 'enough' will depend on whether a <a href="javascript:changeTo('atp','catalysis')">catalyst</a> is present.) 
+</p>
+
+<p style="text-align:center"><img src="images/atp-adp-rxn-graphic.gif" /></p>
+
+<p>
+As with any <a href="javascript:changeTo('atp','carriers')">activated carrier</a>, to understand ATP we first examine the equilibrium point - which will serve as a reference point for understanding the non-equilibrium conditions prevailing in the cell.
+In <a href="javascript:changeTo('atp','equil')">equilibrium</a>, the decomposition and synthesis of ATP will exactly balance.
+\begin{equation}
+\label{equil}
+\conc{ADP} \conc{Pi} \, \kon = \conc{ATP} \, \koff ,
+\end{equation}
+where $\koff$ should be understood as an effective rate constant incorporating water's effects (see Exercises, below).
+In exact analogy with a <a href="javascript:changeTo('atp','binding')">binding analysis</a>, we can re-write this as
+\begin{equation}
+\label{kd}
+\frac{ \conceq{ADP} \, \conceq{Pi} }{ \conceq{ATP} } = \frac{ \koff }{ \kon }
+\end{equation}
+</p>
+
+
+<h3>
+ATP in the cell: The skewed equilibrium point makes ATP an effective carrier
+</h3>
+
+<p style="text-align:center"><img src="images/carriers-f-vs-atp-conc.gif" /></p>
+
+ATP is an ideal carrier because a lot of free energy is stored when both ADP and ATP are present in reasonable cellular concentrations.  
+That is, at typical cellular concentrations $\cc{\cdots}$, we have
+\begin{equation}
+\label{cellconc}
+\frac{ \cc{ADP} \, \cc{Pi} }{ \cc{ATP} } \ll
+\frac{ \conceq{ADP} \, \conceq{Pi} }{ \conceq{ATP} } .
+\end{equation}
+As sketched above, this non-equilibrium condition creates a driving force toward equilibrium.
+
+<p>
+The cell does not allow ATP and ADP to mutually equilibrate (i.e., reach the free energy minimum).
+Instead the cell is perpetually synthesizing new ATP from nutrients, creating a flow of free energy through the system in what we could call <a href="javascript:changeTo('atp','atpCycle')">the big energy cycle of life</a>.
+</p>
+
+<p>
+Note that, as suggested in the sketch above, ADP could act as a carrier of free energy if it were maintained at sufficiently high concentration (beyond the equilibrium point, to the left in the sketch).
+Needless to say, the cell is not set up to use energy stored in ADP!
+</p>
+
+
+<h3>
+Kinetics and Catalysts
+</h3>
+Like any carrier, ATP is "kinetically stable" - it is overwhelmingly decomposed by enzymatic catalysis because spontaneous hydrolysis in solution is very slow compared to cellular processes.
+Thus, ATP fulfills the necessary criteria for a carrier: (1) it is maintained out of equilibrium, and (2) it only decomposes enzymatically as part of cellular processes:
+<a href="javascript:changeTo('atp','atpTransport')">transport</a>, <a href="javascript:changeTo('atp','phosphor')">phosphorylation</a>, and myriad other tasks.
+
+<p>
+Appreciating ATP as an ordinary activated carrier enables us to re-envision molecular motors as simple enzymes that happen to couple catalysis to translation.
+You can consider a <a href="javascript:changeTo('atp','atpThought')">thought experiment</a> studying motor motion near the ADP/ATP equilibrium.
+
+
+<h3>
+Exercises
+</h3>
+<li> The full chemical equation for ATP hydrolysis of course includes water.
+Explain why a mass-action description including water's concentration would be inappropriate by considering the limitations described for <a href="javascript:changeTo('atp','massAction')">mass action</a>. </li>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffusion</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\Delta t}{\Delta t}
+    \newcommand{\\Delta x}{\Delta x}
+    \newcommand{\dgstd}{\Delta G^{\circ'}}
+    %\newcommand{\dgstd}{\Delta G^{\circ}'}
+    %\newcommand{\dgstd}{xx}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kab}{k_{AB}}
+    \newcommand{\kba}{k_{BA}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K'_{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\mustd}{\mu^{\circ}}
+    \newcommand{\mustdp}{\mu^{\circ'}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\rl}{\rightleftharpoons}
+    \newcommand{\rn}{\mathbf{r}^N}
+    \newcommand{\rnhat}{\mathbf{\hat{r}}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    \newcommand{\tau_{\mathrm{col}}}{\tau_{\mathrm{col}}}
+    $
+</div>
+
+<h2>
+Diffusion FAQ
+</h2>
+
+<p style="text-align:center"><img src="images/diffusion-traj-small.png"  height="150"/></p>
+
+In modern microscopy, there is a family of <a href="https://en.wikipedia.org/wiki/Super-resolution_microscopy">super-resolution</a> single particle tracking (SPT) techniques that enable investigators to follow the motions of individual molecules (e.g., proteins) in or on a cell with nearly millisecond time resolution and about ~10 nanometer spatial resolution.
+The observed motion generally is diffusive ... but what exactly does that mean?
+Clearly the behaviors of all cellular molecules are not the same.
+
+<p>
+You probably already have a basic sense of what diffusion is: random, passive (not driven) motion.
+But there are plenty of subtleties to the physics of diffusion:
+diffusion can be passive but differ from 'simple diffusion';
+an apparently standard distribtuion of step sizes can mask correlations among the steps that might indicate non-passive motion;
+passive diffusion can occur in a confined space and appear statistically like anomalous diffusion.
+</p>
+
+<p>
+Here we'll go through the basics and enough of the subtleties to come up with simple diagnostic analyses that you can apply to real data.
+Be sure to look at the references given at the end, as this discussion will not be comprehensive.
+</p>
+
+
+<h3>
+What is the essence of simple diffusion?
+</h3>
+
+Diffusion is the random motion of a molecule or particle due only to thermally-driven collisions with surrounding molecules.
+The technical term <b>simple</b> as an adjective in front of 'diffusion' indicates that the statistical characteristics of the motion should not vary in space and the distribution of net displacements along any <i>single</i> dimension (e.g., $\Delta x$ recorded along $x$, exlcuding $y$ and $z$ motion) recorded by repeated measurements over a long-enough observation window of time $\Delta t$ should follow a normal or Gaussian distribution,
+\begin{equation}
+\label{dxdist}
+\mathrm{prob}( \Delta x ) = c \, e^{ - \left. \Delta x^2 \right/ (4 \, D \, \Delta t) }
+\end{equation}
+where $D$ is the diffusion constant and $c = 1 / \sqrt{4 \pi D \Delta t}$ is the normalization constant.
+A 'long-enough' time interval, roughly, is one in which numerous collisions have occurred; msec-scale intervals in modern microscopy are more than long enough.
+
+<h4>
+Is the step-size distibution always Gaussian?
+</h4>
+In fact, the step-size distribution is only a simple Gaussian as above for one-dimensional diffusion.
+In higher dimensions, there is an additional prefactor.
+For step sizes $\Delta r = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}$, or $\sqrt{\Delta x^2 + \Delta y^2}$ in two dimensions, we must include a <a href="https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant">Jacobian</a> factor accounting for the larger number of ways to move a distance $\Delta r$; for example, in two dimensions, there is a circular set of $(\Delta x, \Delta y)$ pairs consistent with any single $\Delta r$ value - and the number of such pairs increases with the circle's circumference, which in turn is proportional to $\Delta r$.
+Therefore, for dimensionality $d = 1, 2$ or $3$, the distribution of step sizes is
+\begin{equation}
+\label{drdist}
+\mathrm{prob}(\Delta r) \propto \Delta r^{d-1} \exp \left[ \left. -\Delta r^2 \right/ ( 4 D \, \Delta t ) \right] \; .
+\end{equation}
+
+<h3>
+What are the microscopic underpinnings of diffusion?
+</h3>
+
+That is, why does diffusion happen in the first place?
+It goes back to basic physics, which tells us that every molecule is always in motion because of thermal energy.
+Perhaps you remember that temperature is a measure of average molecular kinetic energy.
+These constant "jiggling" motions (to quote Richard Feynman) and the close proximity of molecules in liquids lead to constant collisions which in turn cause diffusive motion.
+
+<p>
+Imagine following the motion of a single molecule of interest - perhaps a labeled protein in a solution.
+This protein undergoes undergoes countless collisions with water and any other molecules that happen to be in in its environment.
+Each collision may barely budge the relatively large protein, but when added together these 'nano-crashes' lead to both translational motion of the protein's center of mass, as well as to orientational tumbling.
+</p>
+
+<p style="text-align:center"><img src="images/diffusion-collision-smooth.png"  height="300"/></p>
+
+<p>
+Another key point about diffusion is that, microscopically, the observation process - the "frame rate" - will affect how the motion is characterized.
+Consider simple diffusion of a molecule of interest in a homogeneous solvent, which roughly can be characterized by the average time between collisions, $\tau_{\mathrm{col}}$.
+Although it's technologically not possible, imagine we could observe the molecule's motion with a frame rate $\Delta t$ (we only see snapshots in time separated by $\Delta t$) and $\Delta t$ is much less than the collision time:
+then we would see the slow dance of molecules moving toward and away from one another according to standard Newtonian physics.
+This smooth behavior would seem to be at odds with the noisy random behavior we expect in diffusion.
+However, if we slow down the frame rate to a relatively feasible value where $\Delta t \gg \tau_{\mathrm{col}}$, then each snapshot of our evolving movie will only show our molecule's location <i>many collisions after</i> the preceding frame.
+It is this intermittent strobe-like view of the molecule's dynamics that will exhibit classic random "jumps."
+Of course, there are no jumps in reality, but only intermittency of observation.
+</p>
+
+<p style="text-align:center"><img src="images/diffusion-traj-graphic.png"  height="300"/></p>
+
+<p>
+Of course all collisions aren't the same.
+A diffusing protein may find itself in a heterogeneous environment consisting of diferent types of solvent molecules or even quasi-immobile macromolecular structures (e.g., membranes or filaments for a soluble protein; and additionally membrane substructures or inclusions for a membrane-bound protein).
+A heterogeneous environment by itself may not change the diffusive behavior in a qualitative sense, but it may change the apparent behavior depedning on the timescale of observation as well as the diffusion constant which quantifies the rate of diffusion.
+These points are discussed further below.
+</p>
+
+<p>
+The presence of effectively immobile objects, such as long-lived cellular substructures including membranes or filaments, can <i>qualitatively</i> change diffusive behavior.
+The actin meshwork of filaments, for example, may keep molecules partially confined in little `corrals' (which literally are fenced-in areas to confine animals): this is called the 'picket-fence' picture.
+Going back to our diffusing protein, it may diffuse normally <i>within</i> a corral but only occasionally make jumps between corrals.
+This leads to diffusion which is slower than would be expected based on observing diffusive steps away from corral boundaries -- and hence is called <b>subdiffusion</b>, a notion which is quantified below.
+A corollary of this viewpoint is that if subdiffusion is observed due to a picket-fence/corral mechanism, then if the process is observed at timescales much longer than the typical time to escape from a corral, we again expect simple diffusion.
+Note that some cellular structures may lead to strict confinement.
+</p>
+
+
+<p style="text-align:center">
+<img src="images/diffusion-traj-corralled.png"  height="250"/>
+<img src="images/diffusion-traj-confined.png"  height="250"/>
+</p>
+
+<h3>
+How should diffusion behavior be analyzed?
+</h3>
+
+<p>
+The <b>mean-squared deviation (MSD)</b>, plotted as a function of 'time separation' is the first thing to examine.
+For simple diffusion, the MSD will increase linearly with time, starting from zero.
+The MSD can easily be calculated from a single trajectory of particle positions, or a set of trajectories.
+For a given time separation, the squared displacements (distance traveled) should be averaged.
+Importantly, note that each trajectory will have many time separations of a given value which should be averaged: as an example, with a frame rate of 10 ms, a 100 ms trajectory will have three 80 ms separtaions - (0, 80), (10, 90), (20, 100).
+However, the use of such overlapping time 'windows' means that care must be taken when creating error bars because the overlapping windows are not independent.
+Consult with a statistically savvy colleague on this point.
+</p>
+
+<p style="text-align:center">
+<img src="images/diffusion-msd-basic.png"  height="250"/>
+<img src="images/diffusion-msd-corralled.png"  height="250"/>
+</p>
+
+<p>
+<i>If</i> your MSD plot behaves linearly, you can extract the diffusion constant by fitting the slope.
+The slope for true simple diffusion is given by $2 D d$, where $D$ is the diffusion constant and $d$ is the dimensionality of your data - e.g., $d=2$ for two dimensional data.
+<i>It is absolutely essential to account for the dimensionality $d$ of your data; if you don't, your $D$ estimate will not be valid.</i>
+Further, if you are analyzing two-dimensional data, proper estimation of $D$ requires the motion to have occurred on a flat (not sloped or wrinkled) surface.
+</p>
+
+<p>
+More likely than not, if you are examining single molecule behavior in a living cell, the MSD will <i>not</i> be linear in time due to confinement or corralling (partial confinement).
+THe MSD will typically start 'turning over', exhibiting a decreasing slope as the time separation increases, indicating some restriction in movement compared to that seen at short timescales.
+For motion that is not truly confined over long timescales (i.e., "corralled motion") the MSD plot must eventually become linear at suffficiently long timescales for mathematical reasons described below - but note that it may be difficult to observe this linear regime because trajectories often will be too short.
+</p>
+
+<!--
+<p>
+[BARMAK, DO YOU THINK THE FOLLOWING IS TRUE?]
+The slope of a log-log plot of MSD vs. time can help distinguish between the two scenarios.
+For single-compartment confinement, the slope will start at one and then gradually decrease; note that the slope in the log plot is <i>not</i> related to the diffusion constant.
+Picket-fence behavior is suggested when the slope starts at a value below one, and then stays constant or decreases.
+</p>
+-->
+
+<p>
+More mechanistic analyses can be applied to single particle trajectories.
+Below we describe some more advanced analyses for characterizing confined and picket-fence motion.
+</p>
+
+<p>
+Importantly, note that conversion of raw experimental data (often a <i>set of locations</i> in each frame of a movie) to <i>trajectories of individual particles</i> will produce errors.
+There will be false positives (connections made between different particles) and false negatives (missed connections).
+The former typically will artifactually increase the MSD while the latter will decrease it.
+You need to be aware of the procedure and paramters used to create your trajectories in the first place.
+Further, the 'raw' positions and time points in a single-particle trajectory typically result from the <i>averaging</i> of multiple photons which may also decrease the apparent motion at short timescales.
+Consult the references below on these subtle but important points.
+</p>
+
+<h4>
+Why is the MSD linear in time for simple diffusion?`
+</h4>	
+The linearity in time of the mean-squared distance (MSD) results from a very basic mathematical result about <a href="https://en.wikipedia.org/wiki/Variance">variance</a> in statistics.
+As you may recall, the variance is simply the square of the standard deviation of a distribution.
+For diffusion, the pertinent distribution (in one dimension) describes the possible steps $\Delta x$ observed in the observation time increment $\Delta t$, and the associated variance $\sigma^2$ is actually the MSD of a <i>single step,</i> by definition. 
+Now comes the math.
+If the distribution of steps $\Delta x_2$ over an observation increment $\Delta t_2$ is uncorrelated with the distribution of steps $\Delta x_1$ over the prior time increment (as we expect for diffusion), then the variance of the <i>net</i> step  ($\Delta x_1 + \Delta x_2$) will be the <a href="https://en.wikipedia.org/wiki/Variance#Sum_of_uncorrelated_variables_(Bienaym%C3%A9_formula)">sum of the variances</a> of the individual steps.
+This may sound unimportant but since the variance <i>is</i> the MSD itself, and also because the variance of each time increment should be the same (assuming constant physical condtions) we see that the MSD of any number of steps ($n$) will simply be the single-step variance multiplied by the number of steps  
+\begin{equation}
+\mathrm{MSD} = n \, \sigma^2 \; .
+\end{equation}
+The number of steps is proportional to time ($t = n \, \Delta t$), so the MSD is also linear in time.
+Although we framed this discussion in a one-dimensional context, the arguments apply quite generally to higher dimensions.
+Note that $\sigma^2 = 2 d D \Delta t$ for dimensionality $d$.
+
+<p>
+It is important to review the assumptions that went into our derivation of linearity.
+There were two: (i) the lack of correlation between steps - technically a lack of <i>linear</i> correlation but that's not important here; and 
+(ii) the <i>uniformity</i> in time - the assumption that each step is like every other and hence is characterized by the same single-step variance $\sigma^2$.
+So if we do <i>not</i> observe linear correlation based on all recorded data, then one or both of these assumptions must not hold.
+</p>
+
+<p>
+In a subdiffusive case where there are barriers (penetrable or not), assumption (ii) breaks down because a subset of steps occur near bariers - even though the steps are uncorrelated.
+On the other hand, correlations might be present, violating assumption (i), if the observation increment $\Delta t$ is too small or if the motion is driven (e.g., by a molecular motor) in a certain direction.
+Note that motor-driven motion might satisfy time uniformity (ii) but violate (i).
+</p>
+
+
+<h4>
+Why does the diffusion constant have funny units?
+</h4>
+The diffusion constant $D$ quantifies mobility, which we intuitively view as a kind of speed, but the <i>units</i> of $D$ are $\mbox{length}^2 / \mbox{time}$, not $\mbox{length}/\mbox{time}$.
+These unusual units arise from the math/physics explained in the preceding section on the linearity of the MSD with time.
+In essence, $D$ is the constant of proportionality with time of the MSD (aside from a factor of two and a factor of the dimensionality of the data).
+Fundamentally, then, the units of $D$ arise from the lack of correlation between subsequent observations ... which in turn arises from the numerous collisions in between each observation that prevent the kind of inertial motion which would be characterized by an ordinary velocity and more intuitive units.
+
+
+<h3>
+What if the MSD is not linear?
+</h3>
+If the plot of MSD vs. time is not linear (and it usually won't be, if you examine it honestly), you should do further analysis.
+Two additional types of anlaysis are called for that directly probe whether the preceding assumptions for linearity - uniformity in time and a lack of correlation - are violated.
+
+<p>
+First, you should check whether your process appears to be uniform (homogeneous) in the sense that all steps arise from the same distribution, suggesting a homogeneous local environment.
+A simple approach for doing this is to fit the distribution of step sizes $\Delta r$ to a mixture of functions \eqref{drdist}, which can be done using any standard mathematical or statistical software.
+To convince yourself whether or not a mixture of diffusion processes is present, you should calculate the "residuals" (squared error) from the fit to a linear combination of the functions and see whether the residuals decrease significantly with each additional Gaussian term.
+The fit will always improve somewhat as more terms are added; you need to determine whether the improvement is substantial.
+See the references below and consult a statistically savvy colleague.
+</p>
+
+<p>
+Second, you will want to check whether the steps are correlated with one another - whether a given step has a tendency to move in the same (or opposite) direction as the prior step.
+Recall that in normal diffusion, there should be no correlation among the steps.
+If the motion is driven, for example by a molecular motor, we expect to see positive correlation among step directions.
+The correlation can be quantified simply using a single-step autocorrelation function, ACF.
+For one-dimensional data, which is easiest to understand, you will want to calculate the average $\langle \cdots \rangle$ over all step pairs of the following:
+\begin{equation}
+\mathrm{ACF}(\Delta t) 
+= \frac{  \langle \Delta x_t \, \Delta x_{t+\Delta t} \rangle  }
+       {  \langle \Delta x^2 \rangle } \; .
+\end{equation}
+This function is zero (i.e., very small, with real data) if sequential step pairs are uncorrelated but it is positive if sequential $\Delta x$ values tend to have the same sign.
+The ACF will be negative if sequential steps tend to have opposite signs, which is quite possible if there are barriers that effectively cause direction reversals.
+The denominator of the ACF is the variance which is the natural scale for comparison with the numerator and enables you to gauge roughly whether correlation is large or small, but a more careful analysis requires comparison to truly uncorrelated snythetic data <i>based on the same number of samples.</i>
+Consult a statistically savvy colleague!
+</p>
+
+<p>
+Note that data for an ACF can be binned by position to see whether certain types of correlation tend to occur in certain regions of structure.
+For example, we expect to see "reflections" (reversals of direction) at the ends of a confining region, which will lead to a negative ACF simply as a result of the geometry.
+</p>
+
+<p>
+For higher dimensional data, the analagous ACF uses the vector dot product among sequential step pair vectors $\overrightarrow{\Delta r} = ( \Delta x, \Delta y, \Delta z)$ or $(\Delta x, \Delta y)$ in two dimensions.
+We have
+\begin{equation}
+\mathrm{ACF}(\Delta t) 
+= \frac{  \left \langle \overrightarrow{\Delta r_t} \cdot \overrightarrow{\Delta r_{t+\Delta t}} \right \rangle  }
+       {  \langle \Delta_r^2 \rangle } \; .
+\end{equation}
+Again, the ACF is zero for uncorrelated data, but non-zero values implicitly contain information about the distribution of <i>angles</i> for displacement vector pairs; recall that the <a href="https://en.wikipedia.org/wiki/Dot_product">dot (scalar) product</a> of unit vectors is the cosine of the angle between them.
+To get more detailed information, instead of using the ACF, calculate the distribution of angles - obtained using the arccos function with individual dot products - and compare that with the uniform distribution of angles expected for (fully random) simple diffusion.
+For subdiffusive processes, which typically are caused by obstacles of some kind, an enrichment in "reflection" angles can be expected.
+</p>
+
+
+<h3>
+Exercises
+</h3>
+<ol>
+<li> Show that the variance of the one-dimensional Gaussian step size distribution \eqref{dxdist} is $2 D \Delta t$. </li>
+<li> Show that a Gaussian distribution $p(x,t)$ as given by \eqref{dxdist} satisfies the diffusion equation,
+	$$\partial p(x, t) / \partial t = D \, \partial^2 p(x, t) / \partial x^2 \; .$$ <i>Hint:</i> You will need to include the (time-dependent) normalization pre-factor and differentiate carefully. </li>
+<li> Show that if two sequential steps do not exhibit linear correlation 
+	( $\langle \Delta x_1 \, \Delta x_2 \rangle = 0$ ), 
+	then the sum of their variances is the variance of their sum:
+	$\mathrm{var}(\Delta x_1 + \Delta x_2) = \mathrm{var}(\Delta x_1) + \mathrm{var}(\Delta x_2)$,
+	where $\mathrm{var}(\Delta x_i) = \sigma_i^2 = \langle \Delta x_i^2 \rangle - \langle \Delta x_i \rangle^2$ and
+	$\langle \cdots \rangle$ denotes a standard statistical average.
+<li> Explain in mathematical terms why the numerator of the one-dimensional ACF will be zero if sequential steps are fully uncorrelated.  Hint: Consider the distribution expected for single steps $\Delta x$. </li>
+</ol>
+
+
+<h3>
+Acknowledgements
+</h3>
+Many thanks to Young Hwan Chang, Yerim Lee, Barmak Mostofian, Xiaolin Nan, and Tania Vu for helpful discussions that inform the material presented here.
+
+<h3>
+References
+</h3>
+<ul>
+	<li> "Tracking single molecules in the live cell plasma membrane—Do’s and Don’t’s," Stefan Wieser, Gerhard J. Schütz, <a href="https://www.sciencedirect.com/science/article/pii/S1046202308000984">Methods 46 (2008) 131–140</a>. </li>
+	<li> "Measuring a diffusion coefficient by single-particle tracking: statistical analysis of experimental mean squared displacement curves," Dominique Ernst and Jurgen Kohler, <a href="http://pubs.rsc.org/-/content/articlelanding/2013/cp/c2cp43433d/">Phys.Chem. Chem. Phys., 2013, 15, 845</a> </li>
+	<li> R. Feynman, R. Leighton, M. Sands, <i>The Feynman Lectures on Physics</i> Addison Wesley. </li>
+<li> D.M. Zuckerman, <i>Statistical Physics of Biomolecules: An Introduction</i> (CRC Press, 2010). </li>
+<li> "Estimation of the diffusion constant from intermittent trajectories with variable position uncertainties," Peter K. Relich, Mark J. Olah, Patrick J. Cutler, and Keith A. Lidke, <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.93.042401">Phys. Rev. E 93, 042401 (2016)</a>. </li>
+<li> paper on mixture fitting?  Ask Yerim </li>
+</ul>
+
+</body>
+</html>

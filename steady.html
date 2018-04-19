@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steady State</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+The Steady State: A Key Description of Biology
+</h2>
+
+<p style="text-align:center"><img src="images/waterfall-steady-state.gif" alt="Desktop waterfall - a steady state" /></p>
+
+<h3>
+Background
+</h3>
+<ul>
+<li> A steady state is characterized by unchanging probabilities/concentrations, but matter or probability may be flowing. </li>
+<li> Mathematically, all time derivatives are zero. </li>
+<li> Although the cell is not strictly in a steady state, many processes can be modeled reasonably as steady: think "homeostasis". </li>
+<li> <a href="javascript:changeTo('steady','equil')">Equilibrium</a> is a special steady state in which no net flows of material or probability occur. </li>
+<li> Steady states with flows (i.e., those out of equilibrium) require input of matter or energy.  They are not self-sustaining.  The "desktop waterfall" shown above must be plugged in for the flow to be maintained.  </li>
+<li> Steady states with flows typically are amenable to a simple mathematical treatment.  They also are convenient modules for connecting to other parts of a larger system - the sources and sinks of flows.
+</ul>
+
+<h3> Schematically </h3>
+<p> A steady state consists of one or more inputs and one or more outputs, with each component unchanging in time. </p>
+<p style="text-align:center"><img src="images/steady-state-schematic-simple.gif" alt="Simple schematic of a steady state" /></p>
+\begin{equation}
+\label{ss-schematic}
+\frac{ d \conc{A} }{ dt } = 0
+\hspace{1cm}
+\frac{ d \conc{B} }{ dt } = 0
+\end{equation}
+<p> A more typical (and complex) case includes multiple inputs/outputs and an internal cycle </p> 
+<p style="text-align:center"><img src="images/steady-state-schematic-cycle.gif" alt="Complex schematic of a steady state" /></p>
+
+<h3>
+Key Biological Examples
+</h3>
+<ul>
+<li> Michaelis-Menten catalytic cycle </li>
+<li> Citric acid cycle </li>
+<li> Molecular locomotion </li>
+<li> Active <a href="javascript:changeTo('steady','transport')">transport</a> </li>
+</ul>
+
+<h3>
+Steady-state analysis of a Michaelis-Menten (MM) process
+</h3>
+<p>
+A standard MM process models conversion of a substrate (S) to a product (P), <a href="javascript:changeTo('steady','catalysis')">catalyzed</a> by an enzyme (E) after formation of a bound-but-uncatalyzed complex (ES).
+</p>
+<p style="text-align:center"><img src="images/mm-simple-equation.gif" alt="Michaelis-Menten simple equation" /></p>
+<p>
+The simple MM model can also be viewed as a cycle because the enzyme E is re-used.  Blue arrows indicate steady net flows.
+</p>
+<p style="text-align:center"><img src="images/mm-simple-cycle.gif" alt="Michaelis-Menten simple cycle" /></p>
+(The standard MM process here can be contrasted with the <a href="javascript:changeTo('steady','equil')">corrected MM cycle</a> that allows for reverse events and physical single-step processes.)
+<p> 
+A steady state will occur if P is removed at the same rate as S is added.
+Mathematically, for steady state, we set the time derivative of the ES complex to zero.
+\begin{equation}
+\label{michaelis}
+\frac{d\conc{ES}}{dt}
+= \conc{E}\conc{S} \,\kmmon
+- \conc{ES} \, \kmmoff
+- \conc{ES} \, \kcat
+= 0
+\end{equation}
+</p>
+<p> The result yields what looks like a <a href="javascript:changeTo('steady','binding')">dissociation constant</a> in terms of the steady-state (SS) concentrations: </p>
+\begin{equation}
+\label{km}
+\frac{ \conc{E}^{\ss} \conc{S}^{\ss} }{ \conc{ES}^{\ss} } 
+= \frac{ \kmmoff + \kcat }{ \kmmon }
+\equiv K_M
+\end{equation}
+<p> In words, in the steady state, the ratio of concentrations on the left assumes the constant value given by the particular ratio of rate constants in the middle.
+The effective "equilibrium" constant $K_M$ is conventionally defined but not strictly needed.
+</p>
+
+<p> The basic steady state result \eqref{km} can be used to calculate other quantities of interest, such as the overall rate of product production </p>
+\begin{equation}
+\label{mm-product}
+\kcat \conc{ES}^{\ss} = \conc{E}^{\ss} \conc{S}^{\ss} \frac{\kcat}{K_M}
+\end{equation}
+now given in terms of the steady-state E and S concentrations, which should be known.
+
+
+<h3>
+The standard MM model is unphysical
+</h3>
+<p>
+All molecular processes are reversible, so any model with a uni-directional arrow is necesarily approximate: see the discussion of <a href="javascript:changeTo('steady','cycles')">cycles</a>.
+The full MM cycle, allowing for reverse events and permitting only single-step processes, is subjected to a (more complicated) steady-state analysis in an advanced section.
+</p>
+
+</body>
+</html>

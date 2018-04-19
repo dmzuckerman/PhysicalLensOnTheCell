@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>navigation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!-- ImageReady Slices (navigation.ai) -->
+<img src="images/navigation.gif" width="200" height="600" border="0" alt="" usemap="#navigation_Map">
+<map name="navigation_Map">
+<area shape="rect" alt="" coords="13,465,61,494" href="javascript:leftRefs()">
+<area shape="poly" alt="" coords="23,493, 17,491, 14,486, 14,484, 14,479, 14,474, 14,473, 17,468, 23,466, 25,466, 37,466, 49,466, 51,466, 57,468, 60,473, 60,474, 60,479, 60,484, 60,486, 57,491, 51,493, 49,493, 37,493, 25,493, 23,493" href="javascript:leftRefs()">
+<area shape="poly" alt="" coords="125,135, 122,147, 113,156, 100,160, 87,156, 78,147, 75,135, 78,122, 87,113, 100,110, 113,113, 122,122, 125,135" href="javascript:toStart()">
+<area shape="poly" alt="" coords="175,54, 172,61, 165,64, 137,64, 130,61, 127,54, 127,26, 130,19, 137,16, 165,16, 172,19, 175,26, 175,54" href="javascript:fwdButton()">
+<area shape="poly" alt="" coords="73,54, 70,61, 63,64, 35,64, 28,61, 25,54, 25,26, 28,19, 35,16, 63,16, 70,19, 73,26, 73,54" href="javascript:backButton()">
+</map>
+<!-- End ImageReady Slices -->
+</body>
+</html>

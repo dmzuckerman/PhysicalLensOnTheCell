@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>banner</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<!-- ImageReady Slices (banner.ai) -->
+<img src="images/banner.gif" width="1325" height="55" border="0" alt="" usemap="#banner_Map">
+<map name="banner_Map">
+<area shape="rect" alt="" coords="0,0,1325,55" href="javascript:toStart()">
+</map>
+<!-- End ImageReady Slices -->
+</body>
+</html>

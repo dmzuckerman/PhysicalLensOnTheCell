@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Synthesis</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Biosynthesis is driven by free energy
+</h2>
+
+<p style="text-align:center"><img src="images/synthesis-basic-eqn.gif" /></p>
+
+Chemical syntheses in the cell, such as the formation of X-Y above, typically require an input of <a href="javascript:changeTo('synthesis','free')">free energy</a>.
+Free energy could be supplied directly if there were an over-abundance of reactants (compared to <a href="javascript:changeTo('synthesis','equil')">equilibrium</a>) and/or a dearth of products.
+More commonly, there is a complex sequence of reactions required for synthesis, and free energy drives these intermediate reactions.
+Below, we see how the hydrolysis of <a href="javascript:changeTo('synthesis','atp')">ATP</a> can be coupled to a series of two synthesis reactions.
+Other <a href="javascript:changeTo('synthesis','carriers')">carriers</a> could also supply the free energy to drive synthetic reactions.
+
+<p>Note that if a synthetic reaction were favorable (did not require free energy), it would only be necessary for the cell to supply a <a href="javascript:changeTo('synthesis','catalysis')">catalyst</a>.
+</p>
+
+
+<h3>
+Reaction coupling, driven by ATP
+</h3>
+
+An example of the mechanism here is the synthesis of glutamine from glutamic acid, where X-OH = glutmatic acid, Y-H = NH$_3$.  Below, -P = -O-PO$_3$.
+
+<p>
+The synthesis of X-Y can be coupled to ATP hydrolysis by the following two reactions 
+</p>
+<p style="text-align:center"><img src="images/synthesis-mechanistic-eqns.gif" /></p>
+
+The net result of the two reactions is the synthesis of X-Y <i>and</i> the hydrolysis of ATP.
+Graphically the process looks like this
+<p style="text-align:center"><img src="images/synthesis-schematic.gif" /></p>
+
+
+<h3>
+Steady-state analysis of the coupled reactions
+</h3>
+
+Will the two-step synthesis above really occur under typical cellular conditions, even if the direct synthesis ($X + Y \rightarrow XY$) is unfavorable?
+We can answer this question using a steady-state analysis of the equations above in a <a href="javascript:changeTo('synthesis','massAction')">mass action</a> picture.
+Specifically, we can calculate the rate of formation of XY (and Pi) in the second of the two reactions, which is marked with a green (*).
+We use a <a href="javascript:changeTo('synthesis','steady')">steady-state condition</a> on the intermediate XP:
+<p style="text-align:center"><img src="images/synthesis-steady-state.gif" /></p>
+
+Because the last two terms are precisely the net rate of XY and Pi synthesis - based on Eq (*) - and the four terms together sum to zero in a steady state, we can rewrite the synthesis rate to see the dependence on ATP and ATP:
+<p style="text-align:center"><img src="images/synthesis-rate.gif" /></p>
+So long as the ratio $\conc{ATP} / \conc{ADP}$ is sufficiently large, the rate of XY synthesis will be positive.
+And because <a href="javascript:changeTo('synthesis','atp')">ATP</a> is an <a href="javascript:changeTo('synthesis','carriers')">activated carrier</a> that ratio <i>is</i> large.
+
+<p>
+<b> Bottom line:</b> XY is synthesized at a positive rate if ATP is sufficiently activated.
+</p>
+
+</body>
+</html>

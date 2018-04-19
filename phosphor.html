@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phosphorylation</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\nai}{N_A^i}
+    \newcommand{\nao}{N_A^o}
+    \newcommand{\nbi}{N_B^i}
+    \newcommand{\nbo}{N_B^o}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+The Mysteries of Phosphorylation
+</h2>
+
+Phosophorylation is the covalent attachment of a phosphate group (Pi or P) to a protein, which typically affects the protein's behavior during a signaling sequence.
+For example, phosphorylation can "activate" or turn on the activity of the target protein.
+<p style="text-align:center"><img src="images/phosphor-simple.gif" height="250"/></p>
+
+<p>
+Our interest is not in the details of phosphorylation chemistry, but rather in the role of free energy in controling the directionality of signaling.
+Most generally, how is reversibility in signaling (e.g., phosphorylation) controlled?
+After all, every molecular process is reversible, but the cell requires its processes to be sequenced correctly.
+Why doesn't the enzyme, called a kinase, which places phosphate groups on proteins also <a href="javascript:changeTo('phosphor','catalysis')">catalyze</a> the reverse reaction? 
+And a related question: how can a single enzyme control which side of the phosphorylation reaction is favored?
+</p>
+
+
+<p>
+The answers are very interesting.
+In a cell, the process of phosphorylation is driven by the <a href="javascript:changeTo('phosphor','free')">free energy</a> stored in <a href="javascript:changeTo('phosphor','atp')">ATP</a> in its role as an <a href="javascript:changeTo('phosphor','carriers')">activated carrier</a>.
+That is, the same source of free energy that can drive <a href="javascript:changeTo('phosphor','synthesis')">"uphill" chemical synthesis</a> and even locomtion via <a href="javascript:changeTo('phosphor','kinesin')">molecular motors</a> is used to "power" signaling in the sense of ensuring that processes happen in the right order.
+This is much easier to see in the more accurate cartoon below.
+</p>
+<p style="text-align:center"><img src="images/phosphor-atp-hydrolysis.gif" height="280"/></p>
+
+<p>
+The specific strategy evolved by cells involves two separate reactions which both are free energetically favorable.
+The kinase catalyzes hydrolysis and attaches the phosphate group, while the kinase catalyzes cleavage of the phosphate group from the protein in a separate reaction. 
+The reactions don't occur in reverse (typically) because the products and reactants are far out of <a href="javascript:changeTo('phosphor','equil')">equilibrium</a>, as is always the case when free energy is stored.
+The cell regulates the duration of the signal - how long the phosphate stays on the protein - by controling the whether or not the phosphatase is present and active.
+Note that the cell has many types of kinases and phosphatases, each of which is specific to (de)phosphorylating one or a small set of proteins.
+The activity of these key enzymes in turn may be regulated by other kinase/phosphatase pairs!
+</p>
+
+<p>
+From a bottom-line chemistry perspective, the net reaction that occurs is the usual hydrolysis of ATP to ADP and Pi.
+However, the full reaction is catalyzed by a <i>set</i> of proteins instead of just a single enzyme.
+</p>
+<p style="text-align:center"><img src="images/phosphor-dephosphor.gif" height="280"/></p>
+</body>
+</html>

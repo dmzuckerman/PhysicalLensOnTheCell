@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conformational Stat Mech</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dgstd}{\Delta G^{\circ'}}
+    %\newcommand{\dgstd}{\Delta G^{\circ}'}
+    %\newcommand{\dgstd}{xx}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kab}{k_{AB}}
+    \newcommand{\kba}{k_{BA}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K'_{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\mustd}{\mu^{\circ}}
+    \newcommand{\mustdp}{\mu^{\circ'}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\rl}{\rightleftharpoons}
+    \newcommand{\rn}{\mathbf{r}^N}
+    \newcommand{\rnhat}{\mathbf{\hat{r}}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Conformational Statistical Mechanics
+</h2>
+
+Conformational transitions play a key role in biomolecular processes:
+enzymes tend to close up over their substrates, transporters such as <a href="antiport">antiporters</a> often undergo an outward to inward-facing transition (facing one side of the bilayer or the other), 
+and the steps taken by <a href="motors">molecular motors</a> are nothing other than very large scale conformational changes.
+Examples of simple conformational changes  - without associated (un)binding - in this site's antiporter and molecular motor models are shown below:
+<p style="text-align:center"><img src="images/antiporter-conf.png"  height="350"/></p>
+<p style="text-align:center"><img src="images/kinesin-conf.png"  height="150"/></p>
+
+<p>
+Other sections of this website employ kinetic descriptions of conformational transitions, but here we want to probe the more detailed statistical mechanics.
+What is the meaning of conformational free energy?  What is the connection between microscopic forces at the atomic level and observed populations and rate constants?
+</p>
+
+<h3>
+Equilibrium conformational statistical mechanics
+</h3>
+
+<p>
+We'll consider a generic conformational transition between two states A and B, characterized by rate constants $\kab$ and $\kba$.
+A and B could correspond to the numbered states shown above, for instance.
+If we have a large number of copies $N$ of our molecule (or system) of interest which are in equilibrium, then some subset of these $N_A$ and $N_B$ are in the two states of interest.
+Our discussion will apply even if there are other states besides A and B, so that
+$N = N_A + N_B + N_C + N_D + \cdots$.
+</p>
+
+<p>
+<a href="equil">Equilibrium</a>, as always, implies there is a balance of flows among states.
+This can be stated in different ways:
+\begin{align}
+N_A \kab &= N_B \kba \nonumber \\
+\conceq{A} \kab &= \conceq{B} \kba \; ,
+\end{align}
+where here $N_X$ refers to the equilibrium number of systems in state $X$ and $\conceq{X} = N_X / V$ refers to the equilibrium concentration in a volume $V$.
+</p>
+
+<p>
+Statistical mechanics tell us how to derive "macroscopic" observable properties, such as the ratio of state populations $N_A/N_B$, from "microscopic" forces and energies.
+Our microscopic description will employ classical physics, although the treatment of quantum properties is largely similar. 
+For a good discussion of quantum statistical mechanics and the connections to a classical description, see the book by Simon and McQuarrie.
+</p>
+
+<p>
+In classical statistical mechanics, we can derive observable properties solely by knowing the the potential energy $U$ as a function of the positions of all the atoms:
+\begin{equation}
+\rn = \left \{ (x_1, y_1, z_1), (x_2, y_2, z_2), \ldots \right \} \; .
+\end{equation}
+You should assume that all the atoms of all the molecules in a system are included - protein, water, ions, ligand, and any other buffer molecules.
+</p>
+
+<p>
+Knowing $U(\rn)$ is equivalent to knowing all the forces between atoms, because forces are obtained simply from derivatives of $U$.
+It is important that $U$ is a function of the atomic positions that includes all the physics and chemistry you would expect - electrostatics, van der Waals interactions, and even complex stereochemical effects; $U$ should <i>not</i> be confused with the thermodynamic internal energy, which is essentially the average energy (averaged over all configurations) for a given set of conditions.  $U$ gives the energy for any specific configuration $\rn$.
+</p>
+
+<p>
+The essential guiding equation of equilibrium statistical mechanics is that the probability of a configuration $\rn$ (sometimes called a microstate) is proportional to the Boltzmann factor of the potential energy:
+\begin{equation}
+\mathrm{prob}\left( \rn \right) \propto e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\end{equation}
+where $k_B$ is Boltzmann's constant and $T$ is the temperature in degrees Kelvin.
+</p>
+
+<p style="text-align:center"><img src="images/confStatMech-configs.png"  height="275"/></p>
+
+<p>
+To extend this configuration-specific picture to conformational <i>states,</i> which are defined as large collections of configurations, we must sum up (integrate over) the probabilities of all the configurations consistent with a given state.  Thus, we have
+\begin{equation}
+\mathrm{prob} \left( \mbox{state A} \right) \propto
+  \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\label{aprob}
+\end{equation}
+where the notation $\int_A$ indicates that we integrate over all configurations of state A.  State A can be defined in an arbitrary way - for example, as those configurations in which a certain pair of atoms is closer or further than some threshold distance, or perhaps configurations with an RMSD value less then a threshold.  To conform with physical expectations for a state, the selected configurations should interconvert among themselves much more rapidly than transitions to any other macroscopic state (B, C, ...).
+</p>
+
+<p>
+We use the (relative) state populations to define the conformational free energies based on Boltzmann factors of <i>free</i> energies instead of potential energies:
+\begin{align}
+\frac{ \mathrm{prob} \left( \mbox{state A} \right) }{ \mathrm{prob} \left( \mbox{state B} \right) }
+&= \frac { \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} }{ \int_B d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T}  } \nonumber \\
+&= \frac{ e^{ \left. -F_A \right/ k_B T} }{ e^{ \left. -F_B \right/ k_B T}  }
+\simeq \frac{ e^{ \left. -G_A \right/ k_B T} }{ e^{ \left. -G_B \right/ k_B T}  }
+\label{popratio}
+\end{align}
+where $F_X$ is the Helmholtz free energy of state X and $G_X$ is the Gibbs free energy.
+The integrals used above strictly refer to the Helmholtz free energy, which is appropriate for constant volume, but the the constant-pressure Gibbs free energy will be very similar.  See the textbook by Zuckerman for a discussion of this issue.
+</p>
+
+<p>
+The bottom line is that the conformational free energy yields an effective energy whose Boltzmann factor yields the state probability.  The free energy is <i>not</i> simply the average energy within a state, as discussed in the Zuckerman textbook.
+</p>
+
+<p>
+Because the probability of a state is equal to the fraction of systems in that state - that is, $\mathrm{prob} \left( \mbox{state X} \right) = N_X / N$ - we can now re-write the original equilibrium balance condition in terms of free energies:
+</p>
+\begin{equation}
+e^{ \left. -G_A \right/ k_B T} \kab = e^{ \left. -G_B \right/ k_B T} \kba \; .
+\end{equation}
+It is this free energy which is used implicitly in discussions of <a href="cycles>cycles</a> that include conformational changes, 
+such as the <a href="antiport">antiporter</a> 
+and the <a href="atpSynth">ATP synthase</a>.
+
+<h3>
+Basic non-equililbrium statistical mechanics of conformational transitions
+</h3>
+
+<p>
+The connection of the microscopic picture based individual configurations $\rn$ to observable <i>kinetic</i> quantities like rate constants can be considerably more complicated.  Nevertheless, the basic ideas can be understood with a minimum of complex math.
+</p>
+
+<p>
+The key object for studying a system's nonequilibrium behavior is the trajectory $\rn(t)$, the configuration as a function of time.
+It's simplest to think of this as a time-ordered list of configurations:
+\begin{equation}
+\rn(t) = \left\{ \rn(t_0), \rn(t_1), \rn(t_2), \ldots
+         \right\}
+\end{equation}
+</p>
+
+<p style="text-align:center"><img src="images/confStatMech-traj.png"  height="275"/></p>
+
+<p>
+In nature, a trajectory is generated by the full quantum mechanical behavior of the universe, but it's a lot easier to imagine our system of interest contained in a finite volume $V$ including solvent, ligands, etc.
+Our system is in contact with its environment characterized by its temperature $T$, pressure $P$, pH, etc.
+Given all this, one can imagine writing down equations which would tell us how the system configuration changes from from time $t_j$ to $t_{j+1}$.
+For concreteness, it's simplest to imagine using Newton's laws (as employed in <a href="https://en.wikipedia.org/wiki/Molecular_dynamics">molecular dynamics simulation</a>) - each atom's velocity changes according to the force and the position according to the velocity.
+</p>
+
+<p>
+Now we can perform a valuable thought experiment.  Imagine following the trajectory (the "movie") of our system for a <i>very</i> long period of time - so long that that every important system behavior occurs multiple times.  From this trajectory, we can calculate <i>any</i> observable of interest.  For example, we could calculate the rate $\kab$ for transitions from state A to B by averaging the 'first-passage' times required for the trajectory to reach B for the first time after each time it enters A - and then taking the reciprocal of this average.  That is, <a href="http://statisticalbiophysicsblog.org/?p=8">as was explained by Hill</a>,
+\begin{equation}
+\kab = \frac{1}{ \mathrm{MFPT}(A \rightarrow B) }
+\end{equation}
+</p>
+
+<p>
+From the same long trajectory, we can also calculate equilibrium averages by considering all configurations $\rn$ occurring in the trajectory.  For example, we can calculate the ratio of equilibrium populations of states A and B based on the time spent in each state
+\begin{equation}
+\frac{ \mathrm{prob} \left( \mbox{state A} \right) }{ \mathrm{prob} \left( \mbox{state B} \right) }
+= \frac{ \mbox{time spent in state A} }{ \mbox{time spent in state B} } .
+\end{equation}
+</p>
+
+<p>
+Importantly, we can calculate equilibrium quantities from the (dynamical) trajectory.  We cannot, however, calculate non-equilibrium quantities like rates just by considering configuration integrals as in \eqref{popratio}.
+</p>
+
+
+<h3>
+When is free energy minimized?
+</h3>
+You have probably heard words to the effect that "the free energy is minimized," and indeed this website performs such minimizations in several cases (e.g., for membrane-separated <a href="concGradient">molecules</a> 
+or <a href="ionGradient">ions</a> 
+and for <a href="binding">binding</a>) to find equilibrium populations.  As was emphasized in the thermodynamic derivations for those cases, free energy minimization is entirely appropriate in the "thermodynamic limit" where we are concerned with the spatial locations of very large numbers of molecules (or ions).
+
+<p>
+Should we also apply the concept of free energy minimization to conformational states?  To see why we should <i>not</i> do so, let's begin by re-examining Eq. \eqref{aprob}, which gives the exact statistical mechanical (relative) probability of state A.  The absolute (or fractional) probability is necessarily less than one - see Exercises.  So in terms of any discrete states that have been defined (A, B, ...), according to Eq. \eqref{popratio} the minimum free energy will correspond to the maximum probability.  Depending on the system and the states that have been defined there is no reason why the maximum probability should approach one.  Thus, there may be significant probability in other states.
+</p>
+
+<p>
+In slightly different words, we expect each state to have some probability, so it would be wrong to ignore those besides the most probable.  Of course, it's possible to define a state that, by construction/choice, has almost all the probability.  However, defining conformational states is a tricky business, and something we won't delve into.
+</p>
+
+<p>
+Because state definitions can be somewhat arbitrary, in conformational statistical mechanics we often turn to a more precise, if still imperfect, quantity call the conformational free energy.  (This also can be called the "potential of mean force", PMF, but it only yields the true mean force if the PMF is defined in special ways.)
+</p>
+
+<p>
+To understand basic conformational behavior, we will define the conformational free energy $G(q) \simeq F(q)$ for any coordinate $q$ as the energy whose Boltzmann factor is proportional the probability of observing the value $q$.  For example, $q$ could be the angle between two helices or the distance between two atoms of a protein.  In analogy to the way the relative probability for state A was defined as the sum (integral) over all Boltzmann factors within state A via Eq. \eqref{aprob}, we can similarly calculate the relative probability for coordinate $q$.  We can do this by defining $\rnhat$ (note the 'hat' over $\mathbf{r}$) as the set of all coordinates <i>except</i> $q$, which leads to the relations
+\begin{equation}
+e^{ \left. -G(q) \right/ k_B T} \propto
+  \mathrm{prob} (q) \propto
+  \int d\rnhat \; e^{ \left. -U \left(\rn \right) \right/ k_B T} 
+   \; .
+\label{gofq}
+\end{equation}
+To understand this equation in a simple context, imagine we have a two-dimensional system with a potential energy $U(x,y)$.  Then, to find the Boltzmann factor of $G(x)$, we integrate over $y$ which <i>is</i> $\rnhat$ in this simple case; that is, we sum up the probability for all configurations $(x,y)$ consistent with a given $x$ value.  This process is called "projection" or "marginalization" and is discussed further in the Zuckerman textbook.
+</p>
+
+<p style="text-align:center"><img src="images/confFreeEnergy.png"  height="300"/></p>
+
+<p>
+The sketch shows a schematic $G(q)$ with multiple minima, a phenomena which should be expected in complex systems such as biomolecules.  The degree to which there is a single dominant state depends on the $\Delta G$ values between minima: if they are large compared with $k_B T$, then the global minimum region of $G$ indeed will capture most of the probability.  However, unless there is evidence for this, you should expect a mulitiplicity of states will be important.
+</p>
+
+<p>
+A few words of warning are required about the conformational free energy.  As I have discussed at length in a <a href = "http://statisticalbiophysicsblog.org/?p=160">blog post</a>, the problem with $G(q)$ or a PMF is that coordinates tended to be selected based on intuition; and although the resulting landscape has a genuine basis in statistical mechanics, it may obscure important conformational (i.e., "mechanistic") behavior.  The choice of $q$ can affect the number, apparent locations, and identities of the local minima, as well as affecting the values of the barrier heights connecting them.  Hence mechanistic and kinetic inferences based on $G(q)$ alone must be subjected to more detailed testing.
+</p>
+
+
+<h3>
+Exercises
+</h3>
+<ol>
+<li> The equation \eqref{aprob} gives an integral proportional to the probabilty of state A.  What <i>ratio</i> of integrals gives the absolute or fractional probability of state A (i.e., $N_A/N$)?  How do you know this is less than one?</li>
+<li> A time-correlation function is another important non-equilibrium quantity.  Describe <i>in words</i> a procedure which could be used to calculate such a function from a very long trajectory, namely, the probability to be in state B at time $\tau$ following the most recent entry to state A. </li>
+</ol>
+
+<h3>
+References
+</h3>
+<ul>
+<li> D.A. McQuarrie and J.D. Simon, <i>Physical Chemistry: A Molecular Approach</i> (University Science Books, 1997)</li>
+<li> D.M. Zuckerman, <i>Statistical Physics of Biomolecules: An Introduction</i> (CRC Press, 2010). </li>
+</ul>
+
+</body>
+</html>

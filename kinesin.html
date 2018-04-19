@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kinesin</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\nai}{N_A^i}
+    \newcommand{\nao}{N_A^o}
+    \newcommand{\nbi}{N_B^i}
+    \newcommand{\nbo}{N_B^o}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Kinesin: A Prototypical Molecular Motor
+</h2>
+
+Molecular motors generate motion by coupling conformational changes to ATP hydrolysis.
+In doing so, motors use the <a href="javascript:changeTo('kinesin','free')">free energy</a> stored in <a href="javascript:changeTo('kinesin','atp')">ATP</a> (and ATP itself stores free energy because it is maintained out of <a href="javascript:changeTo('kinesin','equil')">equilibrium</a> as an <a href="javascript:changeTo('kinesin','carriers')">activated carrier</a>).
+
+<p>
+Kinesin is a two-headed motor, like many others (<a href="javascript:extLink('http://en.wikipedia.org/wiki/Dynein')">dynein</a>, and most <a href="javascript:extLink('http://en.wikipedia.org/wiki/Myosin')">myosins</a>).
+Each motor head is capable of hydrolyzing ATP, which results in a conformational change.
+The heads are also coupled to one another via "neck linker" domains.
+A simplified version of kinesin's cycle is shown below.
+</p>
+<p style="text-align:center"><img src="images/kinesin-cycle.gif" height="280"/></p>
+
+<p>
+In the figure, the green triangle represents a fixed location along the microtubule, which is shown as a simple horizontal line.
+The colored ovals are the two heads, and the colored lines are the neck linkers.
+The chemical state is indicated in the oval, with a subscript noting whether a head is forward (f) or in the rear (r).
+The top-most transition, which is simply unbinding of the rear head, is somewhat confusing in the four-state diagram because the identity of the forward/rear heads has switched: note the green triangle and see figure below. 
+</p>
+
+Kinesin moves along <a href="javascript:extLink('http://en.wikipedia.org/wiki/Microtubule')">microtubulue</a> filaments in the cell and plays a key role in <a href="javascript:extLink('http://en.wikipedia.org/wiki/Mitosis')">mitosis</a>.
+The steps are 8nm in length and discrete based on the polymeric structure of the microtubule.
+Hence we can label the positions as (..., i-2, i-1, i, i+1, i+2, ...).
+The cycle of chemical and mechanical steps is probably best visualized in the context of a microtubule.
+The pink line below shows the order of steps in purely forward motion.
+<p style="text-align:center"><img src="images/kinesin-microtubule.gif" height="200"/></p>
+
+
+<h3>
+A simple quantitative model for kinesin motion
+</h3>
+<p style="text-align:center"><img src="images/kinesin-cycle-numbered.gif" height="280"/></p>
+To turn our original cartoon into a concrete model, we simply need to assign rate constants.
+We will assign rates derived by Liepelt and Lipowski ("LL" - see References) on the basis of experiments.
+Notice that the state numbers (1, 2, 5, 6) are not consecutive: this is simply for consistency with LL; our states are a subset of theirs, although this does not lead to significant deviations from the original model's behavior for the cases examined here. 
+
+<p>
+The first thing to do with a kinetic model is write out the basic <a href="javascript:changeTo('kinesin','massAction')">mass-action</a> equations.
+For brevity, we'll note the first two here,
+\begin{align}
+\frac{ d \conc{1} }{ dt} & = \conc{6} \, k_{61} + \conc{2} \, k_{21}
+                             - \conc{1} \, \conc{ATP} \, k_{12} 
+                             - \conc{1} \, \conc{Pi} \, k_{16} \\
+%
+\frac{ d \conc{2} }{ dt} & = \conc{1} \, \conc{ATP} \, k_{12} + \conc{5} \, k_{52} 
+                            - \conc{2} \, k_{21} - \conc{2} \, k_{25}
+\end{align}
+where $\conc{X}$ is the concnetration of state X and $k_{ij}$ is the rate constant from state $i$ to $j$.
+Remember, you can always consult the <a href="javascript:notation()">Notation page</a>.
+</p>
+
+<h4>
+Equilibrium analysis of the cycle
+</h4>
+It is necessary to perform an <a href="javascript:changeTo('kinesin','cycles')">equilibrium analysis of the cycle</a> for two reasons:
+(i) to ensure the rates permit <a href="javascript:changeTo('kinesin','equil')">detailed balance</a> to hold in equilibrium, and 
+(ii) to ensure that the rates are consistent with the thermodynamic balance holding between <a href="javascript:changeTo('kinesin','atp')">ATP</a> and its hyrolysis product, ADP.
+
+<p>
+We apply the condition of detailed balance (equal and opposite flows) to all legs of the cycle.
+For the 1-2 and 2-5 steps, we have 
+</p>
+\begin{align}
+\conceq{ATP} \, \conceq{1} \, k_{12} &= \conceq{2} \, k_{21}  \label{det_i_ii}  \\
+\conceq{2} \, k_{25} &= \conceq{5} \, k_{52}  \label{det_ii_v}  \\
+\conceq{5} \, k_{56} &= \conceq{ADP} \, \conceq{6} \, k_{65} \\
+\conceq{6} \, k_{61} &= \conceq{Pi} \, \conceq{1} \, k_{16}  \label{det_i_vi}
+\end{align}
+
+To be clear, we are <i>not</i> assuming our system is always in equilibrium.
+Rather, we are establishing that our system should be capable of reaching equilibrium consisent with physical principles.
+
+<p>
+Although each of the equations \eqref{det_i_ii} - \eqref{det_i_vi} indidvidually represents a detailed-balance condition for a particular process, together they yield a single constraint on the rate constants.
+To see this, solve for $\conceq{2}$ in \eqref{det_ii_v} and substitute the result in \eqref{det_i_ii}; then continue this process and successively eliminate <i>all</i> the state concentrations.
+You will be left with a relation between the rate constants and the concentrations of ATP, ADP, and Pi:
+\begin{equation}
+\label{atp_equil}
+\frac{  k_{12} \, k_{25} \, k_{56} \, k_{61}  }
+     {  k_{21} \, k_{52} \, k_{65} \, k_{16}  }
+  = \frac{ \conceq{ADP} \, \conceq{Pi} }{ \conceq{ATP} }
+  \equiv K_d
+\end{equation} 
+where we have noted that the ratio of concentrations on the right is nothing other than the equilibrium constant for ATP, its effective "dissociation" constant.
+The relation \eqref{atp_equil} implies that once 7 of the rate constants are known, the 8th is determined by thermodynnamic considerations.
+</p>
+
+<p>
+Following LL, we set
+$K_d = 4.9 \times 10^5$ M,
+which is a large value reflecting that, in solution, ATP hydrolysis is strongly favored over synthesis - ADP will predominate over ATP unless ATP is synthsesized. 
+In a cell, of course, ATP is constantly being synthesized to maintain a non-equilibrium condition in which ATP stores <a href="javascript:changeTo('kinesin','free')">free energy</a> available for use by many processes.
+</p>
+
+<p>
+<i>A Subtlety.</i>
+As shown in the diagram with the "cycle" superimposed on a microtubule, the states really are specific to the position (i, i+1, ...).
+Nevertheless, the equilibrium analysis we just performed ignoring the position is correct.
+To see this, consider an ensemble of single kinesin molecules, each walking on a separate <i>circular</i> microtubule.
+In such a case, it is clear that the average population of each chemical/configurational state is independent of the positional state i - e.g., the population of state 6 is the same at every position.
+Hence, the equilibrium properties can be ascertained by assuming we have a simple cycle: the correct populations are obtained, aside from a trivial factor accounting for the number of positions, which is the same for each state.
+</p>
+
+<h4>
+The equilibrium constant and directionality.
+</h4>
+When the concentrations of ATP, ADP and Pi are at equilibrium values, which satisfy \eqref{atp_equil}, the system will not be driven.
+That is, on average, the number of forward and reverse steps per unit time will be the same.
+In typical cellular conditions, however, the ratio of concentrations will greatly favor ATP - and hence forward steps will predominate.
+That is, we expect
+\begin{equation}
+\frac{ \conc{ADP} \, \conc{Pi} }{ \conc{ATP} }
+  \ll \frac{ \conceq{ADP} \, \conceq{Pi} }{ \conceq{ATP} }
+  \equiv K_d
+\label{atp_non_equil}
+\end{equation}
+See the discussion of simulation data, below, for some examples.
+Although reverse stepping is possible in principle, and in the present model, note that realistic concentrations in fact make reversals highly unlikely - see exercises.
+
+<p style="text-align:center"><img src="images/kinesin-as-catalyst.gif" height="130"/></p>
+An alternative point of view is that kinesin may be seen merely as a catalyst for ATP hydrolysis (and synthesis, under suitable conditions), as sketched above.
+In this picture, the stepping of kinesin can be considered an unnecessary consequence of catalyzed event:
+see also the <a href="javascript:changeTo('kinesin','atpThought')">"thought experiment" proposed for ATP</a> in its role as an activated carrier.
+The basic view of ATP is correct although to be fully accurate, one would have to account for work done against viscous forces in typical steps - see below.
+<p>
+
+</p>
+
+<p>
+<i>The issue of work.</i>
+In the present model, for simplicity, there is no "load" or force on our motor - and so mechanical forward/backward steps perform no work.
+This is unphysical because a viscous/frictional force will always oppose the direction of motion.
+Nevertheless, the zero-load case is of interest for building understanding of motor systems, and compared to experimental situations, the viscous force may be considerably smaller than forces which are applied on such motors.
+</p>
+
+
+<h3>
+Model parameters
+</h3>
+
+<p>
+Specific rate constants are given in the table below, which are derived from the LL paper.
+</p>
+
+<table cellspacing="20">
+<tr>
+  <th style="text-align:left">Process</th>
+  <th style="text-align:left">Symbol</th>
+  <th style="text-align:left">Value</th>
+</tr>
+<tr>
+  <td>ATP binding</td>
+  <td>$k_{12}$</td>
+  <td>$2 \times 10^6$ / (M s)
+</tr>
+<tr>
+  <td>ATP unbinding</td>
+  <td>$k_{21}$</td>
+  <td>$100$ / s
+</tr>
+<tr>
+  <td>Forward step</td>
+  <td>$k_{25}$</td>
+  <td>$3 \times 10^5$ / s
+</tr>
+<tr>
+  <td>Reverse step</td>
+  <td>$k_{52}$</td>
+  <td>$0.24$ / s
+</tr>
+<tr>
+  <td>ADP unbinding</td>
+  <td>$k_{56}$</td>
+  <td>$100$ / s
+</tr>
+<tr>
+  <td>ADP binding</td>
+  <td>$k_{65}$</td>
+  <td>$2 \times 10^4$ / (M s)
+</tr>
+<tr>
+  <td>Hydrolysis and Pi unbinding</td>
+  <td>$k_{61}$</td>
+  <td>$0.74$ / s
+</tr>
+<tr>
+  <td>Pi binding and synthesis</td>
+  <td>$k_{16}$</td>
+  <td>$2 \times 10^4$ / (M s)
+</tr>
+</table>
+
+Note that $k_{61}$ was calculated from other rate constants and $K_d$ using \eqref{atp_equil}.
+
+
+
+<h3>
+Simulating the model
+</h3>
+We can simulate the simple kinetic model using <a href="http://bionetgen.org/" target="_blank">BioNetGen</a>, a rule-based platform for kinetic modeling.
+If we assign each mechanical step (the 2-to-5 transition) the experimentally determined value of 8 nm, we can graph the simulation results for different concentrations of ATP, ADP and Pi.
+
+<p style="text-align:center"><img src="images/kinesin-forward.png" height="280"/></p>
+
+<p>
+Not surprisingly, higher ATP concentration leads to faster motion.
+But there are limits on how fast the motor can move - see the exercises for hints.
+In the graph above, the ATP concentration increased 100-fold, but the speed of the motor clearly did not.
+</p>
+
+<p>
+Although it is safe to say that a given kinesin motor (there are many kinds) evolved to move in a single direction, it is of physical interest to push our model to extremes.
+In particular, given that all molecular processes are reversible, can we get our motor to run in reverse?
+You should recognize that forward steps are expected whenever the nucleotide concentrations are shifted toward larger ATP - i.e., when the actual concentrations differ from their equilibrium values and excess ATP is present as in \eqref{atp_non_equil}. 
+By the same argument, <i>reverse steps</i> are expected when there is an excess of ADP and/or Pi - when the opposite of \eqref{atp_non_equil} holds.
+</p>
+
+<p style="text-align:center"><img src="images/kinesin-backward.png" height="280"/></p>
+
+Note the timescale and nucleotide concentrations compared to previous data with forward stepping.
+Such concentrations are unphysical as can be seen from the exercises.
+
+<p>
+These simulations were performed using <a href="http://bionetgen.org/" target="_blank">BioNetGen</a>, a rule-based platform for kinetic modeling.
+The source code for the model (a .bngl file) can be downloaded by right-clicking <a href="pubFiles/kinesin-simple.bngl">here</a>.
+</p>
+
+
+<h3>
+Making a more complete model
+</h3>
+
+Our discussion has avoided two issues important to detailed consideration of motor proteins: the effect of a significant opposing force which may be present if a cargo is attached to the motor, and a more complete view of the potential state space.
+Qualitatively, it is clear that an opposing force or "load" will decrease the speed of the motor at given nucleotide concentrations;
+for further details, the reader is referred to the LL paper and references therein.
+
+<p style="text-align:center"><img src="images/kinesin-cycle-big-space.gif" height="400"/></p>
+<p>
+Using a conceptual framework similar to what was presented in our <a href="javascript:changeTo('kinesin','cycleLogicAdvanced')">advanced discussion of cycle logic</a>, we can also consider a more complete state space for the kinesin motor.
+In the figure above, D, T, and $\phi$ represent possible states of an indivdual motor head: ADP-bound, ATP-bound, and empty, respectively. 
+A pair of symbols represents the rear/forward combination - e.g., "DT" means the rear head is ADP-bound and the forward head is ATP-bound - using the convention that right is forward.
+</p>
+
+<p>
+The space shown here may seem large and complicated, but really we have omitted a number of possibilities:
+that both heads could become detached, the position on the filament, additional configurational states, and states with both ADP and Pi bound. 
+</p>
+
+
+<h3>
+Exercises
+</h3>
+
+<ol>
+<li> Derive \eqref{atp_equil}. </li>
+<li> In a mass-action model, the overall rate of ATP binding and hydrolysis will increase in proportion to the the ATP concentration without limit.  In reality, a maximum saturating value is expected for the binding step: Why?  [Hint - review the <a href="javascript:changeTo('kinesin','massAction')">mass-action</a> page.]  </li>
+<li> Even if the world truly obeyed mass-action principles, there would still be a limit on the speed with which the motor could move given the present model.  Discuss this issue by examining rate constants and limiting cases. </li>
+<li> Use a geometric argument based on the size of an ADP molecule and the molecular spacing at $\conc{ADP} = 10^3$ M to show that concentration is unphysical.
+Explain why the mass-action picture breaks down. </li>
+</ol>
+
+</body>
+</html>

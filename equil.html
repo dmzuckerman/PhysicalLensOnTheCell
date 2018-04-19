@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equilibrium and Detailed Balance</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Equilibrium and Detailed Balance
+</h2>
+
+<b>Equlibrium</b> has a very precise meaning in statistical physics, which also applies to biology.
+Equilibrium describes the <i>average</i> behavior (averaged over many systems under 
+   identical conditions) in which there is no net flow of material, probability 
+   or reactions.
+<ul>
+<li> Equilibrium is <i>not static</i> because each individual system undergoes its
+   ordinary behavior/dynamics. </li>
+<li> There will be no net flow in any "space" examined: real-space, conformation
+   space, or population space. </li>
+<li> Equilibrium can only occur under fixed conditions (e.g., constant 
+   temperature and total mass) when there is no addition or removal of 
+   energy or material from the system. </li>
+<li> The requirement for "no net flow of material, probability or reactions" is embodied in the condition for <b>detailed balance</b>.
+</ul>
+
+<p style="text-align:center"><img src="images/states-network.gif" alt="States Network" /></p>
+
+
+<h3>
+Detailed Balance
+</h3>
+Detailed balance is the balance of flows between any (and every) pair of states you care to define.  Typically, one thinks of "detailed" infinitesimal states, but a balance of flows among tiny states implies a balance of flows among global states which are groups of tiny states.
+
+<p>
+"Flow" refers to the motion of material or trajectories/probability, depending on the situation at hand.
+</p> 
+
+<p style="text-align:center"><img src="images/states-rates-ij.gif" alt="States Network" /></p>
+In this schematic, $i$ and $j$ are any states, and the $k$'s are the rates between them.
+If we have $N = \sum_i N_i$ equilibrium systems with $N_i$ systems in each state $i$, then detailed balance is formulated as
+\begin{equation}
+\label{detbal}
+N_i \, k_{ij} = N_j \, k_{ji}
+\end{equation}
+
+<p style="text-align:center"><img src="images/transitions-reactions.gif" alt="States Network" /></p>
+
+<ul>
+<li> <b>In a solution.</b>  As always in equilibrium, we have (at least conceptually) a large number of copies of our system.  If we consider any two sub-volumes ($i$ and $j$) in just <i>one</i> of these systems, some set of molecules will move from region to the other in a given time interval.  However, in our equilibrium set of systems, there will be other systems in which the opposite flow occurs.  <i>Averaging over all systems</i>, there is no net flow of any type of molecule between any two sub-volumes in equilibrium.  This is detailed balance.  (See also the time-averaging perspective, below.) </li>
+<li> <b>In a chemical reaction.</b>  Normally, we distinguish "products" and "reactants", but equilibrium largely abolishes this distinction.  As described above for the solution case, if we have an equilibrium set of many chemical-reaction systems, an equal number will be proceeding in the forward (say, $i$ to $j$) and reverse ($j$ to $i$) directions.  Although, nominally, a reaction may seem to prefer a certain direction, in equilibrium that just means that the products of the favored direction will be present in greater quantity (e.g., $N_j \gg N_i$) - even though the forward and reverse flows stay the same as in \eqref{detbal} because the rates would be very different ($k_{ji} \ll k_{ij}$). </li> 
+<li> <b>In a conformation space of a single molecule.</b>  In an equilibrium set of molecules with, say, two conformational states A and B, there will be an equal number of A-to-B as B-to-A transitions in any given time interval.  If there are many states, then there will be a balance between all pairs of states $i$ and $j$ as given in \eqref{detbal}. </li> 
+</ul>
+
+
+<h3>
+Time vs. Ensemble Averaging
+</h3>
+It is useful to consider the relation between "ensemble averaging" (e.g., averaging over the set of equilibrium systems described above) and "time averaging".  Time-averaging is just what you would guess: averaging behavior (e.g., values of a quantity of interest) over a long period of time.
+
+<p>
+In equilibrium, <i>time averaging and ensemble averaging will yield the same result.</i>
+To see this, consider a solution containing many molecules diffusing around and perhaps exhibiting conformational motions as well.
+Assume the system has been equilibrating for a time much longer than any of its intrinsic timescales (inverse rates).
+Because finite-temperature motion in a finte system is inherently stochastic, over a long time each molecule will visit different regions of the container and also different conformations - in the same proportion as every other molecule.
+If we take a snapshot at any given time of this equilibrium system, the "ensemble" of molecules in the system will exhibit the same distribution of positions and conformations as a long single trajectory of any individual molecule. 
+This has to be true because the snapshot itself results from the numerous stochastic trajectories of the molecules that have evolved over a long time.
+</p>
+
+
+<h3>
+Unphysical Models Cannot Equilibrate
+</h3>
+
+<p style="text-align:center"><img src="images/one-way-cycles.gif" alt="States Network" /></p>
+
+Although every physical system that is suitably isolated will reach a state of equilibrium, that does not mean that every <i>model</i> made by scientists can properly equilibrate.  In fact, many common models of biochemistry exhbit "irreversible" steps - in which the reverse of some step <i>never</i> occurs - and could never satisfy detailed balance.  
+The <a href="javascript:extLink('http://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics')">Michaelis-Menten</a> model of catalysis (above left) is an irrervsible model.
+Such model irreversibility typically represents the observation that the forward rate exceeds the reverse rate so greatly that the reverse process can safely be ignored.  This may be true in some cases, but here are numerous cases in biochemistry where reversibility is critical, such as typical binding processes (unbinding is needed to terminate a signal) and in <a href="javascript:extLink('http://en.wikipedia.org/wiki/ATP_synthase')">ATP synthase</a> (which can make ATP or pump protons depending on conditions). 
+
+<p>
+For corrected (physically possible) versions of the cycles depicted above, see the discussion of <a href="javascript:changeTo('equil','cycles')">cycles</a>.
+</p>
+
+</body>
+</html>

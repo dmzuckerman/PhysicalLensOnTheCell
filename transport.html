@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steady State</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Transport in the Cell
+</h2>
+
+<p style="text-align:center"><img src="images/transportSchematic.gif" alt="Transport Schematic" height="150" /></p>
+
+<h3>
+Basics
+</h3>
+
+<ul>
+<li> <b>Transport</b> refers to the cell transporting molecules and ions across
+   membranes - cellular or organelle membranes. </li>
+    <ul>
+    <li> Transport is critical to the cell, as it must obtain nutrients, sort molecules,
+    and export waste. </li>
+    <li> Transport can be active or passive. </li>
+    </ul>
+<li> <a href="javascript:changeTo('transport','passiveTransport')">Passive transport</a> occurs when molecules flow from a region of high
+   to low concentration.  Such flow requires no free energy, but the cell
+   may use free energy to regulate the flow, by turning it on or off as needed.</li>
+   <ul>
+   <li> Example: The action potential in a neuron is gated passive transport. </li>
+   <li> See the discussion of <a href="javascript:changeTo('transport','ionsNernst')">ion concentration gradients</a> to learn the basics of electrostatic influences in passive transport. </li>
+   </ul>
+<li> <b>Active transport</b> uses <a href="javascript:changeTo('transport','free')">free energy</a> to pump a molecule against its
+   concentration gradient (i.e., from low to high concentration).  This can
+   occur by two generic mechanisms depending on the type of free energy
+   expended to do the pumping:
+   <ol>
+   <li> <a href="javascript:changeTo('transport','atpTransport')">ATP-driven transport</a>, or </li>
+   <li> <a href="javascript:changeTo('transport','antiporter')">Transport driven by the gradient</a> of another molecule or ion. </li>
+   </ol>
+</ul>
+
+</body>
+</html>

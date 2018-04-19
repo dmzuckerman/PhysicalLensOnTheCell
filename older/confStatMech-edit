@@ -1,0 +1,19 @@
+<p>
+In classical statistical mechanics, we can derive observable properties solely by knowing the the potential ener
+gy $U$ as a function of the positions of all the atoms:
+\begin{equation}
+\rn = \left \{ (x_1, y_1, z_1), (x_2, y_2, z_2), \ldots \right \} \; .
+\end{equation}
+Knowing $U(\rn)$ is equivalent to knowing all the forces between atoms, because forces are derived simply from d
+erivatives of $U$.
+It is important that $U$ is a function of the atomic position that includes all the physics and chemistry you wo
+uld expect - electrostatics, van der Waals interactions, and even complex stereochemical effects - and it should <i>not</i> be confused with the thermodynamic internal energy which is essentially the average energy for a given set of conditions.
+</p>
+
+<p>
+The essential guiding equation of equilibrium statistical mechanics is that the probability of a configuration $\rn$ (sometimes called a microstate) is given by the Boltzmann factor of the potential energy:
+\begin{equation}
+\mathrm{prob}\left( \rn \right) \propto e^{ \left. U(\rn) \right/ k_B T} \; ,
+\end{equation}
+where $k_B$ is Boltzmann's constant and $T$ is the temperature in degrees Kelvin.
+

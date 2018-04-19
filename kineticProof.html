@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Active Proofreading</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\cgdp}{\mathrm{C \! \cdot \! GDP}}
+    \newcommand{\cgtp}{\mathrm{C \! \cdot \! GTP}}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dgdp}{\mathrm{D \! \cdot \! GDP}}
+    \newcommand{\dgtp}{\mathrm{D \! \cdot \! GTP}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kgtp}{K_{\mathrm{GTP}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\nai}{N_A^i}
+    \newcommand{\nao}{N_A^o}
+    \newcommand{\nbi}{N_B^i}
+    \newcommand{\nbo}{N_B^o}
+    \newcommand{\rdotc}{R \!\! \cdot \! C}
+    \newcommand{\rstarc}{R^* \! \! \cdot \! C}
+    \newcommand{\rstard}{R^* \! \! \cdot \! D}
+    \newcommand{\rstarx}{R^* \! \! \cdot \! X}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Active ("Kinetic") Proofreading
+</h2>
+
+One of the most remarkable tasks accomplished by the cell is the exchange of energy for information, as originally hypothesized in separate works by Hopfield and Ninio.
+That is, the cell performs processes like <a href="javascript:extLink('http://en.wikipedia.org/wiki/Transcription_%28genetics%29')">transcription</a> and <a href="javascript:extLink('http://en.wikipedia.org/wiki/Translation_%28biology%29')">translation</a> with greater fidelity than would be possible if it only relied on <a href="javascript:changeTo('kineticProof','binding')">binding affinity</a> to attach the correct base or amino acid.
+The cell achieves this using "proofreading" processes that are driven by the expenditure of <a href="javascript:changeTo('kineticProof','free')">free energy</a>.
+These processes conventionally are described as <i>kinetic proofreading</i> though driven or active proofreading would be terminology more consistent with discussions presented in these pages - e.g., <a href="javascript:changeTo('kineticProof','transport')">active vs. passive transport</a>.
+
+<p>
+We will study proofreading which occurs in the translation process - in the synthesis of protein based on an mRNA sequence.
+The source of free energy turns out to be the <a href="javascript:changeTo('kineticProof','carriers')">activated carrier</a> GTP rather than ATP.
+</p>
+
+<p style="text-align:center"><img src="images/kineticProofTrueCycle.gif" height="330"/></p>
+
+The figure schematically demonstrates the translation process occuring in a cell.
+The <a href="javascript:extLink('http://en.wikipedia.org/wiki/Ribosome')">ribosome</a> is the molecular machine responsible for translation. 
+Starting in the upper left (state 1), the ribosome links a <a href="javascript:extLink('http://en.wikipedia.org/wiki/tRNA')">tRNA</a> molecule bound with an amino acid (AA) to a complex including the preceding two tRNA molecules and the growing polypeptide chain.
+The incoming tRNA/AA molecules are complexed to an EF protein which is also bound to GTP.
+GTP hydrolysis drives the cycle in a counter-clockwise direction, adding a step (state 2) to the process which seems to be extraneous.
+In fact, the extra step is what makes proofreading possible by permitting a second opportunity for unbinding of tRNA/AA from the ribosome - which ultimately aids discrimination between correct and incorrect amino acids.
+From state 3, the polypeptide chain is extended by the formation of a covalent bond to the new AA; EF/GDP unbinds and the system yields state 4 which cannot receive a new tRNA/AA because the binding site is occupied.
+In a driven multi-step process not shown (grey arrow) the ribosome also translates the peptide chain and three tRNA molecules to the right, ejecting the rightmost tRNA which was added earliest. 
+
+<h3>
+A model for driven proofreading in translation
+</h3>
+
+<p>
+This subtle process is best studied with a specific model.
+We can construct a tractable model for driven/kinetic proofreading by slightly simplifying the process sketched above.
+</p>
+
+<p style="text-align:center"><img src="images/kineticProofConly.gif" height="200"/></p>
+
+<p>
+In this kinetic scheme, we have omitted the EF protein but retained GTP, which is critical as the activated carrier providing the driving force for proofreading.
+We have also further simplified the final step of covalent addition of the amino acid.
+The symbol "C" should be thought of as the correct amino acid, in contrast to the wrong amino acid "D" shown in the full model below.
+</p>
+
+<p style="text-align:center"><img src="images/kineticProofCycle.gif" height="360"/></p>
+
+<p>
+Only by including the dual cycles with both C and D can we assess the discriminatory power of the model.
+That is, we will not to know the relative likelihoods for C and D to be incorporated into the polypeptide chain. 
+And proofreading <i>is</i> discrimination.
+</p>
+
+
+<h4>
+Model specifics
+</h4>
+
+<p style="text-align:center"><img src="images/kineticProofCycleRates.gif" height="440"/></p>
+
+The model is specified according to the rates in the diagram above, where the notation follows Hopfield's paper. 
+It is a standard <a href="javascript:changeTo('kineticProof','massAction')">mass action</a> model: letters besides $k$ are used for the rate constants of different processes to avoid excessive sub- and super-scripts.
+
+The model has the following features and assumptions, again following Hopfield:
+<ul>
+<li> The amino acid complexes for C and D are assumed to be equally available in solution, so $\conc{\cgtp} = \conc{\dgtp}$.
+<li> The rates $m$, $m'$ and $w$ are identical for both the C and D processes. </li>
+<li> On-rates are also assumed to be the same for both processes, so that $k'_C = k'_D$ and $l'_C = l'_D$. </li>
+<li> Discrimination is assumed to occur via unbinding processes, with the more favorable C being slower to unbind compared to D.  Specifically, off-rates are chosen to differ by a factor of $f_0 < 1$ so that $l_C = f_0 \, l_D$ and $k_C = f_0 \, k_D$.</li>
+<li> $\cgtp$ binding is assumed to be more favorable than $\cgdp$ binding, which can be realized via $l'_C < k'_C$, and similarly for D.</li>
+<li> The transition from RX to R$^*$X (with X = C or D) is assumed to be much slower than the R$^*$X unbinding processes: $m' \ll k_C, k_D$ </li>
+<li> The rate $w$ for incorporating an amino acid onto the polypeptide chain (which involves multiple steps) is assumed to be much slower than all other rates. </li>
+</ul>
+
+<p>
+You should recognize that, as with any <a href="javascript:changeTo('kineticProof','cycles')">cycle</a>, there is a constraint which ensures thermodynamic consistency, so that only five of six rates are independent.
+This will be discussed further below.
+</p>
+
+
+<h4>
+An auxiliary cycle for activating the tRNA complexes
+</h4>
+
+Although not essential for understanding the basics of driven proofreading, there is an additional cycle that governs the activation of the tRNA complexes: the unbinding of GDP and the binding of GTP to C or D.
+This activation cycle is interesting because it brings in the "raw" free energy associated with GTP hydrolysis/activation.
+
+<p style="text-align:center"><img src="images/kineticProofC_GTPcycle.gif" height="250"/></p>
+
+The C/GTP cycle is driven by the cell's continual synthesis of GTP.
+GTP is an <a href="javascript:changeTo('kineticProof','carriers')">activated carrier</a> and its cellular concentration far exceeds its equilibrium value relative to the hydrolysis products GDP and Pi.
+An analogous cycle, with identical rate constants, is assumed for D/GTP binding and hydrolysis.
+
+
+<h3>
+"Back-of-the-envelope" analysis
+</h3>
+
+With only a few algebraic steps, and without including the auxiliary C/GTP cycle, we can demonstrate the basics of driven proofreading.
+In fact, for a quick analysis, it is easiest to exclude GTP and including driving only implicitly as will described.
+Thus we consider a somewhat simplified cycle.
+
+<p style="text-align:center"><img src="images/kineticProofCycleNoGTP.gif" height="400"/></p>
+The rates shown in orange will later be used to model driving.
+
+<h4>
+Translation without driving, roughly
+</h4>
+
+<p>
+First, let's consider the cycle "as is" with all rates/processes included.
+Because the rate $w$ is so slow (see above) and there is no driving, the cycles can be considered to be in equilibrium.
+In other words, all the processes happen so fast compared to the $w$ process that their relative populations are essentially equal to the equilibrium values.
+In this model, the equal availability of the two amino acid complexes amounts to assuming $\conc{C} = \conc{D}$.
+</p>
+
+Our goal is to calculate the discrimination ratio of correct (C) incorporation by the $w$ process to incorrect (D) incorporation in a steady state:
+\begin{equation}
+\label{discrim}
+\frac{ \conc{RC} }{ \conc{RD} } 
+  = \frac{ \conc{\rstarc} \, w }{ \conc{\rstard} \, w} 
+  = \frac{ \conc{\rstarc} }{ \conc{\rstard} }
+\end{equation}
+
+In the scenario just described, it is straightforward to solve for $\conc{\rstarx}$ using <a href="javascript:changeTo('kineticProof','equil')">detailed balance</a> along the right leg of each cycle.
+For the C cycle, we have $\conc{R} \conc{C} \, l'_C = \conc{\rstarc} \, l_C$ and similiar for D.
+Substituting into \eqref{discrim} and using assumptions stated above, we find
+\begin{equation}
+\label{undriven}
+\frac{ \conc{RC} }{ \conc{RD} } 
+  = \frac{ l'_C \, l_D }{ l_C \, l'_D } = \frac{ l_D }{ l_C } = \frac{1}{f_0}
+\end{equation}
+
+In other words, in this <i>un</i>driven scenario, discrimination occurs according the ratio of unbinding rates, which in turn is just the ratio of equilibrium dissociation constants because the on-rates are the same: see the <a href="javascript:changeTo('kineticProof','binding')">discussion of binding</a>.
+
+
+<h4>
+Driven translation, roughly
+</h4>
+
+To obtain a quick estimate of the effects of GTP-driving on the translation process, we will assume simply that the reverse processes shown in orange above are eliminated.
+That is, we will simply set the rate constants $m, l'_C, l'_D = 0$.
+You should recognize that this leads to an unphysical model (because <a href="javascript:changeTo('kineticProof','equil')">detailed balance</a> cannot be satisfied), but our goal is to construct a crude model of the effect of driving - without including the complications of the driving components.
+Don't worry - we will show later that the full model yields the same basic behavior as the simple version.
+
+<p>
+Procedurally, we will pursue a <a href="javascript:changeTo('kineticProof','steady')">steady state</a> analysis.
+We cannot use a quasi-equilibriium analysis, as we did for the undriven case, because we have explicitly put a net flow into the cycles by setting rate constants to zero.
+</p>
+
+<p>
+In steady state, the net flow into every state balances the net flow out.
+For the $\mathrm{\rstarc}$ state, we have
+\begin{equation}
+\label{steadyrstarc}
+\conc{\rdotc}\, m' = \conc{\rstarc} \left( l_C + w \right) \simeq \conc{\rstarc} \, l_C
+\end{equation}
+where we used our assumption of very small $w$.
+The steady-state condition for the $\mathrm{\rdotc}$ state is
+\begin{equation}
+\label{steadyrdotc}
+\conc{R}\conc{C} \, k'_C = \conc{\rdotc} \left( k_C + m' \right)
+  \simeq \conc{\rdotc} \, k_C
+\end{equation}
+where we again used one of our original assumptions that $m' \ll k_C$.
+Exactly analogous results are obtained for the D process.
+</p>
+
+<p>
+We can combine the C and D steady state results to obtain the overall discrimination ratio.
+We use the preceding steady-state equations to solve for $\conc{\rstarc}$ in terms of $\conc{R}\conc{C}$, and similarly for D.
+From these steps we can obtain
+\begin{equation}
+\label{drivendiscrim}
+\frac{ \conc{RC} }{ \conc{RD} } 
+  = \frac{ \conc{\rstarc} }{ \conc{\rstard} }
+  \simeq \frac{ k'_C \, l_D \, k_D }{ l_C \, k_C \, k'_D }
+  = \frac{1}{{f_0}^2}
+\end{equation}
+where we used the original assumption $k'_C = k'_D$.
+
+</p>
+
+<p>
+The driven discrimination ratio \eqref{drivendiscrim} is dramatically improved compared to the undriven case \eqref{undriven}, when we recall that $f_0 < 1$.
+In a cellular context, $f_0$ can be as small as $1/100$ (see book by Alon) making driven proofreading 100 times better!
+Although we derived \eqref{drivendiscrim} using apparently unphysical assumptions, Hopfield has shown the same result is obtained from a full steady-state analysis.
+Our numerical data on the full model, below, are also consistent with the result.
+</p>
+
+
+<h3>
+Simulation of the full driven proofreading model
+</h3>
+
+Simulation data is presented from the model specified below.  
+Two cases were examined: afffinity ratios of $f_0 = 1/10, 1/100$.
+In both cases, simulations started from an initial condition where GTP (and hence $\cgtp$) was highly activated;
+simulations were run long enough so that $\cgtp$ became de-activated (via sufficient hydrolysis to GDP) and, accordingly, the proofreading became less driven. 
+
+<p style="text-align:center">
+<img src="images/kineticProof_GTP.png" height="350"/>
+<img src="images/kineticProof_ratio_100.png" height="350"/>
+</p>
+
+The first graph shows the time course of the de-activation of $\cgtp$, which is identical for both affinity ratios.
+The system is started in a highly activated non-equilibrium state and relaxes toward equilibrium.
+
+<p>
+There are two key lessons from the figures plotting the discrimination ratio $\conc{RC} \left/ \conc{RD}\right.$:
+(i) The degree of discrimination decreases over time as GTP becomes de-activated, which is what we would expect.
+(ii) The discrimination ratio goes from a nearly maximal initial value $\sim 1/{f_0}^2$ as predicted by our simple analysis to the equilibrium value of $\sim 1/f_0$.
+Although it is not shown in the graphs, more than one GTP hydrolysis occurs per successful addition of amino acid in both cases.
+</p>
+
+<p>
+The simulation data shown corresponds to an initial condition relaxing toward equilibrium, but it certainly is possible to run a non-equilibrium steady-state simulation in which GTP stays activated and the proofreading remains driven/active.
+This could be achieved by mimicking the cell's continual synthesis of GTP from GDP and Pi in a one-way reaction.
+</p>
+
+<p>
+Rate constants for the model are specified below.
+Initial conditions were
+$\conc{GTP} = 10^{-3}$M, 
+$\conc{GDP} = \conc{Pi} = 10^{-6}$M, 
+$\conc{C} = \conc{D} = 10^{-4}$M,
+with 1,000 ribosomes (R).
+Simulations were performed using <a href="http://bionetgen.org/" target="_blank">BioNetGen</a>, a rule-based platform for kinetic modeling.
+The source code for the model (a .bngl file) can be downloaded by right-clicking <a href="pubFiles/kineticProof.bngl">here</a>.
+
+
+</p>
+
+<table cellspacing="20">
+<tr>
+  <th style="text-align:left">Process</th>
+  <th style="text-align:left">Symbol</th>
+  <th style="text-align:left">Value</th>
+</tr>
+<tr>
+  <td>Reference on-rate</td>
+  <td>$\kon$</td>
+  <td>$10^8$ / (M s)
+</tr>
+<tr>
+  <td>Reference off-rate</td>
+  <td>$\koff$</td>
+  <td>$100$ / s
+</tr>
+<tr>
+  <td>Affinity ratio</td>
+  <td>$f_0$</td>
+  <td>Adjustable parameter
+</tr>
+<tr>
+  <td>$\cgtp$ binding</td>
+  <td>$k'_C$</td>
+  <td>$\kon$
+</tr>
+<tr>
+  <td>$\cgtp$ unbinding</td>
+  <td>$k_C$</td>
+  <td>$\koff$
+</tr>
+<tr>
+  <td>$\cgdp$ binding</td>
+  <td>$l'_C$</td>
+  <td>$0.01 \, \kon$
+</tr>
+<tr>
+  <td>$\cgdp$ unbinding</td>
+  <td>$l_C$</td>
+  <td>$\koff$
+</tr>
+<tr>
+  <td>GTP hydrolysis (Rib.)</td>
+  <td>$m'$</td>
+  <td>$0.1 \, \koff$
+</tr>
+<tr>
+  <td>GTP synthesis (Rib.)</td>
+  <td>$m$</td>
+  <td>cycle constraint (below) 
+</tr>
+<tr>
+  <td>Amino acid attachment</td>
+  <td>$w$</td>
+  <td>$0.001 \, \koff$
+</tr>
+<tr>
+  <td>$\dgtp$ binding</td>
+  <td>$k'_D$</td>
+  <td>$\kon$
+</tr>
+<tr>
+  <td>$\dgtp$ unbinding</td>
+  <td>$k_D$</td>
+  <td>$\koff \left/ f_0\right.$
+</tr>
+<tr>
+  <td>$\dgdp$ binding</td>
+  <td>$l'_D$</td>
+  <td>$0.01 \, \kon$
+</tr>
+<tr>
+  <td>$\dgdp$ unbinding</td>
+  <td>$l_D$</td>
+  <td>$\koff \left/ f_0\right.$
+</tr>
+<tr>
+  <td>GTP binding</td>
+  <td>$g'_t$</td>
+  <td>$\kon$
+</tr>
+<tr>
+  <td>GTP unbinding</td>
+  <td>$g_t$</td>
+  <td>$\koff$
+</tr>
+<tr>
+  <td>GDP binding</td>
+  <td>$g'_d$</td>
+  <td>$g'_t$
+</tr>
+<tr>
+  <td>GDP unbinding</td>
+  <td>$g_d$</td>
+  <td>$10 \, \koff$
+</tr>
+<tr>
+  <td>GTP hydrolysis (aux.)</td>
+  <td>$k_h$</td>
+  <td>$10^{-8} \, \koff$
+</tr>
+<tr>
+  <td>GTP synthesis (aux.)</td>
+  <td>$k_s$</td>
+  <td>cycle constraint (below) 
+</tr>
+</table>
+
+
+<h4>
+Cycle constraints
+</h4>
+We first analyze the main cycle for ribosome (R) binding to $\cgtp$.
+As with any <a href="javascript:changeTo('kineticProof','cycles')">cycle</a>, we apply detailed balance to each process and eliminate unwanted concentration terms to obtain
+
+\begin{equation}
+\label{constraint}
+\frac{ l_C \, k'_C \, m' }{ l'_C \, k_C \, m }
+  = \frac{ \conc{\cgdp} \conc{Pi} }{ \conc{\cgtp} }
+\end{equation}
+The right-hand side has the form of an <a href="javascript:changeTo('kineticProof','binding')">equilibrium (dissociation) constant</a> but it's not one we can look up in a biochemistry book.
+Instead we can express that constant in terms of the GTP constant by using the auxiliary cycle.
+
+<p>
+We therefore turn to the auxiliary cycle of C + GTP binding.
+From the detailed balance conditions, the constraint one finds is
+\begin{equation}
+\label{constraint_aux}
+\frac{ g_d \, k_h \, g'_t }{ g'_d \, k_s \, g_t }
+  = \frac{ \conc{GDP} \conc{Pi} }{ \conc{GTP} }
+  = \kgtp
+\end{equation}
+where the right-hand side is the GTP hydrolysis equilibrium constant.
+However, we can also look directly at the detailed balance condition for GTP hydrolysis to find
+\begin{equation}
+\label{equil_cgtp}
+\frac{ k_h }{ k_s } = \frac{ \conc{\cgdp} \conc{Pi} }{ \conc{\cgtp} }
+\end{equation}
+</p>
+
+<p>
+To get the relations into a useful form, we solve for the left-hand side of \eqref{equil_cgtp}, namely $k_h / k_s$, from \eqref{constraint_aux} and subtitute the result back into \eqref{equil_cgtp} to obtain 
+\begin{equation}
+\label{combo_constraint}
+\frac{ \conc{\cgdp} \conc{Pi} }{ \conc{\cgtp} } 
+  = \kgtp \frac{ g'_d \, g_t }{ g_d \, g'_t } 
+\end{equation}
+This the result we want because it expresses the $\cgtp$ equilibrium constant in terms of a known equilibrium constant and rates from the model.
+Finally, we re-write \eqref{constraint} using \eqref{combo_constraint} as
+\begin{equation}
+\label{final_constraint}
+\frac{ l_C \, k'_C \, m' }{ l'_C \, k_C \, m }
+  = \kgtp \frac{ g'_d \, g_t }{ g_d \, g'_t }
+\end{equation}
+</p>
+
+<p>
+Equations \eqref{constraint_aux} and \eqref{final_constraint} are the constraints used to define missing model parameters, along with
+$K_{\mathrm{GTP}} = 5 \times 10^5$ M.
+The constraint for the R + $\dgtp$ cycle is analogous to \eqref{final_constraint}.
+</p>
+
+
+<h3>
+Exercises
+</h3>
+
+<ol>
+<li> Derive the constraint \eqref{constraint} among the rates for the R, RC, R$^*$C cycle. </li>
+<li> Derive the constraint \eqref{constraint_aux} for the C/GTP "auxiliary" cycle.  Show that the constraint from the previous cycle can be expressed in terms of rate constants from the C/GTP cycle. </li>
+<li> Derive the "back of the envelope" driven discrimination ratio \eqref{drivendiscrim}.
+</ol>
+
+</body>
+</html>

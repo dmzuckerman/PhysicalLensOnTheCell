@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catalysis</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Essentials of Catalysis (Enzyme Action)
+</h2>
+
+
+<h3>
+Key points
+</h3>
+
+<ul>
+<li> <b>Catalysis</b> is the acceleration of a molecular process, such as a chemical reaction (i.e., covalent change), isomerization (i.e., conformational change), or a binding process.  The catalyst remains unchanged after the process. </li>  
+
+<li> <b>It goes both ways:</b> All molecular processes are reversible, and a given catalyst (e.g., an enzyme) necessarily catalyzes both directions of the reaction equally well, as explained below.  This key point is sometimes overlooked. </li>
+
+<li> <b>In the cell:</b> Very few chemical reactions necessary for cellular activity (e.g., <a href="javascript:changeTo('catalysis','phosphor')">phosophorylation</a>, <a href="javascript:changeTo('catalysis','synthesis')">chemical synthesis</a>) occur spontaneously during the lifetime of a cell.  
+This necessitates catalysis, but more importantly, <i>provides a means for the cell to regulate its processes.</i>
+In essence, reactions only happen when the necessary enzyme is present and active, and the presence/activity of enzymes is tightly regulated through control of protein expression, degradation, and post-translational modifications such as phosphorylation. </li>
+</ul>
+
+
+<h3>
+Basic Catalysis: Isomerization or Unimolecular Chemical Change
+</h3>
+
+<ul>
+<p style="text-align:center">
+<img src="images/catalysis-landscape.gif" height = "250" />
+</p>
+
+<li> Isomerization is a conformational change in a small molecule or a macromolecule like protein, RNA, or DNA. </li>
+<li> A unimolecular reaction is one affecting only a single molecule, perhaps by forming or breaking a single covalent bond within the molecule. </li>
+<li> Either situation can be schematized using a simple energy landscape, in which high energy barriers are rarely overcome (i.e., characterized by low rates). </li>
+</ul>
+
+In catalysis, rates increase.  Denoting catalyzed rates with primes, we have
+\begin{equation}
+\label{kcat}
+k'_+ > k_+
+\hspace{0.5cm} \mbox{and} \hspace{0.5cm}
+k'_- > k_- .
+\end{equation}
+However, catalysis cannot change the <a href="javascript:changeTo('catalysis','equil')">equilibrium</a> ratio of the state populations $\conc{A} / \conc{A*}$.
+Mathematically,
+<p style="text-align:center">
+<img src="images/catalysis-equil-eqns.gif" height = "150" />
+</p>
+In words, the catalyzed rates <i>increase together</i> so as to maintain the proper equilibrium - which is unaffected by the presence of a catalyst.
+
+<p>
+There is a nice way to convince yourself that catalysis cannot change the equilibrium point - it is a worthwhile <b>exercise</b>.
+Consider a <a href="javascript:changeTo('catalysis','cycles')">cycle</a> in which the two states of interest are connected by both a catalyzed and uncatalyzed process.
+You can show that, if the ratio of forward and reverse rates does not agree for the two cases, the cycle will spontaneously circulate - violating the second law of thermodynamics and enabling the construction of (imaginary) energy-creating processes.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stoichiometry</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\nai}{N_A^i}
+    \newcommand{\nao}{N_A^o}
+    \newcommand{\nbi}{N_B^i}
+    \newcommand{\nbo}{N_B^o}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Stoichiometric Effects in Transport 
+</h2>
+
+<p style="text-align:center"><img src="images/antiporter-compartments.gif" height="275" /></p>
+
+Although our main discussion of exchange focused on a <a href="javascript:changeTo('transportStoich','antiporter')">simple 1:1 antiporter</a> (above), other <a href="javascript:extLink('http://en.wikipedia.org/wiki/Stoichiometry')">stoichiometries</a> occur.
+That is, instead of exchanging precisely one A molecule for a B molecule many exchangers use other stoichiometries.
+One example is the <a href="javascript:extLink('http://en.wikipedia.org/wiki/Sodium-calcium_exchanger')">sodium-calcium exchanger NCX</a>, which is important for pumping calcium out of neurons after an action potential.
+
+
+<h3>
+Thermodynamic analysis of a 2:1 antiporter
+</h3>
+
+<p style="text-align:center"><img src="images/antiporter-compartments-2to1.gif" height="275" /></p>
+
+We can readily construct a thermodynamic model consistent with our usual a href="javascript:changeTo('transportStoich','massAction')">mass-action picture</a>. 
+As for the 1:1 antiporter, the model consists of a href="javascript:changeTo('transportStoich','idealGas')">ideal gases</a> for each of the components: A molecules inside ($i$) and out ($o$), as well as B molecules inside and out.
+The combined free energy $F$ for the whole system is the sum of the free energies for each of these ideal gases.
+\begin{align}
+F = & \fidl(\nai, V_i) + \fidl(\nbi, V_i) \nonumber \\
+  & + \; \fidl(\nao, V_o) + \fidl(\nbo, V_o) ,
+\label{ftot}
+\end{align}
+where we have omitted the temperaure dependence that will not be pertinent here.
+The total free energy is the simple sum of the component free energies because there are no (energetic) interactions between the components.
+In an ideal gas, by definition, there are no interactions among molecules.
+
+<p>
+Again following our treatment of the 1:1 antiporter, we must specify one specific state of our system - something like an initial condition.
+The 2:1 exchange of A and B means that not every possible set of populations ($\nai, \nao, \nbi, \nbo$) is possible.
+For simplicity, we shall assume that our reference state has all A molecules inside ($\nai = N_A, \nao = 0$)  and all B molecules outside ($\nbo = N_B, \nbi = 0$).
+</p>
+
+Because we are considering a 2:1 antiporter (where two A always exchanges for one B), there is really only one variable that can change.
+To see this, we can express all the species numbers in terms of $\nbi$, the number of A molecules outside, and the <i>constant</i> species totals $N_A$ and $N_B$:
+<ul>
+<li> because a B molecule must be either inside or out, we have $\nbo = N_B - \nbi$; </li>
+<li> because of the 2:1 exchange, $\nao = 2 \nbi$; and </li>
+<li> because an A molecule must be either inside or out, $\nai = N_A - \nao = N_B - 2 \nbi$. </li>
+</ul>
+
+Using these relations and noting that $\fidl(N,V,T) = N k_B T \ln [ N / (V/\lambda^3)]$, we can now re-write the total free energy from \eqref{ftot} as
+\begin{align}
+\frac{F}{k_B T} = 
+  & \left( N_A - 2 \nbi \right) \ln \left( \frac{ N_A - 2 \nbi }{V_i \left/ \lambda_a^3 \right.} \right) \nonumber \\ 
+  &+ \; 2 \nbi  \ln \left( \frac{ 2 \nbi }{V_o \left/ \lambda_a^3 \right.} \right) 
+  + \nbi  \ln \left( \frac{ \nbi }{V_i \left/ \lambda_b^3 \right.} \right) \nonumber \\ 
+  &+ \; \left( N_B - \nbi \right) \ln \left( \frac{ N_B - \nbi }{V_o \left/ \lambda_b^3 \right.} \right)
+\end{align}
+
+We find the most probable state (which is equilibrium in the large $N$ limit) by setting to zero the derivative of $F$ with respect to $\nbi$.
+After some algebra, the result is
+\begin{equation}
+\label{equilthermo}
+\left( \frac{ \left. \nao \right/ V_o }{ \left. \nai \right/ V_i } \right)^2 
+  = \frac{ \left. \nbo \right/ V_o }{ \left. \nbi \right/ V_i } . 
+\end{equation}
+This result is very different from what we saw in the case of the <a href="javascript:changeTo('transportStoich','antiporter')">1:1 antiporter</a>, where there was no 2nd power present.
+In the 2:1 antiporter at equilibrium, the concentration ratio for A will be "magnified" in B.
+Such an antiporter can therefore pump a target molecule (B) more effectively than a 1:1 antiporter.
+
+<p>
+The ability for a 2:1 antiporter to pump more thoroughly should not be taken to mean that the antiporter itself does work.
+No work is done.
+Rather, the antiporter acts as a catalyst for bringing the whole system to its minimum free energy - among the accessible states.
+The only states which are accessible are the initial state and those that differ from it by 2:1 exchange, and the antiporter will tend toward the state with lowest free energy (as in our analysis above).
+That being said, we should recognize that (i) real antiporters may be subject to <a href="javascript:changeTo('transportStoich','cycleLogicAdvanced')">slippage</a> and hence have a less well-defined stoichiometry; and (ii) in a cell, there will be other transport mechanisms (e.g., other pumps) and hence a wide variety of concentrations will be accessible.
+</p>
+
+<p>
+Importantly, our thermodynamic analysis did not require knowledge of the system's substates, but only the 2:1 stoichiometry.
+</p>
+
+
+<h3>
+Exercises
+</h3>
+
+<ol>
+<li> Derive \eqref{equilthermo}. </li>
+</ol>
+
+</body>
+</html>

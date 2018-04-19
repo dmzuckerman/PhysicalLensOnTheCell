@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ideal Gas</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+The Ideal Gas: The basis for "mass action" and a window into free-energy/work relations 
+</h2>
+
+The simplest possible multi-particle system, the ideal gas, is a surprisingly valuable tool for gaining insight into biological systems - from <a href="javascript:changeTo('idealGas','massAction')">mass-action models</a> to <a href="javascript:changeTo('idealGas','antiporter')">gradient-driven transporters</a>.
+The word "ideal" really means non-interacting, so in an ideal gas all molecules behave as if no others are present.
+The gas molecules only feel a force from the walls of their container, which merely redirects their momenta like billiard balls.
+Not surprisingly, it is possible to do exact calculations fairly simply under such extreme assumptions.
+What's amazing is how relevant those calculations turn out to be, particularly for understanding the basic mechanisms of biological machines and chemical-reaction systems.
+
+<p>
+Although ideal particles do not react or bind, their statistical/thermodynamic behavior in the various states (e.g., bound or not, reacted or not) can be used to build powerful models - e.g., for transporters <a href="javascript:changeTo('idealGas','transport')">transporters</a>.
+</p>
+
+
+<h3>
+Mass-action kinetics are ideal-gas kinetics
+</h3>
+The key assumption behind <a href="javascript:changeTo('idealGas','massAction')">mass-action models</a> is that events (binding, reactions, ...) occur precisely in proportion to the concentration(s) of the participating molecules.
+This certainly cannot be true for <i>all</i> concentrations, because all molecules interact with one another at close enough distances - i.e., at high enough concentrations.
+In reality, beyond a certain concentration, simple crowding effects due to steric/excluded-volume effects mean that each molecule can have only a maximum number of neighbors.
+
+<p style="text-align:center">
+<img src="images/crowdedBinding.gif" alt="Crowded binding"  height = "75" />
+</p>
+
+But in the ideal gas - and in mass-action kinetics - no such crowding effects occur.
+All molecules are treated as point particles.
+They do not interact with one another, although virtual/effective interactions occur in a mass-action picture.
+(We can say these interactions are "virtual" because the only effect is to change the number of particles - no true forces or interactions occur.)
+
+
+<h3>
+Pressure and work in an ideal gas
+</h3>
+
+<p style="text-align:center">
+<img src="images/ideal-gas.gif" height = "200" />
+</p>
+
+Ideal gases can perform work directly using pressure.
+The molecules of an ideal gas exert a pressure on the walls of the container holding them due to collisions, as sketched above.
+The amount of this pressure depends on the number of molecules colliding with each unit area of the wall per second, as well as the speed of these collisions. 
+These quantities can be calculated based on the mass $m$ of each molecule, the total number of molecules, $N$, the total volume of the container $V$ and the temperature, $T$.
+In turn, $T$ determines the average speed via the relation $(3/2) \, N \, k_B T = \avg{(1/2) \, m \, v^2}$.
+See the book by Zuckerman for more details.
+
+<p>
+All these facts can be combined - consult a physics book - to yield the ideal gas law relating <b>pressure</b> $P$ to the other quantities:
+\begin{equation}
+\label{eqstate}
+\idl{P} \, V = N \, k_B \, T
+\end{equation}
+</p>
+
+<p style="text-align:center">
+<img src="images/ideal-gas-3d.gif" height = "200" />
+</p>
+
+<p>
+We can calculate the <b>work</b> done by an ideal gas to change the size of its container by pushing one wall a distance $d$ as shown above.
+We use the basic rule of physics that work is force ($f$) multiplied by distance and the definition of pressure as force per unit area.
+If we denote the area of the wall by $A$, we have
+</p>
+
+\begin{equation}
+\label{workSimple}
+W = f \, d = (f/A)\,(A\,d) = P \, \Delta V 
+\end{equation}
+If $d$ is small enough so that the pressure is nearly constant, we can calculate $P$ using \eqref{eqstate} at either the beginning or end of the expansion.
+More generally, for a volume change of arbitrary size (from $V_i$ to $V_f$) in an ideal gas, we need to integrate:
+\begin{equation}
+\label{work}
+\idl{W} = \int_{V_i}^{V_f} \idl{P} \, dV
+  = \int_{V_i}^{V_f} \frac{N \, k_B \, T}{V} \, dV
+  = N \, k_B \, T \ln{ \frac{V_f}{V_i} }
+\end{equation} 
+which assumes the expansion is performed slowly enough so that \eqref{eqstate} applies throughout the process.
+
+<h3>
+Free energy and work in an ideal gas
+</h3>
+
+The free energy of the ideal gas can be calculated exactly in the limit of large $N$ (see below).  
+We will see that it does, in fact, correlate precisely with the expression for work just derived.
+
+The free energy depends on temperature, volume, and the number of molecules; for large $N$, it is given by
+\begin{equation}
+\label{fIdeal}
+%\mbox{Ideal Gas:} \hspace{0.2cm}
+\idl{F}(N, V, T) = N \, k_B T \ln \left( \frac{N}{V \left/ \lambda^3 \right.} \right)
+\end{equation}
+where $\lambda$ is a constant for fixed temperature.  For reference, it is given by $\lambda = h / \sqrt{2 \pi m k_B T}$ with $h$ being Planck's constant and $m$ the mass of an atom.
+See the book by Zuckerman for full details.
+
+<p>
+Does the free energy tell us anything about work?
+If we examine the <b>free energy change</b> occuring during the same expansion as above, from $V_i$ to $V_f$ at constant $T$, we get
+</p>
+\begin{align}
+\idl{F}(N, V_f, T) &- \, \idl{F}(N, V_i, T) \nonumber \\ 
+  &=  N \, k_B T 
+  \left ( \ln \frac{N \, \lambda^3}{V_f} - \ln \frac{N \, \lambda^3}{V_i}
+  \right ) \nonumber \\
+  &= -N \, k_B T  \left ( \ln \frac{V_f}{V_i} \right )
+\label{deltaF}
+\end{align}
+
+<p>
+Comparing to \eqref{work}, <b>this is exactly the negative of the work done!</b>
+In other words, the free energy of the ideal gas decreases by exactly the amount of work done (when the expansion is performed slowly).
+More generally, <a href="javascript:changeTo('idealGas','freeThermo')">the work can be no greater than the free energy decrease</a>.
+The ideal gas has allowed us to demonstrate this principle concretely.
+</p>
+
+
+<h3>
+The ideal gas free energy from statistical mechanics
+</h3>
+The free energy is derived from the "partition function" $Z$, which is simply a sum/integral over Boltzmann factors for all possible configurations/states of a system.
+Summing over all possibilities is why the free energy encompasses the full thermodynamic behavior of a system.
+
+<p>
+The mathematical relation is
+\begin{equation}
+\label{fFromZ}
+F(N, V, T) = -k_B T \ln Z(N, V, T)
+\end{equation}
+where $Z$ is defined by
+\begin{equation}
+\label{z}
+Z(N, V, T) 
+  = \frac{\lambda^{-3N}}{N!} \int_V d\rall \, e^{-\left. U(\rall) \right/ k_B T} , 
+\end{equation}
+where $\lambda(T) \propto 1/\sqrt(T)$ is the thermal de Broglie wavelength (which is not important for the phenomena of interest here), $\rall$ is the set of $(x,y,z)$ coordinates for all molecules and $U$ is the potential energy function.
+The factor $1/N!$ accounts for interchangeability of identical molecules, and the integral is over all volume allowed to each molecule.
+For more information, see the book by Zuckerman, or any statistical mechanics book.
+</p>
+
+<p>
+The partition function can be evaluated exactly for the case of the ideal gas because the non-interaction assumption can be formulated as $U(\rall) = 0$ for all configurations - in other words, the locations of the molecules do not change the energy or lead to forces.
+This makes the Boltzmann factor exactly $1$ for all $\rall$, and so each molecule's inegration over the full volume yields a factor of $V$, making the final result
+\begin{equation}
+\label{zidl}
+\mbox{Ideal Gas:} \hspace{0.5cm}
+\idl{Z}(N, V, T) = \frac{\lambda^{-3N}}{N!} V^N .
+\end{equation}
+Although \eqref{zidl} assumes there are no degrees of freedom internal to the molecule - which might be more reasonable in some cases (ions) than others (flexible molecules) - the expression is sufficient for most of the biophysical explorations undertaken here.
+</p>
+
+The combination of \eqref{fFromZ} and \eqref{zidl} can be used to derive \eqref{fIdeal} in conjunction with <a href="http://en.wikipedia.org/wiki/Stirling%27s_approximation"  target="_blank">Stirling's approximation</a> for large $N$.
+See a statistical mechanics book for details.
+
+
+</body>
+</html>

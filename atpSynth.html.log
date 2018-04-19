@@ -1,0 +1,32 @@
+# Working on master script html/latex to html/png ../html/atpSynth.html
+\begin{equation}
+3 \, \mbox{ADP} + 3 \, \mbox{Pi} + n \, \plus{H}(\mbox{"P side"}) \rl 3 \, \mbox{ATP} + n \, \plus{H}(\mbox{"N side"}) ,
+\end{equation}
+\begin{equation}
+\dgtot = (n/3) \, \Delta \mu (\plus{H}) - \Delta G(\mbox{ADP} \rightarrow \mbox{ATP}) .
+\label{dgtot}
+\end{equation}
+\begin{equation}
+\Delta G(\mbox{ADP} \rightarrow \mbox{ATP}) \simeq -RT \ln \left( \frac{ \left. \conc{ADP} \conc{Pi} \right/  \conc{ATP}  }
+                       { \left. \conceq{ADP} \conceq{Pi} \right/  \conceq{ATP}  } \right) ,
+\label{dgatp}
+\end{equation}
+\begin{equation}
+\Delta \mu (\plus{H}) < (3/n) \, (-12 \, \mbox{kcal/mol}) \,
+\end{equation} 
+\begin{equation}
+\Delta \mu (\plus{H}) = -F \Delta \psi + 2.3 RT \Delta \mbox{pH} ,
+\label{dmuh}
+\end{equation}
+\begin{equation}
+\frac{d \conc{1}}{dt} = - \left( \conc{1} \conc{ADP} \, k_{12} + \conc{1} \conc{ATP} \, k_{1,10} \right)
+                         + \conc{2} \, k_{21} + \conc{10} \, k_{10,1} , 
+\end{equation}
+\begin{equation}
+\frac{d \conc{9}}{dt} = - \left( \conc{9} \conc{\plus{H}(\mbox{N})} \, k_{98} + \conc{9} \, k_{9,10} \right)
+                        + \conc{8} \, k_{89} + \conc{10} \, k_{10,9} ,
+\end{equation}
+\begin{equation}
+\mbox{Equilibrium:   } (n/3) \, \Delta \mu (\plus{H}) = \Delta G(\mbox{ADP} \rightarrow \mbox{ATP}) .
+\label{dgequil}
+\end{equation}

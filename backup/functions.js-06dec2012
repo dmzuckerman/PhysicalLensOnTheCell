@@ -1,0 +1,112 @@
+// functions for cell bio internet 'book'
+// NOTE: true global variables must be declared in global.js and called via window.parent.global_variable_name
+var startset = ["contents", "900", "goals", "400", "contents", "0"];
+var stateLength = 6;
+
+function init() {
+    for ( i=0; i<stateLength; i++ ) {
+        window.parent.history.push(startset[i]);
+    }
+}
+
+function toStart() {
+    changeRaw.apply(this, startset);
+    //changeRaw(startset[0], startset[1], startset[2], startset[3], startset[4], startset[5]);
+}
+
+function changeTo() {
+    // changes from links - not forward or back buttons
+    var args = new Array();
+    window.parent.pageCount ++;
+    window.parent.currentPage ++;
+    // 4 arguments means two files and two widths
+    if      ( arguments.length == 2 ) { // default sizes for two frames
+        args.push( arguments[0], "400",        "navigation", "200", arguments[1], "400");
+        changeRaw.apply(this, args);
+    }
+    else if ( arguments.length == 4 ) {
+        args.push( arguments[0], arguments[2], "navigation", "0", arguments[1], arguments[3]);
+        changeRaw.apply(this, args);
+    }
+    for ( i=0; i<stateLength; i++ ) {
+        window.parent.history.push(args[i]);
+    }
+}
+
+function backButton() {
+    // display previous page in history
+    if ( window.parent.currentPage > 0 ) {
+        var args = new Array();
+        window.parent.currentPage -- ;
+        var page = window.parent.currentPage;
+        var index = stateLength * page;
+        for ( i=0; i<stateLength; i++ ) {
+            args.push(window.parent.history[index+i]);
+        }
+        changeRaw.apply(this, args);
+    }
+}
+
+function fwdButton() {
+    // display next page in history
+    var max = window.parent.history.length/6 - 1;
+    if ( window.parent.currentPage < max ) {
+        var args = new Array();
+        window.parent.currentPage ++ ;
+        var page = window.parent.currentPage;
+        var index = stateLength * page;
+        for ( i=0; i<stateLength; i++ ) {
+            args.push(window.parent.history[index+i]);
+        }
+        changeRaw.apply(this, args);
+    }
+}
+
+function changeRaw( lfName, lfWidth, cfName, cfWidth, rfName, rfWidth ) {
+    // assumes 3 frames; uses (name, width) pairs
+    var lf = window.parent.document.getElementById("left_frame");
+    var cf = window.parent.document.getElementById("center_frame");
+    var rf = window.parent.document.getElementById("right_frame");
+    lf.src = lfName + ".html";
+    cf.src = cfName + ".html";
+    rf.src = rfName + ".html";
+    lf.width = lfWidth;
+    cf.width = cfWidth;
+    rf.width = rfWidth;
+}
+
+function leftRefs() {
+    var lf = window.parent.document.getElementById("left_frame");
+    var fSrc = lf.src;
+    var fWidth = lf.width;
+    var root = getRoot( fSrc );
+    var refs = root + "Refs";
+    changeRaw(root, fWidth, "navigation", "200", refs, "400");
+    //NEED TO ADD TO HISTORY - CREATE FUNCTION
+}
+
+function getRoot( htmlName ) {
+    var len = htmlName.length;
+    return htmlName.substring(0,len-5);
+}
+
+/*
+function changeTo() {
+    // 4 arguments means two files and two widths
+    var lf = window.parent.document.getElementById("left_frame");
+    var cf = window.parent.document.getElementById("center_frame");
+    var rf = window.parent.document.getElementById("right_frame");
+    lf.width = "400";
+    cf.width = "400";
+    rf.width = "0";
+    if ( arguments.length == 2 || arguments.length == 4 ) {
+        lf.src = arguments[0] + ".html";
+        cf.src = arguments[1] + ".html";
+        if ( arguments.length == 4 ) {
+            lf.width = arguments[2]; 
+            cf.width = arguments[3]; 
+        }
+    }
+}
+*/
+

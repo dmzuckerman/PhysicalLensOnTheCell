@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Free Energy and Work</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+From Free Energy to Work, Thermodynamically
+</h2>
+
+The amount of work a system can do is limited by the the change in its <a href="javascript:changeTo('freeThermo','free')">free energy</a>.
+Work is done during spontaneous processes in which the free energy decreases.
+Spontaneous processes, roughly speaking, amount to systems in non-equilibrium states either relaxing toward <a href="javascript:changeTo('freeThermo','equil')">equilibrium</a>, or systems "trying" to relax to equilibrium without being able to because of external constraints.
+An example of external constraints is the continual addition of substrate and removal of product from an enzyme in <a href="javascript:changeTo('freeThermo','steady')">steady state</a>: the system never reaches the natural equilibrium between substrate and product because of (externally driven) addition/removal processes.
+
+
+<h3>
+A quick thermodynamic derivation
+</h3>
+
+<p style="text-align:center">
+<img src="images/system-bath.gif" height = "300" />
+</p>
+
+We will use the schematic above to aid in deriving the limits on work that can be performed in a thermal environment.
+
+<p> Our derivation will be based on the following <b>assumptions and notation</b>, which are explained in most basic physics texts.
+<ul>
+<li> A system is separated from a much larger "bath" in such a way that the system is maintained at the same constant temperature $T$ as the bath. </li>
+<li> $Q$ is the heat transferred from bath to system - could be negative. </li>
+<li> $W$ is the work done <i>by</i> the system on the environment. </li>
+<li> The entropy and average energy of the system are $S_{\mathrm{sys}}$ and $\avg{E}_{\mathrm{sys}}$. </li>
+<li> The <i>changes</i> in these quantities during the spontaneous process are deoted by $\Delta S_{\mathrm{sys}}$ and $\Delta \avg{E}_{\mathrm{sys}}$. </li>
+<li> Our derivation will assume the system's volume remains constant and therefore use the Helmholtz free energy $F = \avg{E} - T \, S$ but an analogous result is valid for the Gibbs free energy $G$. </li>
+<li> The first law of thermodynamics: $Q = \Delta \avg{E}_{\mathrm{sys}} + W$, which just states that energy is conserved. </li>
+<li> The second law of thermodynamics: $\Delta S_{\mathrm{tot}} = \Delta S_{\mathrm{bath}} + \Delta S_{\mathrm{sys}} > 0$, which says that the <i>total</i> entropy (of the universe) increases in any spontaneous process. </li>
+<li> $\Delta S_{\mathrm{bath}} = -Q/T$ because the only change to the bath is the addition or removal of heat.
+</ul>
+
+The derivation itself starts with the second law:
+\begin{equation}
+\label{second}
+0 < \Delta S_{\mathrm{bath}} + \Delta S_{\mathrm{sys}} = -\frac{Q}{T} + \Delta S_{\mathrm{sys}}, 
+\end{equation}
+where $\Delta S_{\mathrm{sys}}$ is unknown because a complex process may be occuring in the system.
+
+<p>
+Substituting the first law into \eqref{second} leads to
+</p>
+\begin{equation}
+\Delta \avg{E}_{\mathrm{sys}} - T \Delta S_{\mathrm{sys}} < -W
+\end{equation}
+Now, multiplying both sides by $-1$ (noting that the direction of inequality therefore switches) and using the definition of $F$ yields
+\begin{equation}
+W < - \Delta F_{\mathrm{sys}}
+\end{equation}
+
+This is the key result: the work done in a spontaneous process is limited by the change in free energy. 
+The negative sign in front of $F$ reflects that $\Delta F < 0$ in a spontaneous process, so that the work can be positive.
+
+<p> Biogically the most important type of work is chemical (i.e., shifting a chemical system further from equilibrium than it was previously) although mechanical work clearly is important for cytoskeletal processes and muscle contraction. 
+Not surprisingly, <a href="javascript:changeTo('atpTransport','free')">free energy</a> typically is stored by chemical means. 
+</p>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+# Model for kinetic (driven) proofreading based on Hopfield PNAS 1974, but modified
+# Copyright 2014 by Daniel M. Zuckerman
+setOption("NumberPerQuantityUnit",6.0221e23)
+version("2.2.5")
+begin model
+
+# Requires BioNetGen >= 2.2.4
+
+# BNG uses the following value, along with compartment volumes, to convert
+# intensive units (concentration) to extensive units (numbers). If you are
+# measuring quanity in moles, set this to Avogadro's number. If quantity is
+# measured by pure numbers, then set to 1, etc.
+
+#setOption("NumberPerQuantityUnit",1)
+
+begin parameters
+#
+# Fundamental constants
+RT = 2.5774863 # product of Universal gas constant and Temperature, kJ/mol
+NA = 6.0221418e23 # Avogadro's Number, /mol
+PI = 3.1415927 # Pi, no units
+
+# Geometry parameters - CHANGING THESE WILL ALTER ATP CONCENTRATION
+rad_cell = 1e-4 # radius of cell, dm=m/10 # choice of units so that volume comes out in L
+vol_CP = 4/3*PI*rad_cell^3 # volume of cytoplasm, L
+
+########################################################
+# User parameters
+N_R 1e3  # number of ribosomes
+eq 100   # equilibrium ratio of binding strength (C binds more strongly than D)
+#kdrive 1e4   # GTP synthesis rate = driving force  
+### change kdrive from ~1e-3 to ~1e1 to see change from equilibrium discrimination to fully driven discrimination with the following params:
+### Set kdrive to 1e-3 to see change from driven to equil discrimination over time (1e6 s)
+### conc_GTP_0  1e-3 # M  # early tests used 1e-3
+### conc_C_0      1e-4  # M
+### conc_D_0      1e-4  # M
+### conc_GDP_0  1e-6 # M
+### conc_Phos_0 1e-6 # M
+# Molecule numbers : 2.5e9 corresponds to 1mM when rad_cell = 1e-4
+conc_GTP_0  1e-3 # M  
+conc_C_0      1e-4  # M
+conc_D_0      1e-4  # M
+conc_GDP_0  1e-6 # M
+conc_Phos_0 1e-6 # M
+########################################################
+
+# Regular physical units (per sec) and (per M sec) immediately below
+K_D = 4.9e5   # M = molar # effective binding for ADP + Pi, which don't like to 'bind'  (assumed same for GTP)
+kon = 1e8  # /(M s)  # standard default value
+koff = 100  # /s  # standard default value
+# GTP activation cycle
+kgtp_on = kon  # orig 1e-6*kon
+kgtp_off = koff
+kgdp_on = kgtp_on
+kgdp_off = 10*koff  # assumption that GTP is preferred to GDP
+kh = 1e-8*koff      # should be very slow hydrolysis mainly occurs on ribosome # orig 1e-2*koff
+ks = kh*kgdp_off*kgtp_on/(K_D*kgdp_on*kgtp_off)  # see DMZ notes
+# Ribosome cycle - correct amino acid
+kc_on = kon
+kc_off = koff
+lc_on = 1e-2*kon   # GTP-bound tRNA-complex much more likely to bind # orig 1e-1*kon
+lc_off = koff  # orig 1e2
+mhc = 0.1*koff
+msc = (ks/kh)*mhc*lc_off*kc_on/(lc_on*kc_off)  # see DMZ notes
+w = 1e-3*koff
+# Ribosome cycle - wrong amino acid
+kd_on = kc_on
+kd_off = eq*kc_off  # D binds more weakly than C if eq > 1
+ld_on = lc_on
+ld_off = eq*lc_off
+mhd = mhc
+msd = (ks/kh)*mhd*ld_off*kd_on/(ld_on*kd_off)  # differs from ms because kd_off is not kc_off
+#
+end parameters
+
+begin compartments
+CP 3 vol_CP
+end compartments
+
+begin molecule types
+R(a)            # Ribosome - can bind to tRNA complex 'charged' with an amino acid
+RC()            # Ribosome with correct amino acid added
+RD()            # Ribosome with wrong amino acid added
+C(r,g)          # charged amino acid complex
+D(r,g)          # charged amino acid complex
+GTP(t)          # GTP which can bind to tRNA complex
+GDP(t)          # GDP
+Phos()          # Pi
+end molecule types
+
+begin seed species
+# seed (initial) species; units should be counts, not concentration
+@CP:R(a)  N_R
+@CP:RC()  0
+@CP:RD()  0
+@CP:C(r,g) conc_C_0*NA*vol_CP
+@CP:D(r,g) conc_D_0*NA*vol_CP
+@CP:GTP(t) conc_GTP_0*NA*vol_CP
+@CP:GDP(t) conc_GDP_0*NA*vol_CP
+@CP:Phos() conc_Phos_0*NA*vol_CP
+end seed species
+
+begin observables
+Species C C(r,g)
+Species D D(r,g)
+Species C_GTP C(r,g!0).GTP(t!0)
+Species C_GDP C(r,g!0).GDP(t!0)
+Species GTP GTP(t)     # total GTP - bound and unbound
+Species GDP GDP(t)     # total GTP - bound and unbound
+Species R R(a)
+Species R_C_GTP R(a!1).C(r!1,g!0).GTP(t!0)
+Species R_C_GDP R(a!1).C(r!1,g!0).GDP(t!0)
+Species R_correct RC()
+Species R_D_GTP R(a!1).D(r!1,g!0).GTP(t!0)
+Species R_D_GDP R(a!1).D(r!1,g!0).GDP(t!0)
+Species R_wrong RD()
+#Species bATP ATP(m!+)  # bound ATP
+#Species Phos Phos()    # note Phos only exists unbound in this model
+end observables
+#
+begin functions  # these can also be printed via option 'print_functions=>1' in simulate command
+Ratio_correct() = R_correct/(1e-20+R_wrong)
+GTP_to_GDP() = GTP/GDP
+CGTP_to_CGDP() = C_GTP/(1e-20+C_GDP)
+Cond1() = mhc*kd_on/(ld_on*(mhc+kd_off))
+Cond2() = msc/ld_off
+Cond2a() = msd/ld_off
+Cond3() = w/ld_off
+Cond4() = mhc/kc_off
+end functions
+
+begin reaction rules
+## Driving force: GTP synthesis
+#GDP(t) + Phos() -> GTP(t)    kdrive
+
+## Binding cycle for addition of correct amino acid
+R(a) + C(r,g!0).GTP(t!0) <->   R(a!1).C(r!1,g!0).GTP(t!0)             kc_on, kc_off
+R(a!1).C(r!1,g!0).GTP(t!0) <-> R(a!1).C(r!1,g!0).GDP(t!0) + Phos()    mhc, msc  # mh is m'
+R(a!1).C(r!1,g!0).GDP(t!0) <-> R(a) + C(r,g!0).GDP(t!0)               lc_off, lc_on
+R(a!1).C(r!1,g!0).GDP(t!0) ->  RC() + GDP(t) + C(r,g) + R(a)          w  # C, R produced to ensure steady state
+
+## Cycle for recharging of tRNA(C) complex with GTP
+C(r,g) + GTP(t)   <-> C(r,g!0).GTP(t!0)             kgtp_on, kgtp_off
+C(r,g!0).GTP(t!0) <-> C(r,g!0).GDP(t!0) + Phos()    kh, ks
+C(r,g!0).GDP(t!0) <-> C(r,g) + GDP(t)               kgdp_off, kgdp_on
+
+## Cycle for recharging of tRNA(D) complex with GTP
+D(r,g) + GTP(t)   <-> D(r,g!0).GTP(t!0)             kgtp_on, kgtp_off  # same as for C
+D(r,g!0).GTP(t!0) <-> D(r,g!0).GDP(t!0) + Phos()    kh, ks
+D(r,g!0).GDP(t!0) <-> D(r,g) + GDP(t)               kgdp_off, kgdp_on
+
+## Binding cycle for addition of wrong amino acid
+R(a) + D(r,g!0).GTP(t!0) <->   R(a!1).D(r!1,g!0).GTP(t!0)             kd_on, kd_off
+R(a!1).D(r!1,g!0).GTP(t!0) <-> R(a!1).D(r!1,g!0).GDP(t!0) + Phos()    mhd, msd  # mh is m'
+R(a!1).D(r!1,g!0).GDP(t!0) <-> R(a) + D(r,g!0).GDP(t!0)               ld_off, ld_on
+R(a!1).D(r!1,g!0).GDP(t!0) ->  RD() + GDP(t) + D(r,g) + R(a)          w  # D, R produced to ensure steady state
+end reaction rules
+end model
+
+# Generate the network. Kinetics are computed as the reactions are constructed.
+generate_network({overwrite=>1})
+# Simulate with ODE or SSA only. NFsim does not yet support energy models =(.
+simulate({method=>"ode",t_start=>0,t_end=>1e6,n_steps=>10000,atol=>1e-12,rtol=>1e-12,print_functions=>1})
+#simulate({method=>"ssa",t_start=>0,t_end=>1e1,n_steps=>1000,atol=>1e-12,rtol=>1e-12,print_functions=>1})

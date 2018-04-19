@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conformational Stat Mech</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dgstd}{\Delta G^{\circ'}}
+    %\newcommand{\dgstd}{\Delta G^{\circ}'}
+    %\newcommand{\dgstd}{xx}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kab}{k_{AB}}
+    \newcommand{\kba}{k_{BA}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K'_{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\mustd}{\mu^{\circ}}
+    \newcommand{\mustdp}{\mu^{\circ'}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\rl}{\rightleftharpoons}
+    \newcommand{\rn}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Conformational Statistical Mechanics
+</h2>
+
+Conformational transitions play a key role in biomolecular processes:
+enzymes tend to close up over their substrates, transporters such as <a href="antiport">antiporters</a> often undergo an outward to inward-facing transition (facing one side of the bilayer or the other), and the steps taken by <a href="motors">molecular motors</a> are nothing other than very large scale conformational changes.
+Examples of simple conformational changes  - without associated (un)binding - in this site's antiporter and molecular motor models are shown below:
+<p style="text-align:center"><img src="images/antiporter-conf.png"  height="350"/></p>
+<p style="text-align:center"><img src="images/kinesin-conf.png"  height="150"/></p>
+
+<p>
+Other sections of this website employ kinetic descriptions of conformational transitions, but here we want to probe the more detailed statistical mechanics.
+</p>
+
+<h3>
+Equilibrium conformational statistical mechanics
+</h3>
+
+<p>
+We'll consider a generic conformational transition between two states A and B, characterized by rate constants $\kab$ and $\kba$.
+A and B could correspond to the numbered states shown above, for instance.
+If we have a large number of copies $N$ of our molecule (or system) of interest which are in <a href="equil">equilibrium</a>, then some subset of these $N_A$ and $N_B$ are in the two states of interest.
+Our discussion will apply even if there are other states besides A and B, so that
+$N = N_A + N_B + N_C + N_D + \cdots$.
+</p>
+
+<p>
+Equilibrium, as always, implies there is a balance of flows among states.
+This can be stated in different ways:
+\begin{align}
+N_A \kab &= N_B \kba \nonumber \\
+\conceq{A} \kab &= \conceq{B} \kba \; ,
+\end{align}
+where here $N_X$ refers to the equilibrium number of systems in state $X$ and $\conceq{X} = N_X / V$ refers to the equilibrium concentration in a volume $V$.
+</p>
+
+<p>
+Statistical mechanics tell us how to derive "macroscopic" observable properties, such as the ratio of state populations $N_A/N_B$, from "microscopic" forces and energies.
+Our microscopic description will employ classical physics, although the treatment of quantum properties is largely similar. 
+For a good description of quantum statistical mechanics and the connections to a classical description, see the book by McQuarrie.
+</p>
+
+<p>
+In classical statistical mechanics, we can derive observable properties solely by knowing the the potential energy $U$ as a function of the positions of all the atoms:
+\begin{equation}
+\rn = \left \{ (x_1, y_1, z_1), (x_2, y_2, z_2), \ldots \right \} \; .
+\end{equation}
+Knowing $U(\rn)$ is equivalent to knowing all the forces between atoms, because forces are derived simply from derivatives of $U$.
+It is important that $U$ is a function of the atomic position that includes all the physics and chemistry you would expect - electrostatics, van der Waals interactions, and even complex stereochemical effects - and it should <i>not</i> be confused with the thermodynamic internal energy which is essentially the average energy for a given set of conditions. 
+</p>
+
+<p>
+The essential guiding equation of equilibrium statistical mechanics is that the probability of a configuration $\rn$ (sometimes called a microstate) is given by the Boltzmann factor of the potential energy:
+\begin{equation}
+\mathrm{prob}\left( \rn \right) \propto e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\end{equation}
+where $k_B$ is Boltzmann's constant and $T$ is the temperature in degrees Kelvin.
+</p>
+
+<p>
+To extend this configuration-specific picture to conformational states, which are defined as large collections of configurations, we must sum up (integrate over) the probabilities of all the configurations consistent with a given state.  Thus, we have
+\begin{equation}
+\mathrm{prob} \left( \mbox{state A} \right) \propto
+  \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} \; ,
+\end{equation}
+where the notation $\int_A$ indicates that we integrate over all configurations of state A, which could be defined as those which have a certain pair of atoms closer or further than some threshold distance.
+</p>
+
+<p>
+We use the (relative) state populations to define the conformational free energies based on Boltzmann factors of <i>free</i> energies instead of potential energies:
+\begin{align}
+\frac{ \mathrm{prob} \left( \mbox{state A} \right) }{ \mathrm{prob} \left( \mbox{state B} \right) }
+&= \frac { \int_A d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T} }{ \int_B d\rn \; e^{ \left. -U \left(\rn \right) \right/ k_B T}  } \nonumber \\
+&= \frac{ e^{ \left. -F_A \right/ k_B T} }{ e^{ \left. -F_B \right/ k_B T}  }
+\simeq \frac{ e^{ \left. -G_A \right/ k_B T} }{ e^{ \left. -G_B \right/ k_B T}  }
+\end{align}
+where $F_X$ is the Helmholtz free energy of state X and $G_X$ is the Gibbs free energy.
+The integrals used above strictly refer to the Helmholtz free energy, which is appropriate for constant volume, but the the constant-pressure Gibbs free energy will be very similar.  See the textbook by Zuckerman for a discussion of this issue.
+</p>
+
+<p>
+Because the probability of a state is equal to the fraction of systems in that state, $\mathrm{prob} \left( \mbox{state X} \right) = N_X / N$, we can now re-write the original equilibrium balance condition in terms of free energies:
+</p>
+\begin{equation}
+e^{ \left. -G_A \right/ k_B T} \kab = e^{ \left. -G_B \right/ k_B T} \kba
+\end{equation}
+<h3>
+Basic non-equililbrium statistical mechanics of conformational transitions
+</h3>
+Trajectories
+
+Rate as 1/MFPT
+
+Ref Hill relation from blog
+McQuarrie, Molecular Statistical Mechanics (? check title)
+DMZ textbook
+
+
+<h3>
+Exercises UPDATE
+</h3>
+<ol>
+<li> Explain the quantitative relationship between $k_B T$ which uses the Boltzmann constant and $RT$ which uses the gas constant.  To do this, convert $k_B T$ in MKS units for $T$ = 300K to units of kcal/mole. </li>
+<li> For the reaction A + B $\rl$ C, starting from the explicit form of the Gibbs free energy \eqref{gmu}, derive the equilibrium relation $\mu_A + \mu_B = \mu_C$.  Use the fact that $N_C$ must increase when $N_A$ and $N_B$ decrease. </li>
+</ol>
+
+<h3>
+References  UPDATE
+</h3>
+<ul>
+<li> T.L. Hill, <i>An Introduction to Statistical Thermodynamics,</i> Dover, 1986.</li>
+<li> J. M. Berg et al., "Biochemistry", W. H. Freeman.  The 2002 edition is <a href="javascript:extLink('http://www.ncbi.nlm.nih.gov/books/NBK22398/')">online for free</a>.</li>
+<li> D.M. Zuckerman, <i>Statistical Physics of Biomolecules: An Introduction</i> (CRC Press, 2010). </li>
+</ul>
+
+</body>
+</html>

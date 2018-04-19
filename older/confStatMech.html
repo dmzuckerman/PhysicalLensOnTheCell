@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conformational Stat Mech</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\avg}[1]{\langle #1 \rangle}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dgstd}{\Delta G^{\circ'}}
+    %\newcommand{\dgstd}{\Delta G^{\circ}'}
+    %\newcommand{\dgstd}{xx}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\kab}{k_{AB}}
+    \newcommand{\kba}{k_{BA}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K'_{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\mustd}{\mu^{\circ}}
+    \newcommand{\mustdp}{\mu^{\circ'}}
+    \newcommand{\rall}{\mathbf{r}^N}
+    \newcommand{\rl}{\rightleftharpoons}
+    \newcommand{\rn}{\mathbf{r}^N}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Conformational Statistical Mechanics
+</h2>
+
+Conformational transitions play a key role in biomolecular processes:
+enzymes tend to close up over their substrates, transporters such as <a href="antiport">antiporters</a> often undergo an outward to inward-facing transition (facing one side of the bilayer or the other), and the steps taken by <a href="motors">molecular motors</a> are nothing other than very large scale conformational changes.
+Examples of simple conformational changes  - without associated (un)binding - in this site's antiporter and molecular motor models are shown below:
+<p style="text-align:center"><img src="images/antiporter-conf.png"  height="350"/></p>
+<p style="text-align:center"><img src="images/kinesin-conf.png"  height="150"/></p>
+
+<p>
+Other sections of this website employ kinetic descriptions of conformational transitions, but here we want to probe the more detailed statistical mechanics.
+</p>
+
+<h3>
+Equilibrium conformational statistical mechanics
+</h3>
+
+<p>
+We'll consider a generic conformational transition between two states A and B, characterized by rate constants $\kab$ and $\kba$.
+A and B could correspond to the numbered states shown above, for instance.
+If we have a large number of copies $N$ of our molecule (or system) of interest which are in <a href="equil">equilibrium</a>, then some subset of these $N_A$ and $N_B$ are in the two states of interest.
+Our discussion will apply even if there are other states besides A and B, so that
+$N = N_A + N_B + N_C + N_D + \cdots$.
+</p>
+
+<p>
+Equilibrium, as always, implies there is a balance of flows among states.
+This can be stated in different ways:
+\begin{align}
+N_A \kab &= N_B \kba \nonumber \\
+\conceq{A} \kab &= \conceq{B} \kba \; ,
+\end{align}
+where here $N_X$ refers to the equilibrium number of systems in state $X$ and $\conceq{X} = N_X / V$ refers to the equilibrium concentration in a volume $V$.
+</p>
+
+<p>
+Statistical mechanics tell us how to derive "macroscopic" observable properties, such as the ratio of state populations $N_A/N_B$ from "microscopic" forces and energies.
+Our microscopic description will employ classical physics, although the treatment of quantum properties is largely similar. 
+For a good description of quantum statistical mechanics and the connections to a classical description, see the book by McQuarrie.
+</p>
+
+<p>
+In classical statistical mechanics, we can derive observable properties solely by knowing the the potential energy $U$ as a function of the positions of all the atoms:
+\begin{equation}
+\rn = \left \{ (x_1, y_1, z_1), (x_2, y_2, z_2), \ldots \right \} \; .
+\end{equation}
+Knowing $U(\rn)$ is equivalent to knowing all the forces between atoms, because forces are derived simply from derivatives of $U$.
+It is important that $U$ is a function of the atomic position that includes all the physics and chemistry you would expect - electrostatics, van der Waals interactions, and even complex stereochemical effects - and it should <i>not</i> be confused with the thermodynamic internal energy which is essentially the average energy for a given set of conditions. 
+</p>
+
+
+<h3>
+Basic non-equililbrium statistical mechanics of conformational transitions
+</h3>
+Trajectories
+
+Rate as 1/MFPT
+
+Ref Hill relation from blog
+McQuarrie, Molecular Statistical Mechanics (? check title)
+
+<h2>
+The Chemical Potential: Simple Thermodynamics of Chemical Processes
+</h2>
+
+The chemical potential $\mu$, which is simply the <a href="/node/141">free energy</a> per molecule, is probably the most useful thermodynamic quantity for describing and thinking about chemical systems.
+Because $\mu$ represents an energy for one molecule, it is easy to think about concretely. 
+In fact, for a system consisting of molecule types A, B, C, etc., each occurring with $N_A$, $N_B$, ... copies, we can write the total free energy at constant pressure exactly as
+\begin{equation}
+\label{gmu}
+G = N_A \mu_A + N_B \mu_B + \cdots
+\end{equation}
+
+<p style="text-align:center"><img src="images/mixedChemBox.png"  height="350"/></p>
+
+<p>
+To focus on the chemical potential itself, we can say that $\mu_X$ is the energy required to add a molecule of type X to a system at temperature $T$ and pressure $P$, which consists of $N_A$ molecules of type A, $N_B$ molecules of type B, and so on.
+Importantly, the chemical potential is not a physical constant: implicit in $\mu$ are its many dependences
+\begin{equation}
+\label{muofall}
+\mu_X = \mu_X \left( T, P, N_A, N_B, \ldots \right)
+\end{equation}
+which often may not be written out.
+<i>The key point is that, in general, the chemical potential depends on <b>everything</b> about the system</i>.
+To give a simple example of such dependence, molecule type A could represent protons in solution (implying a certain pH), which would affect the energy required to add an acidic molecule of type B. 
+As another example, in a solution of charged molecules of type A, the chemical potential $\mu_A$ will depend on how many A molecules are already present (i.e., the concentration [A]) because charged molecules repel one another. 
+Note that the apparently simple form of Eq. \eqref{gmu} does <i>not</i> imply the molecule types are independent of one another because the $\mu$ values change as the $N$ values do.
+</p>
+
+<p>
+To understand chemical equilibrium, a fundamental reference point in biochemistry, it turns out to be important to write the chemical potential as a derivative of the free energy.
+From the definition above, we want to know the incremental change in free energy $\Delta G$ based on adding a single molecule of type X - i.e., for $\Delta N_X = 1$. 
+Using basic calculus ideas, we can write
+\begin{equation}
+\label{dgformu}
+\mu_X = 
+\Delta G(\mbox{adding one X molecule}) = \frac{ \partial G }{ \partial N_X } \Delta N_X
+= \frac{ \partial G }{ \partial N_X } \; .
+\end{equation}
+</p>
+
+
+<h3>
+Chemical reactions: Equilibrium and beyond
+</h3>
+
+<p style="text-align:center"><img src="images/chempot-AtoBrxn.png"  height="100"/></p>
+
+The chemical potential, by design, is the perfect tool for analyzing chemical behavior.
+Let us first consider the very simplest chemical reaction:
+\begin{equation}
+A \rightleftharpoons B \; .
+\label{atob}
+\end{equation}
+<!--
+For a system containing a total of $N = N_A + N_B$ molecules, using Eq. \eqref{gmu} the total free energy of the system is
+\begin{equation}
+G(N_A, N_B) = N_A \mu_A + N_B \mu_B = N_A \mu_A + (N - N_A) \mu_B \;.
+\label{gmuab}
+\end{equation}
+-->
+
+
+<p>
+When getting started with a new system, it's always a good plan to examine the <a href="/node/111">equilibrium</a> point.
+Because the <a href="/node/141">free energy will be minimized</a> with respect to adjustable paramters ($N_A$ and $N_B$ in this case) at equilibrium, we should differentiate $G$ with respect to either $N_A$ or $N_B$.
+In fact, there is really only one adjustable parameter in this system since $N_B = N - N_A$ and $N$ is assumed constant.
+Using the basic rules of calculus and the definition of $\mu$ \eqref{dgformu}, we find
+\begin{equation}
+\frac{ d G }{ d N_A } = \frac{ \partial G }{ \partial N_A } + \frac{ \partial G }{ \partial N_B } \frac{ d N_B }{d N_A} = \mu_A - \mu_B \;,
+\label{dgdna}
+\end{equation} 
+because $ d N_B / d N_A = -1$ at fixed total $N$.
+
+<!--
+and recalling from Eq. \eqref{muofall} that both $\mu$'s depend on $N_A$, we find
+\begin{align}
+\frac{ d G }{ d N_A } & = \mu_A + N_A \frac{ d \mu_A }{ d N_A }
+  - \mu_B + ( N - N_A ) \frac{ d \mu_B }{ d N_A } \nonumber \\
+  & \simeq \mu_A - \mu_B \; .  
+\label{dgdna}
+\end{align}
+The approximation in the second line derives from the mild <i>assumption</i> that the $\mu$ derivative terms are much smaller than the $\mu$ values themselves - in other words, that the chemical potential varies very slowly with $N_A$ (or $N_B$). 
+This is generally accepted to be a reasonable assumption, and not merely for dilute systems.
+-->
+The equilibrium point itself is obtained by setting the $G$ derivative to zero (to minimize $G$), yielding the key chemical result that chemical potentials will match in equilibrium:
+\begin{equation}
+\mu_A = \mu_B  \mbox{  (equilibrium)}
+\label{eqmuab}
+\end{equation}
+This equality of chemical potentials does <i>not</i> imply that $N_A = N_B$ at equilibrium:
+in general, the equilibrium point will imply quite different reactant and product numbers (and hence concentrations).
+After all, most reactions substantially favor either products or reactants under a given set of conditions.
+</p>
+
+
+<h3>
+Connection to reaction rates, free energy, and standard free energy
+</h3>
+<p>
+The chemical potential must be intimately related to reaction rates and standard free energies, which also can be said to "control" chemical reactions.
+We will begin to clarify those connections now.
+Briefly, the standard free energy indicates where the equilibrium point of a reaction will be, as does the ratio of reaction rate constants.
+The difference in chemical potentials, like the free energy difference (compared to the standard free energy) tells us about the displacement from equilibrium.
+</p>
+
+<p>
+We'll start with the standard free energy change of reaction $\dgstd$, where the "$\circ$" indicates standard temperature and pressure and the prime (') denotes pH = 7.
+From any chemistry or biochemistry book, the definition (for our simple $A \rightleftharpoons B$ reaction) is 
+\begin{align}
+\label{dgstdab}
+\dgstd &= -RT \ln \frac{ \conceq{B} }{ \conceq{A} } \\
+       &= -RT \ln \kkeq,
+\label{dgstdabkk}
+\end{align}
+where it's essential to realize that this applies to the equilibrium concentrations at standard conditions.
+The second line defines the equilibrium constant $\kkeq = \conceq{B} / \conceq{A}$.
+</p>
+
+<p>
+Eq. \eqref{dgstdab} tells us the precise relation between the equilibrium concentrations and the standard free energy.
+When the product (B) is "favored" (i.e., when $\conceq{B} > \conceq{A}$), then $\dgstd$ is negative, but when reactant A is favored then $\dgstd$ is positive.
+Turning that around, $\dgstd$ merely tells us the relative A and B concentrations that will occur at equilibrium.
+As we will see below, $\dgstd$ <i>absolutely does not indicate whether a given reaction will tend to proceed in the forward direction,</i> because that depends on the immediate (starting) species concentrations - which typically are not in equilibrium.
+Again, $\dgstd$ only indicates what the ratio of concentrations will be at equilibrium.
+</p>
+
+<p>
+From the detailed-balance condition of <a href="/node/111">equilibrium</a>, we know that the ratio of rate constants also yield the equilibrium ratio of concentrations. 
+\begin{equation}
+\label{eqrates}
+\conceq{A} k_+ = \conceq{B} k_-
+\hspace{0.5cm} \Rightarrow \hspace{0.5cm} 
+\frac{ k_+ }{ k_- }
+= \frac{ \conceq{B} }{ \conceq{A} } = \kkeq , 
+\end{equation}
+where $k_+$ is the rate constant for the A to B direction and $k_-$ is for the reverse reaction.
+This enables to write the standard free energy change in term of rates constants:
+\begin{equation}
+\dgstd = -RT \ln \left( k_+ \, / \, k_- \right)
+\end{equation}
+</p>
+
+<p>
+Using the explicit dependence of chemical potential on concentration, namely $\mu_X = \mustd_X + RT \ln \conc{X}$ derived below in Eq. \eqref{muofconc} assuming independent molecules, we can also re-write the equality of chemical potentials \eqref{eqmuab} in equilibrium as
+\begin{equation}
+\mustd_A + R T \ln \left( \conceq{A} / \mbox{1M} \right)
+= \mustd_B + R T \ln \left( \conceq{B} / \mbox{1M} \right) .
+\end{equation} 
+Rearranging and comparing to the defintion of $\dgstd$ from Eq. \eqref{dgstdab}, we have
+\begin{equation}
+-RT \ln \frac{ \conceq{B} }{ \conceq{A} } = \mustdp_B - \mustdp_A = \dgstd
+\label{mudgstd}
+\end{equation}
+where again the prime (') indicates we are considering pH = 7.
+It is very useful to also be familiar with exponentiated form of this same relation:
+\begin{equation}
+\frac{ \conceq{B} }{ \conceq{A} } 
+  = e^{ -\left. \left(\mustd_B - \mustd_A \right) \right/ RT }
+  = e^{ -\left. \dgstd \right/ RT } 
+  = \kkeq ,
+\label{eqexp}
+\end{equation}
+which makes it simpler to grasp that higher standard free energy of B (relative to A) decreases the relative equilibrium concentration of B, as shown in the figure by the green equilibrium horizontal tie lines.
+</p>
+
+<p style="text-align:center"><img src="images/chempot-equil-rxns.png"  height="350"/></p>
+
+<p>
+We have now seen the full set of equilibrium connections among the chemical potential, standard free energy difference, and reaction rates.
+Most importantly, the standard free energy difference (and standard chemical potentials) merely set the equilibrium point.
+A lower standard chemical potential means a larger equilibrium concentration, as we see from Eq. \eqref{mudgstd}.
+</p>
+
+<p>
+Below, we will generalize these results for more complicated reactions.
+</p>
+
+
+<h3>
+What $\mu$ tells us about out-of-equilibrium systems
+</h3>
+<p>
+Biological systems are rarely in equilibrium, so it is essential to understand non-equilibrium behavior.
+The result \eqref{eqmuab} that chemical potentials match in equilibrium is equally valuable for what it tells us about systems which are <i>out of equilibrium</i>, namely, that the chemical potentials are not equal. 
+Such non-equilibrium systems will always tend to be driven toward equilibrium.
+</p>
+
+<p>
+Consider a case where $\mu_A > \mu_B$ (so $\Delta \mu = \mu_B - \mu_A < 0$), and assume the chemical potential depends on concentration according to Eq. \eqref{muofconc}, derived below.
+Then we have
+\begin{equation}
+\mu_A = \mustd_A + R T \ln \left( \conc{A} / \mbox{1M} \right) > \mustd_B + R T \ln \left( \conc{B} / \mbox{1M} \right) = \mu_B ,
+\end{equation}
+which can be re-written as
+\begin{equation}
+\frac{ \conc{B} }{ \conc{A} } < e^{ -\left. \left(\mustd_B - \mustd_A \right) \right/ RT } .
+\end{equation}
+That is, in this particular non-equilibrium example, the concentration of A is (relatively) higher than its equilibrium value: compare to Eq. \eqref{eqexp}.
+As shown in the figure below, for a non-equilibrium reaction with $\Delta \mu < 0$, the concentrations of A and B differ from the equilibrium values which would be described by a horizontal tie line (equal $\mu$ values). 
+</p>
+
+<p.
+A non-equilibrium system will tend to relax toward equilibrium unless inputs and outputs to the system prevent that.
+Constant inputs and outputs can lead a system to relax into a non-equlibrium <a href="/node/136">steady state</a>.
+</p>
+
+<p style="text-align:center"><img src="images/chempot-noneq-rxns.png"  height="350"/></p>
+
+<p>
+Importantly, the chemical potential difference $\Delta \mu = \mu_B - \mu_A$ tells us the actual free energy required (or released, if negative) when a reaction occurs at a specific set of conditions - which is absolutely critical for understanding cellular reactions such as the hydrolysis of <a href="/node/211">ATP</a> under cellular conditions.  
+(Remember that the standard free energy change $\dgstd$ only tells us the equilibrium point and <i>not</i> the free energy change for a realistic reaction.)
+When $\Delta \mu = 0$, we have equilibrium, and no free energy is required to push the reaction.
+The figure shows two examples of non-equilibrium reactions: the vertical components of the brown arrows represent the $\Delta \mu$ values in each case.
+</p>
+
+<p>
+Using Eq. \eqref{muofconc}, we can write the independent-molecule approximation for the change in chemical potential
+which is precisely equal to $\Delta G$ for the reaction, which can be seen from Eq. \eqref{gmu} for a single reaction which corresponds to $\Delta N_B = - \Delta N_A = 1$ since one A molecule is converted to B.
+\begin{equation}
+\Delta G = G(N_A-1, N_B+1) - G(N_A,N_B) = \Delta \mu = \mu_B - \mu_A
+\label{dgdmu}
+\end{equation}
+</p>
+
+<p>
+You can probably guess that $\Delta \mu$ for ATP hydrolysis is large and negative <i>under typical cellular conditions</i> though it can take on any value - even positive - under different conditions.
+Of course, the cell has tricks for making unfavorable reactions ($\Delta \mu > 0$) occur - by <a href="/node/266">coupling them to other reactions</a> that are more favorable still, so that the overall $\Delta \mu$ is negative.
+</p>
+
+
+<h3>
+More complex reactions
+</h3>
+The book by Hill or any chemical thermodynamics text will explain the full generalization of the preceding results.
+Here we consider a somewhat more general reaction that will be useful for nucleotides, namely,
+\begin{equation}
+A + B \rl C + D ,
+\label{abcd}
+\end{equation}
+with forward and reverse rate constants $k_+$ and $k_-$.
+A key example is  ATP + H$_2$O $\rl$ ADP + Pi.
+
+<p>
+By applying <a href="/node/101">mass-action kinetic rules</a> to the reaction \eqref{abcd}, we obtain the equilibrium balance condition $\conceq{A} \conceq{B} k_+ = \conceq{C} \conceq{D} k_-$, that in turn can be rewritten as
+\begin{equation}
+\frac{ \conceq{C} \conceq{D} }{ \conceq{A} \conceq{B} }
+  = \frac{ k_+ }{ k_- } = \kkeq = e^{-\dgstd / RT }
+\label{eq_abcd}
+\end{equation}
+</p>
+
+<p>
+The free energy per reaction under non-equilibrium conditions (typical of the cell) can be derived following Eqs. \eqref{gmu} and \eqref{dgdmu}.  For the reaction \eqref{abcd}, we have
+\begin{align}
+\Delta G &= \Delta \mu = \mu_C + \mu_D - \mu_A - \mu_B \nonumber \\
+         &=  RT \ln \left( \frac{ \conc{C} \conc{D} }{ \conc{A} \conc{B} } \right) + \dgstd , 
+\label{dgabcd}
+\end{align}
+which is the free energy change per reaction in the forward direction.  Thus, for example, if the concentrations of C and D exceed their equilibrium values, then the free energy change is positive - take the log of Eq. \eqref{eq_abcd} to see this.
+A positive free energy change for a reaction implies that free energy is required for the reaction to occur.
+In other words, on average, the reaction will occur spontaneously only in reverse, which makes sense since the level of "products" (C and D) is elevated.
+</p>
+
+
+<h3>
+ATP free energy under cellular conditions
+</h3>
+ATP is famously the fuel of the cell, but to understand this quantitatively - or even in a qualitatively accurate way - we need to use the free energy and chemical potential concepts developed here.
+The ATP hydrolysis reaction is
+\begin{equation}
+\mathrm{ATP} + \mathrm{H_20} \rl \mathrm{ADP} + \mathrm{Pi} ,
+\end{equation}
+with $\dgstd = -7.3$ kcal/mol (which refers to the forward/hydrolysis direction) according to Berg's textbook.
+That is, <i>under standard conditions</i> ADP is favored over ATP - i.e., in equilibrium the concentration of ADP will greatly exceed that of ATP - given typical water and phosphate concentrations.
+In the cell, however, there is often more ATP than ADP, leading to an even larger (more negative) $\Delta G \simeq - 12$ kcal/mol via Eq. \eqref{dgabcd}.
+</p>
+
+<p>
+To understand this mathematically, we can re-cast Eq. \eqref{dgabcd} for ATP hydrolysis using Eq. \eqref{eq_abcd} as
+\begin{align}
+\Delta G &= RT \ln \left( \frac{ \left. \conc{ADP} \conc{Pi} \right/ ( \conc{ATP} \conc{H_2O} ) }
+                       { \left. \conceq{ADP} \conceq{Pi} \right/ ( \conceq{ATP} \conceq{H_2O} ) } \right) \nonumber \\
+         &\simeq RT \ln \left( \frac{ \left. \conc{ADP} \conc{Pi} \right/  \conc{ATP}  }
+                       { \left. \conceq{ADP} \conceq{Pi} \right/  \conceq{ATP}  } \right) ,
+\end{align}
+where we have used the fact that the concentration of water will change only negligibly due the reaction.
+If $\Delta G \simeq - 12$ kcal/mol, that means that the cellular concentrations (numerator) differ from the equilibrium concentrations (denominator) by more than seven orders of magnitude! 
+It is in this sense only that ATP is a <a href="/node/206">highly activated molecule</a>: the concentrations are kept far from equilibrium.
+Even though $\dgstd$ is large and negative, if the cellular concentrations matched the equilibrium values there would be no usable $\Delta G$. 
+</p>
+
+<p style="text-align:center"><img src="images/chempot-ATP-hydrolysis.png"  height="350"/></p>
+
+The figure shows the free energy considerations for ATP hydrolysis in a very schematic way - assuming the concentrations of water and phosphate are constant (though [Pi] certainly would change significantly).
+Qualitatively, the figure gives a correct sense of hydrolysis free energetics: the red ADP chemical potential is well below that for ATP (blue), and for cellular hydrolysis the actual free energy change per reaction is greater than the vertical distance ($\dgstd$ for standard conditions) because cellular [ATP] typically exceeds [ADP].
+
+
+<h3>
+Deriving the (approximate) anayltical form for the chemical potential
+</h3>
+Building on our statistical mechanics discussion of the <a href="/node/151">ideal gas</a>, we can derive an equation for the chemical potential of a system of molecules, under the assumption they do not interact with one another.
+In this sense, the molecules are "ideal" in the same way as ideal gas particles.
+To fully appreciate the brief derivation below, readers should first review the partition function calculation in the <a href="/node/151">ideal gas</a> section.
+
+<p>
+Without writing down all the details, for $N$ non-interacting molecules of type X in a fixed volume V, the partition function becomes
+\begin{equation}
+\label{zidlmol}
+Z_X(N, V, T) = \frac{\lambda_X^{-3N}}{N!} V^N q_X^N , 
+\end{equation}
+where the dimensionless factor $q_X$ (which does not appear in the simple ideal gas partition function) represents integration of the Boltzmann factor over all degrees of freedom <i>internal</i> to the molecule - bond lengths, angles, and dihedrals.
+Thus, $q_X$ is an internal partition function which may include substantial intra-molecular interactions, but any inter-molecular interactions are neglected. 
+Note that the factorized form \eqref{zidlmol} is expected for non-interacting/independent species because the energy in the Boltzmann factor does not connect different molecules; separating the center-of-mass behavior as the usual ideal gas factors is simply a mathematical trick: see, e.g., books by Hill and Zuckerman for further details.
+</p>
+
+<p>
+We can derive the free energy itself, using the relation $F = -k_B T \ln Z$ along with <a href="http://en.wikipedia.org/wiki/Stirling%27s_approximation"  target="_blank">Stirling's approximation</a>, which leads to
+\begin{equation}
+\label{fmol}
+F_X(N, V, T) = N \, k_B T \ln \left( \frac{N}{V q_X \left/ \lambda_X^3 \right.} \right) - N k_B T
+\end{equation}
+</p>
+
+<p>
+Although we will not prove it here, the chemical potential can be derived either by differentiating the Gibbs free energy $G$ or the Helmholtz free energy $F$.
+The two will be equivalent when volume fluctuations are not important, which is what we expect for systems of biological interest, which tend to contain a large number of reactant and product molecules.
+(See the book by Zuckerman for more detailed discussion of volume fluctuations.)
+Assuming this equivalence, we have
+\begin{equation}
+\mu_X = \frac{ \partial G }{ \partial N_X }
+      \simeq \frac{ \partial F }{ \partial N_X }
+  = k_B T \ln \left( \frac{N_X}{V q_X \left/ \lambda_X^3 \right.} \right)
+\end{equation}
+It is convenient to separate this out into two terms using the rules of logarithms:
+\begin{equation}
+\mu_X = k_B T \ln \left( \mbox{1M} \lambda_X^3 / q_X \right) + k_B T \ln \left( \conc{X} / \mbox{1M} \right) ,
+\end{equation}
+where we have explicitly shown the standard one molar ("1M") concentration which makes arguments of the logs dimensionless and also makes the first term the standard chemical potential
+$\mustd_X = k_B T \ln \left( \mbox{1M} \lambda_X^3 / q_X \right)$.
+The full chemical potential is then, in molar energy units
+\begin{equation}
+\mu_X = \mustd_X + R T \ln \left( \conc{X} / \mbox{1M} \right) ,
+\label{muofconc}
+\end{equation}
+</p>
+
+<h3>
+Exercises
+</h3>
+<ol>
+<li> Explain the quantitative relationship between $k_B T$ which uses the Boltzmann constant and $RT$ which uses the gas constant.  To do this, convert $k_B T$ in MKS units for $T$ = 300K to units of kcal/mole. </li>
+<li> For the reaction A + B $\rl$ C, starting from the explicit form of the Gibbs free energy \eqref{gmu}, derive the equilibrium relation $\mu_A + \mu_B = \mu_C$.  Use the fact that $N_C$ must increase when $N_A$ and $N_B$ decrease. </li>
+</ol>
+
+<h3>
+References
+</h3>
+<ul>
+<li> T.L. Hill, <i>An Introduction to Statistical Thermodynamics,</i> Dover, 1986.</li>
+<li> J. M. Berg et al., "Biochemistry", W. H. Freeman.  The 2002 edition is <a href="javascript:extLink('http://www.ncbi.nlm.nih.gov/books/NBK22398/')">online for free</a>.</li>
+<li> D.M. Zuckerman, <i>Statistical Physics of Biomolecules: An Introduction</i> (CRC Press, 2010). </li>
+</ul>
+
+</body>
+</html>

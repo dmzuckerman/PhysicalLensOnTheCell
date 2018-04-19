@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ions Overview</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <link rel="stylesheet"  type="text/css"  href="styles.css" />
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\comb}[1]{{#1}^{\mathrm{comb}}}
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\dee}{\partial}
+    \newcommand{\dphi}{\Delta \Phi}
+    \newcommand{\dplus}[1]{\mbox{#1}^{++}}
+    \newcommand{\eq}[1]{{#1}^{\mathrm{eq}}}
+    \newcommand{\fidl}{F^{\mathrm{idl}}}
+    \newcommand{\idl}[1]{{#1}^{\mathrm{idl}}}
+    \newcommand{\inn}[1]{{#1}_{\mathrm{in}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\minus}[1]{\mbox{#1}^{-}}
+    \newcommand{\out}[1]{{#1}_{\mathrm{out}}}
+    \newcommand{\plus}[1]{\mbox{#1}^{+}}
+    \newcommand{\rn}[1]{\mathrm{r}^N_{#1}}
+    \newcommand{\ss}{\mathrm{SS}}
+    \newcommand{\totsub}[1]{{#1}_{\mathrm{tot}}}
+    \newcommand{\totsup}[1]{{#1}^{\mathrm{tot}}}
+    \newcommand{\uelec}{U^{\mathrm{elec}}}
+    %\newcommand{\ztot}{Z^{\mathrm{tot}}}
+    $
+</div>
+
+<h2>
+Ions and the Membrane: An Introduction
+</h2>
+
+<p style="text-align:center"><img src="images/membraneIonsOverview.gif" height="300" /></p>
+
+Besides its role in separating the cell from the rest of the world and organelles from the cytoplasm, the membrane and its integral proteins are critical in controlling the "electrical health" of the cell.
+This involves keeping ions of a given type primarily on one side of the membrane - see above - until their flow to the other side is needed, as in the <a href="javascript:extLink('http://en.wikipedia.org/wiki/Action_potential')">action potential of nerve cells</a> or <a href="javascript:extLink('http://en.wikipedia.org/wiki/Calcium_signaling')">calcium signaling</a>.
+And once the physiological need for such flow ends, ions must be pumped back to the "resting" state (which is <i>not</i> an <a href="javascript:changeTo('ionsOverview','equil')">equilibrium</a> state).
+
+<p>
+The figure above sketches key ion species - sodium ($\plus{Na}$), chloride ($\minus{Cl}$), potassium ($\plus{K}$), and calcium ($\dplus{Ca}$) - shown on the side of the membrane where the concentration of the given ion is highest.
+The sizes of the circled ions crudely represent the relative concentrations between species.
+The charged organic molecules include, DNA, RNA, and <a href="javascript:changeTo('ionsOverview','ATP')">ATP</a>, which have negative phosphate groups.
+The figure also shows a potassium 'leak channel' and the Na-K pump, two of the <a href="javascript:changeTo('ionsOverview','transport')">transmembrane transporters</a> involved in electrical behavior.
+</p>
+
+
+<h3>
+Basics: 'Activated ions' and passive ions
+</h3>
+
+Although the overall behavior of ions is complex, because all ions interact with one another based on the laws of electrostatics, a basic picture emerges by dividing ions into two classes. 
+As background, note that the extracellular and intracellular concentrations of a given species will tend to adjust to the <a href="javascript:changeTo('ionsOverview','ionsNernst')">(Donnan) equilibrium point based on the potential difference across the membrane, which is embodied in the Nernst equation </a> and results from <i>all</i> charged species present.
+
+<ul>
+<li> <b>Activated ions</b> are those with concentrations <i>not</i> dictated by the Donnan equilibirum/Nernst equation - i.e., nonequilibrium concentrations.  In precise analogy with <a href="javascript:changeTo('ionsOverview','carriers')">activated carriers</a>, such ions store free energy and can be used to power other processes, such as <a href="javascript:changeTo('ionsOverview','transport')">transport</a> or can rapidly flow across the membrane as part of a physicological process such the <a href="javascript:extLink('http://en.wikipedia.org/wiki/Action_potential')">action potential of nerve cells</a> or <a href="javascript:extLink('http://en.wikipedia.org/wiki/Calcium_signaling')">calcium signaling</a>. 
+In most cells,  sodium ($\plus{Na}$) and calcium ($\dplus{Ca}$) are activated.
+(Note that 'activated ions' is not standard terminology, but seems very descriptive.)
+   </li>
+<li> <b>Passive ions</b> are those whose intra/extra-cellular ion concentrations are essentially consistent with the Donnan equilibirum/Nernst equation.
+   </li>
+</ul>
+
+Importantly, just because there is a substantial ion concentration gradient across the membrane - which is true for all ions - does <i>not</i> mean the species is out of equilibrium.
+Rather, because the cell maintains a potential differene across the membrane in its resting state, the Donnan equilibrium concentrations do <i>not</i> match across the membrane.
+The cell has evolved to keep only a subset of ions 'activated'.
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cycle Logic</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: { 
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/javascript" src="functions.js"></script>
+</head>
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\conceq}[1]{[\mathrm{#1}]^{\mathrm{eq}}}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kdt}{k_{\mathrm{dt}}}
+    \newcommand{\kdtsol}{k^{\mathrm{sol}}_{\mathrm{dt}}}
+    \newcommand{\kkeq}{K^{\mathrm{eq}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\kconf}{k_{\mathrm{conf}}}
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ktd}{k_{\mathrm{td}}}
+    \newcommand{\ktdsol}{k^{\mathrm{sol}}_{\mathrm{td}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+Cycle Logic: How they work
+</h2>
+
+<a href="javascript:changeTo('cycleLogic','cycles')">Cycles</a> are essential to biochemistry and cell biology for the simple reason that the cell re-uses molecular components like enzymes.
+
+<p>
+Drawing a cycle connecting a series of states is straightforward, but what are the key ingredients that make cycles interesting and useful?
+What features should we look for?
+We'll look through a set of cycles to identify key functional features - as well as warning signs for problematic cycles.
+</p>
+
+<p>
+Read all the way through from the beginning to pick up the essential concepts.
+</p>
+
+
+<h3>
+Simple conformational cycle
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-conformational.gif" alt="Conformational cycle"  height = "200" /> </p>
+
+In this cycle, each numbered circle represents the conformational state of some protein.
+It seems boring but we can learn important lessons already.
+
+<ul>
+<li> First, because we know that all microscopic processes must be reversible (see <a href="javascript:changeTo('cycleLogic','equil')">Equilibrium</a> discussion), all states are <i>implicitly</i> connected by bi-directional arrows.  Whether we draw a line, a single arrow (misleadingly) or two arrows, all the processes are reversible even if some are much slower than others.  <i>We will not be concerned with the specific values of rates in this discussion.</i></li>
+<li> Second, although perhaps not obvious at first, <i>there is no way to drive this cycle</i>.
+Although any non-equilibrium condition (e.g., all systems in state 1) will lead to a net flow toward equilibrium, there is no way to cause that flow to occur in a desired direction (e.g., clockwise) because neither binding nor catalysis are part of this process.
+This makes a simple conformational cycle - by itself - fairly useless to the cell, because the cell's <a href="javascript:changeTo('cycleLogic','cycles')">cycles</a> have evolved to function in a specific direction due to external driving.
+</ul>
+
+
+<h3>
+A binding cycle that doesn't make sense
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-bind-wrong.gif" alt="Wrong binding cycle"  height = "200" /> </p>
+
+We want to be able to recognize when something essential is omitted from a cycle.
+In this case, the binding process occuring from state 4 to 3 - even though it's reversible - must be balanced by another unbinding process.
+To see this, imagine proceding counter-clockwise around the cycle from state "3L", which is state 3 of the protein with ligand L bound. 
+One then gets, in sequence, states 2L, 1L, and 4L.
+But, unless our protein can bind an arbitrary number of ligands, it doesn't makes sense that state 4L binds another ligand:
+if it did, we would get 4L<sub>2</sub>, then 4L<sub>3</sub> the next time around, and so on.
+
+<p>
+Below, a possible corrected cycle with binding is shown.
+</p>
+
+
+<h3>
+A working binding cycle - which can't be driven
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-bind-simple.gif" alt="Simple binding cycle"  height = "200" /> </p>
+
+This cycle lacks the problem we saw above.  We can go around (and around) the cylce any way we want, and we'll end up in the same state.  The states are well defined, and that's how a cycle should be.
+
+<p>
+However, if the all the ligand is in the same compartment - i.e., all the L molecules are in one pool and can bind to either state 1 (yielding 2L) or state 4 (yielding 3L) - then this cycle cannot be driven in a particular direction.  There is no way to favor binding of one state over the other based on the cycle shown.  (It's possible some external process could favor state 1 over 4, but no such process in indicated in the cycle.)
+</p>
+
+<p>
+In sum, this cycle exhibits no physical inconsistency but it cannot driven.
+</p>
+
+
+<h3>
+A functional binding cycle connecting two compartments
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-bind-in-out.gif" alt="Binding cycle - compartments"  height = "200" /> </p>
+
+This cycle portrays a protein connecting two compartments (e.g., inside and outside an organelle), so that ligands must be classified as "in" or "out".
+The blue dashed line is meant to suggest that states on a given side of the line only allow binding with a single compartment, such as occurs in <i>alternating access</i> mechanisms utilized by <a href="javascript:changeTo('cycleLogic','antiporter')">transporter proteins</a>. 
+(Note that the numbered states do <i>not</i> indicate physical location - rather, the protein will be located at a membrane separating the compartments and change conformations according to the cycle.)
+
+<p>
+The cycle is functional in the sense that it can be driven - made to move in a specified direction, whether clockwise or counter-clockwise.
+Once a cycle can be driven, it can be used to perform work - as <a href="javascript:changeTo('cycleLogic','transport')">transporters</a> do.
+Functional machines like transporters require more elaborate state spaces and cycles, but the basic ideas are illustrated here.
+</p>
+
+
+<h3>
+A catalytic cycle (Michaelis-Menten-ish)
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-catalysis.gif" alt="Catalytic cycle"  height = "200" /> </p>
+
+The beauty of the catalytic cycle is that it can always be driven.
+The cycle above converts "substrate" S to "product" P - or the reverse, of course, depending on whether there is an excess of S or P.
+The term 'excess' is relative to the <a href="javascript:changeTo('cycleLogic','equil')">equilibrium state</a> in which a system would have an equal probability to move clockwise as counter-clockwise.
+Excess P, for example, would drive the cycle clockwise.
+
+<p>
+Compared to the standard Michaelis-Menten cycle, there are two differences here.
+Most obviously, our enzyme has an extra conformational state (which may be more realistic as many enzymes exhibit significantly different open and closed states - e.g., <a href="javascript:extLink('http://en.wikipedia.org/wiki/Adenylate_kinase')">adenylate kinase</a>).
+Secondly, as noted in our discussion of the first cycle above, all processes here are reversible.
+By contrast, the Michaelis-Menten cycle assumes the catalytic step is irreversible and only proceeds in a single direction.
+See further discussion of this point in the <a href="javascript:changeTo('cycleLogic','cycles')">main cycles page</a> and <a href="javascript:changeTo('cycleLogic','equil')">equilibrium page</a>.
+</p>
+
+
+<h3>
+A realistic complication
+</h3>
+
+<p style="text-align:center"> <img src="images/cycle-bind-slip.gif" alt="Binding cycle with slippage"  height = "200" /> </p>
+
+Not all cycles will function in an ideal fashion.
+A key issue of concern is "slippage," where states are connected by undesirable transitions or where undesirable states are accessible.
+The cycle above shows a toy example of slippage connecting two states not in our original model.
+
+<p>
+In the cell, we can presume that such inefficiencies have evolved to be minimal - via low rate constants.
+Nevertheless, do not assume that simple models will account for every process occuring in nature!
+</p>
+
+
+</body>
+</html>

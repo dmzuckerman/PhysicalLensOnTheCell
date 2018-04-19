@@ -1,0 +1,67 @@
+// functions for cell bio internet 'book'
+
+function changeTo() {
+    // 4 arguments means two files and two widths
+    var lf = window.parent.document.getElementById("left_frame");
+    var cf = window.parent.document.getElementById("center_frame");
+    var rf = window.parent.document.getElementById("right_frame");
+    lf.width = "400";
+    cf.width = "400";
+    rf.width = "0";
+    if ( arguments.length == 2 || arguments.length == 4 ) {
+        lf.src = arguments[0] + ".html";
+        cf.src = arguments[1] + ".html";
+        if ( arguments.length == 4 ) {
+            lf.width = arguments[2]; 
+            cf.width = arguments[3]; 
+        }
+    }
+}
+
+/*
+function ChangeFromIframeTwo(newlf, newcf) {
+    var lf = window.parent.document.getElementById("left_frame");
+    var cf = window.parent.document.getElementById("center_frame");
+    var rf = window.parent.document.getElementById("right_frame");
+    lf.width = "400";
+    cf.width = "400";
+    rf.width = "0";
+    if ( arguments.length == 4 ) {
+        //alert(arguments[3]);
+        lf.width = arguments[2]; 
+        cf.width = arguments[3]; 
+    }
+    lf.src = newlf + ".html";
+    cf.src = newcf + ".html";
+    //rf.src = arguments[2] + ".html";
+}
+*/
+
+/*
+function ChangeFromIframe(newlf, newcf, newrf) {
+    var lf = window.parent.document.getElementById("left_frame");
+    var cf = window.parent.document.getElementById("center_frame");
+    var rf = window.parent.document.getElementById("right_frame");
+    lf.width = "400";
+    lf.src = newlf + ".html";
+    cf.src = newcf + ".html";
+    rf.src = arguments[2] + ".html";
+    // rf.src = "atp.html";
+    // cf.src = "atp.html";
+}
+*/
+
+/*
+function Changer(newlf, newcf, newrf) {
+    var lf = document.getElementById("left_frame");
+    var cf = document.getElementById("center_frame");
+    var rf = document.getElementById("right_frame");
+    lf.width = "500";
+    alert('in yer func again!');
+    lf.src = newlf + ".html";
+    cf.src = newcf + ".html";
+    rf.src = arguments[2] + ".html";
+    // rf.src = "atp.html";
+    // cf.src = "atp.html";
+}
+*/
