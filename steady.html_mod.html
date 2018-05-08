@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steady State</title>
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            font-family: Verdana, sans-serif;
+            font-size: 12 px
+        }
+    </style>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+            equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      });
+    </script>
+</head>
+
+<body>
+
+<div style="display:none">
+    $
+    \newcommand{\conc}[1]{[\mathrm{#1}]}
+    \newcommand{\kcat}{k_{\mathrm{cat}}}
+    \newcommand{\kmmon}{\kon^{\mathrm{ES}}} 
+    \newcommand{\kmmoff}{\koff^{\mathrm{ES}}} 
+    \newcommand{\koff}{k_{\mathrm{off}}}
+    \newcommand{\kon}{k_{\mathrm{on}}}
+    \newcommand{\ss}{\mathrm{SS}}
+    $
+</div>
+
+<h2>
+The Steady State: A Key Description of Biology
+</h2>
+
+<p style="text-align:center;" >
+    <img src="images/waterfall-steady-state.gif" height = "200"  hspace = "20" alt="Desktop waterfall - a steady state" >
+    <img src="images/steady-state-schematic-cycle.gif" height = "200" hspace = "20" alt="Complex schematic of a steady state" >
+</p>
+
+<p>
+The steady state - when populations, concentrations and spatial distributions are unchanging in time - is one of the most important physical concepts for understanding cell biology.
+This is <i>not</i> to say that cells are generally <i>in</i> steady states: after all, the <a href="https://en.wikipedia.org/wiki/Cell_cycle">cell cycle</a> is a never-ending repeated sequence of changes of from one stage of life to another.
+In many cases, however, a steady state is a reasonable approximation to a short (enough) window of time in a cellular process, perhaps in a localized region of interest.
+Think <a href="https://en.wikipedia.org/wiki/Homeostasis">"homeostasis"</a> (but beware of biologists' informal use of the word "equilibrium" which we clarify below).
+Even if/when a steady state does not hold even approximately, it is still an essential conceptual reference point. 
+You absolutely must understand it.
+</p>
+
+<p>
+Two examples of (potential) steady states are sketched above.
+A table-top waterfall will be in a steady state as water continuously is pumped up from the lower reservoir - to which it returns by gravity.
+A complex chemical cycle, meant to evoke the <a href="https://en.wikipedia.org/wiki/Citric_acid_cycle">citric acid cycle</a>, takes several types of molecules as inputs and catalytically changes them into different output molecules.
+Note that both examples require the input of energy and/or matter.
+And neither will be in a steady state if the inputs are removed - or in the transient period after the system is initiated.
+Other examples, observed over suitable time windows, include motion by <a href="http://www.physicallensonthecell.org/molecular-machinery/molecular-motors">motor proteins</a> (which requires constant input of ATP) and <a href="http://www.physicallensonthecell.org/molecular-machinery/pumps-and-transporters">active transport</a> (which requires a driving electro/chemical gradient or ATP).
+Below, we'll look more closely at a Michaelis-Menten process used to model catalytic and biosynthetic processes.
+</p>
+
+<p> Schematically, a steady state consists of one or more inputs and one or more outputs, with each component unchanging in time. </p>
+<p style="text-align:center"><img src="images/steady-state-schematic-simple.gif" alt="Simple schematic of a steady state" /></p>
+<p style="text-align:center"><a name="dummy"><img src="equations/steady.html_eq1.png" height="50" /></a>   (1)</p>
+<p> A more typical (and complex) case includes multiple inputs/outputs and an internal cycle </p> 
+<p style="text-align:center"><img src="images/steady-state-schematic-cycle.gif" alt="Complex schematic of a steady state" /></p>
+
+<p>
+Let's define a steady state more precisely.
+We'll restrict ourselves to considering a dsicrete set of <a href="http://www.physicallensonthecell.org/chemical-physics/basics-states-kinetics">states</a> (e.g., chemical and conformational states, possibly of many different types of molecules) simply numbered $i = 1, 2, \ldots$  or $j = 1, 2, \ldots$ with concentrations $[i]$ or $[j]$ which interconvert according to <a href="http://www.physicallensonthecell.org/chemical-physics/basics-mass-action-kinetics">first-order rate constants</a> $k_{ij}$.
+Then the steady-state condition that every concentration be unchanging in time will be satisfied if, and only if, the flow into a state (i.e., the number of molecules changing into that state) exactly balances the flow out of a state (conversions to other states):
+<p style="text-align:center"><a name="ss"><img src="equations/steady.html_eq2.png" height="50" /></a>   (2)</p>
+Since the concentrations are steady (unchanging) in time, the time derivative of every derivative will be zero, as we explore further below.
+Note that <i>spatial derivatives (gradients) need not vanish in a steady state:</i> in a (hypothetically perfectly steady) cell, a molecule could be produced in one region and consumed in another.
+</p>
+
+<h3>
+	Equilibrium is a special steady state
+</h3>
+<p>
+What's the difference between a steady state and <a href="http://www.physicallensonthecell.org/chemical-physics/equilibrium-means-detailed-balance">equilibrium</a>?
+That's a little bit of a trick question because equilibrium <i>is</i> a steady state!
+Equilibrium is a very special steady state, however, in which the condition <a href="#ss">(2)</a> is satisfied in a special way - namely, by the <i>stricter</i> condition of detailed balance, 
+<p style="text-align:center"><a name="db"><img src="equations/steady.html_eq3.png" height="50" /></a>   (3)</p>
+That is, the number of transitions per second from $i$ to $j$ is exactly balanced by reverse transitions.
+Because this holds for <i>every</i> pair of states in equilibrium, it is said to hold "in detail."
+Intuitively, it should be clear that if state $i$ experiences equal in and out flow with every other state, then its population/concentration cannot change, and so condition <a href="#ss">(2)</a> will be satisfied.
+</p>
+
+<h3>
+	Non-equilibrium steady states require inputs and outputs
+</h3>
+In the sketch of the waterfall at the top, I was careful to include the power cord because non-equilibrium steady states (when there are net flows through a system) require input of energy implicitly or explicitly.
+<i>Steady states are not self-sustaining.</i>
+Note that the input and removal of matter from a system implies the use of energy to enact those processes.
+Without the input of energy (and/or material) a system will relax to equilibrium, and biophysicists sometimes like to say, "Equilibrium equals death."
+Equilibrium's condition of detailed balance <a href="#db">(3)</a>, which also holds for flow in real space, means there is no net flow of matter or chemical processes, which are absolutely required for life.
+What a cell does, after all, is to orchestrate a complex series of <i>directed</i> processes: signals travel from cell surface to nucleus; genes are transcribed and translated.
+If these processes don't overwhelmingly proceed in a single direction, the cell just won't work.
+In fact, if you think about it, a lot the cell's use of <a href="http://www.physicallensonthecell.org/energy-economy/activated-carriers">activated carriers</a> like <a href="http://www.physicallensonthecell.org/energy-economy/atp-great-carrier">ATP</a> goes toward maintaining the directionality of signaling processes - e.g., via <a href="http://www.physicallensonthecell.org/molecular-machinery/phosphorylation-methylation-etc">phosphorylation</a> - rather than doing work per se.
+
+<h3>
+Steady-state analysis of a Michaelis-Menten (MM) process
+</h3>
+<p>
+A standard MM process models conversion of a substrate (S) to a product (P), <a href="http://www.physicallensonthecell.org/physical-molecular-processes/chemical-reactions-catalysis">catalyzed</a> by an enzyme (E) after formation of a bound-but-uncatalyzed complex (ES).
+</p>
+<p style="text-align:center"><img src="images/mm-simple-equation.gif" alt="Michaelis-Menten simple equation" /></p>
+<p>
+The simple MM model can also be viewed as a cycle because the enzyme E is re-used.  Blue arrows indicate steady net flows.
+</p>
+<p style="text-align:center"><img src="images/mm-simple-cycle.gif" alt="Michaelis-Menten simple cycle" /></p>
+(The standard MM process here can be contrasted with the <a href="http://www.physicallensonthecell.org/chemical-physics/equilibrium-means-detailed-balance">corrected MM cycle</a> that allows for reverse events and physical single-step processes.)
+<p> 
+A steady state will occur if P is removed at the same rate as S is added.
+Mathematically, for steady state, we set the time derivative of the ES complex to zero.
+<p style="text-align:center"><a name="michaelis"><img src="equations/steady.html_eq4.png" height="50" /></a>   (4)</p>
+</p>
+<p> The result yields what looks like a <a href="http://www.physicallensonthecell.org/physical-molecular-processes/binding-kinetics-thermodynamics">dissociation constant</a> in terms of the steady-state (SS) concentrations: </p>
+<p style="text-align:center"><a name="km"><img src="equations/steady.html_eq5.png" height="50" /></a>   (5)</p>
+<p> In words, in the steady state, the ratio of concentrations on the left assumes the constant value given by the particular ratio of rate constants in the middle.
+The effective "equilibrium" constant $K_M$ is conventionally defined but not strictly needed.
+</p>
+
+<p> The basic steady state result <a href="#km">(5)</a> can be used to calculate other quantities of interest, such as the overall rate of product production </p>
+<p style="text-align:center"><a name="dummy"><img src="equations/steady.html_eq6.png" height="50" /></a>   (6)</p>
+now given in terms of the steady-state E and S concentrations, which should be known.
+
+
+<h3>
+The standard MM model is unphysical
+</h3>
+<p>
+All molecular processes are reversible, so any model with a uni-directional arrow is necesarily approximate: see the discussion of <a href="http://www.physicallensonthecell.org/basics-mass-action-kinetics/cycles-and-constraints">cycles</a>.
+The full MM cycle, allowing for reverse events and permitting only single-step processes, is subjected to a (more complicated) steady-state analysis in an advanced section.
+</p>
+
+<h3>
+	Exercises
+</h3>
+<ol>
+	<li> Show that the detailed balance condition <a href="#db">(3)</a> leads to the steady-state condition <a href="#ss">(2)</a>.</li>
+	<li> Construct an example of a <i>non-equilibrium</i> steady state consisting of three states ($i = 1, 2, 3$) - i.e., which satistfies Eq. <a href="#ss">(2)</a> but <i>not</i> <a href="#db">(3)</a>.  Hint: Try starting from a very symmetric detailed balance system and adjusting one rate constant at a time.</li>
+</ol>
+
+<h3>
+References
+</h3>
+
+<ul>
+<li> Wikipedia's <a href="http://en.wikipedia.org/wiki/Steady_state_%28chemistry%29">Steady state (chemistry)</a> discussion is very accessible and useful. </li>
+<li> D. M. Zuckerman, "Statistical Physics of Biomolecules: An Introduction" (CRC Press) discusses steady states generally, as well as analyzing the simple Michaelis-Menten model. </li>
+<li> J. M. Berg et al., "Biochemistry" (W. H. Freeman).  <a href="http://www.ncbi.nlm.nih.gov/books/NBK22430/">The 2002 edition is online for free</a>. </li>
+<li> B. Alberts et al., "Molecular Biology of the Cell" (Garland Science).  </li>
+</ul>
+
+
+</body>
+</html>
