@@ -221,7 +221,7 @@ In essence, our derivation assumed diffusion-like (non-inertial) behavior even a
 </p>
 
 <h3>
-	Linearity in time of the mean-sqared displacement (MSD)
+	Linearity in time of the mean-squared displacement (MSD)
 </h3>
 Let's take another look at the linear proportionality of the MSD = $\langle (x-x_0)^2 \rangle$ with time, where $x = x(t)$ and $\langle \cdots \rangle$ denotes an average over many diffusive trajectories. 
 We saw this from the linearity in $t$ of the variance of the Gaussian solution <a href="#gauss">(10)</a> to the diffusion equation, but it's really a more fundamental statistical phenomenon.
@@ -293,7 +293,7 @@ Based on the steady-state condition and the Boltzmann factor, Eq. <a href="#smol
 After taking the indicated derivatives and cancelling constants, we find
 <p style="text-align:center"><a name="dummy"><img src="equations/fokker.html_eq17.png" height="50" /></a>  <span style="float:right;">(17)</span>  </p>
 where $U'(x) = dU/dx = -f(x)$ and $f$ is the force.
-This is exactly what we need for Eq. <a href="#smolthree">(16)</a>!
+This is exactly what we need for Eq. <a href="#smoltwo">(16)</a>!
 Substituting in that equation, we have
 <p style="text-align:center"><a name="smolfour"><img src="equations/fokker.html_eq18.png" height="50" /></a> <span style="float:right;">(18)</span>  </p>
 </p>
@@ -359,7 +359,7 @@ This <i>continuity equation</i> is a general relation that applies in the presen
 We can learn more about the current by comparing the continuity equation <a href="#cont">(21)</a> with the Smoluchowski equation <a href="#smol">(19)</a>.
 By comparing right-hand sides, we find
 <p style="text-align:center"><a name="dummy"><img src="equations/fokker.html_eq22.png" height="50" /></a>   <span style="float:right;">(22)</span> </p>
-In the purely diffusive case of zero forces ($f(x) = 0$), the current is just proportional to the gradient of $x$, as already discussed prior to Eq. <a href="#flow">(7)</a>.
+In the purely diffusive case of zero forces ($f(x) = 0$), the current is just proportional to the gradient of $p(x)$, as already discussed prior to Eq. <a href="#flow">(7)</a>.
 When forces are present, there is an addition "drift" current proportional to the force and the probability.
 The drift of probability in proportion to the force precisely mimics the behavior expected for <a href="https://en.wikipedia.org/wiki/Brownian_dynamics">overdamped Langevin dynamics</a>.
 </p>
