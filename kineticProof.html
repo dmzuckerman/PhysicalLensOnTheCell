@@ -9,21 +9,20 @@
             font-size: 12 px
         }
     </style>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-        TeX: { 
+        TeX: {
             equationNumbers: { autoNumber: "AMS" },
             extensions: ["AMSmath.js", "AMSsymbols.js"]
         }
       });
     </script>
-    <script type="text/javascript"
-        src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-    <script type="text/javascript" src="functions.js"></script>
 </head>
 <body>
 
@@ -60,7 +59,7 @@ Active ("Kinetic") Proofreading
 </h2>
 
 One of the most remarkable tasks accomplished by the cell is the exchange of energy for information, as originally hypothesized in separate works by Hopfield and Ninio.
-That is, the cell performs processes like <a href="javascript:extLink('http://en.wikipedia.org/wiki/Transcription_%28genetics%29')">transcription</a> and <a href="javascript:extLink('http://en.wikipedia.org/wiki/Translation_%28biology%29')">translation</a> with greater fidelity than would be possible if it only relied on <a href="javascript:changeTo('kineticProof','binding')">binding affinity</a> to attach the correct base or amino acid.
+That is, the cell performs processes like <a href="javascript:extLink('http://en.wikipedia.org/wiki/Transcription_%28genetics%29')">transcription</a> (of DNA to mRNA) and <a href="javascript:extLink('http://en.wikipedia.org/wiki/Translation_%28biology%29')">translation</a> (of mRNA to protein) with greater fidelity than would be possible if it only relied on <a href="javascript:changeTo('kineticProof','binding')">binding affinity</a> to attach the correct base or amino acid.
 The cell achieves this using "proofreading" processes that are driven by the expenditure of <a href="javascript:changeTo('kineticProof','free')">free energy</a>.
 These processes conventionally are described as <i>kinetic proofreading</i> though driven or active proofreading would be terminology more consistent with discussions presented in these pages - e.g., <a href="javascript:changeTo('kineticProof','transport')">active vs. passive transport</a>.
 
@@ -80,13 +79,34 @@ In fact, the extra step is what makes proofreading possible by permitting a seco
 From state 3, the polypeptide chain is extended by the formation of a covalent bond to the new AA; EF/GDP unbinds and the system yields state 4 which cannot receive a new tRNA/AA because the binding site is occupied.
 In a driven multi-step process not shown (grey arrow) the ribosome also translates the peptide chain and three tRNA molecules to the right, ejecting the rightmost tRNA which was added earliest. 
 
+
+<h3>
+	Qualitative Picture of Proofreading: Penne vs. Bowties
+</h3>
+How does proofreading work?  Let’s imagine we have two types of cooked pasta, (tubular) penne and (relatively flat) bowties, which have different adhesive properties because of their shapes.  Assume the two pastas are mixed together but we want to extract a batch that’s purely bowties.  Because of their flatter shape, bowties are presumed to stick better to a flat surface.
+
+<p>
+In our thought experiment, we’ll place the pasta mixture in a cardboard box and shake it hard for a while.  When we open the box, we’ll find that more bowties than penne are stuck to the box walls, because bowties just adhere better.  The ratio of bowties to penne on the box wall is like the ratio of equilibrium populations – under the ‘thermal’ condition of box shaking.
+</p>
+
+<p>
+Now for the proofreading.  Imagine we cut out one wall from the box (with all the pasta intact) and place it in front of a powerful fan.  The air blowing from the fan will apply an equal force to each piece of pasta.  However, the penne has adhered more weakly and is more likely to fall off.  Hence after the fan does its work, the ratio of bowties to penne on the cardboard wall will increase over its ‘equilibrium’ value … and we’ve accomplished proofreading!  This is shown schematically in the image below, where red X’s mark the pasta blown off by the fan.
+</p>
+ 
+<p style="text-align:center"><img src="images/kineticProof_penne_bowties.png" height="330"/></p>
+
+<p>
+In a more abstract sense, when we have two species with different adhesion/binding strengths and we apply the same force/energy to unbinding both, we will enrich the stronger-binding species.  We necessarily will reduce the bound amount of the stronger binder, but we will gain discrimination.  The cell, evidently, is willing to pay the price of less efficient binding of the correct tRNA in order to have fewer errors.
+</p>
+
+
 <h3>
 A model for driven proofreading in translation
 </h3>
 
 <p>
 This subtle process is best studied with a specific model.
-We can construct a tractable model for driven/kinetic proofreading by slightly simplifying the process sketched above.
+Following Hopfield, we can construct a tractable model for driven/kinetic proofreading by slightly simplifying the process sketched above.
 </p>
 
 <p style="text-align:center"><img src="images/kineticProofConly.gif" height="200"/></p>
@@ -101,8 +121,8 @@ The symbol "C" should be thought of as the correct amino acid, in contrast to th
 
 <p>
 Only by including the dual cycles with both C and D can we assess the discriminatory power of the model.
-That is, we will not to know the relative likelihoods for C and D to be incorporated into the polypeptide chain. 
-And proofreading <i>is</i> discrimination.
+That is, we will need to know the relative likelihoods for C and D to be incorporated into the polypeptide chain. 
+Proofreading <i>is</i> discrimination, after all.
 </p>
 
 
@@ -122,7 +142,7 @@ The model has the following features and assumptions, again following Hopfield:
 <li> On-rates are also assumed to be the same for both processes, so that $k'_C = k'_D$ and $l'_C = l'_D$. </li>
 <li> Discrimination is assumed to occur via unbinding processes, with the more favorable C being slower to unbind compared to D.  Specifically, off-rates are chosen to differ by a factor of $f_0 < 1$ so that $l_C = f_0 \, l_D$ and $k_C = f_0 \, k_D$.</li>
 <li> $\cgtp$ binding is assumed to be more favorable than $\cgdp$ binding, which can be realized via $l'_C < k'_C$, and similarly for D.</li>
-<li> The transition from RX to R$^*$X (with X = C or D) is assumed to be much slower than the R$^*$X unbinding processes: $m' \ll k_C, k_D$ </li>
+<li> The transition from RX to R$^*$X (with X = C or D) is assumed to be much slower than the RX unbinding processes: $m' \ll k_C, k_D$ </li>
 <li> The rate $w$ for incorporating an amino acid onto the polypeptide chain (which involves multiple steps) is assumed to be much slower than all other rates. </li>
 </ul>
 
@@ -151,7 +171,7 @@ An analogous cycle, with identical rate constants, is assumed for D/GTP binding 
 </h3>
 
 With only a few algebraic steps, and without including the auxiliary C/GTP cycle, we can demonstrate the basics of driven proofreading.
-In fact, for a quick analysis, it is easiest to exclude GTP and including driving only implicitly as will described.
+In fact, for a quick analysis, it is easiest to exclude GTP and include driving only implicitly as will described.
 Thus we consider a somewhat simplified cycle.
 
 <p style="text-align:center"><img src="images/kineticProofCycleNoGTP.gif" height="400"/></p>
@@ -397,6 +417,17 @@ The source code for the model (a .bngl file) can be downloaded by right-clicking
 <h4>
 Cycle constraints
 </h4>
+Although we are studying processes far from equilibrium, we obtain important mathematical information about the rate constants by considering the equilibrium situation.  This is because values of the rate constants are independent of conditions, equilibrium or otherwise (except in the case of an “external field,” possibly electrostatic, which is assumed not to play a role here).  In other words, constants really are constant.
+
+<p>
+In our standard biochemical description, non-equilibrium processes arise because <i>concentrations</i> differ from their equilibrium values.  For example, [GDP][Pi]/[GTP] will tend to be much smaller than its equilibrium value – i.e., GTP is activated.  However, the rate constants are always the same, and this will hold so long as no fields are applied.
+</p>
+
+<p>
+We will therefore analyze the cycles in our model in equilibrium.  Accordingly, in the discussion immediately below, concentrations $\conc{X}$ really denote equilibrium concentrations $\conceq{X}$, although the superscript is omitted to keep the expressions cleaner.  No specific concentration values will enter the final constraints – only equilibrium constants.
+</p>
+
+<p>
 We first analyze the main cycle for ribosome (R) binding to $\cgtp$.
 As with any <a href="javascript:changeTo('kineticProof','cycles')">cycle</a>, we apply detailed balance to each process and eliminate unwanted concentration terms to obtain
 
@@ -407,6 +438,7 @@ As with any <a href="javascript:changeTo('kineticProof','cycles')">cycle</a>, we
 \end{equation}
 The right-hand side has the form of an <a href="javascript:changeTo('kineticProof','binding')">equilibrium (dissociation) constant</a> but it's not one we can look up in a biochemistry book.
 Instead we can express that constant in terms of the GTP constant by using the auxiliary cycle.
+</p>
 
 <p>
 We therefore turn to the auxiliary cycle of C + GTP binding.
@@ -446,6 +478,24 @@ Equations \eqref{constraint_aux} and \eqref{final_constraint} are the constraint
 $K_{\mathrm{GTP}} = 5 \times 10^5$ M.
 The constraint for the R + $\dgtp$ cycle is analogous to \eqref{final_constraint}.
 </p>
+
+
+<h3>
+Acknowledgement	
+</h3>
+A big thank you to Phil Nelson for carefully reading this page and requesting useful clarifications.	
+
+<h3>
+References
+</h3>
+
+<ul>
+<li> B. Alberts et al., "Molecular Biology of the Cell," Garland Science (many editions available). </li>
+<li> J. J. Hopfield, "Kinetic proofreading: A new mechanism for reducing errors in biosynthetic processes requiring high specificity,"  <a href="http://www.pnas.org/content/71/10/4135.short" target="_blank">Proc. Nat. Acad. Sci. 71:4135-4139 (1974)</a>. </li>
+<li> J. Ninio, "Kinetic amplification of enzyme discrimination," <a href="http://www.ncbi.nlm.nih.gov/pubmed/1182215" target="_blank">Biochimie 57:587-595 (1975)</a>. </li>
+<li> U. Alon, <a href="http://books.google.com/books/about/An_Introduction_to_Systems_Biology.html?id=pAUdPQlCZ54C" target="_blank"><i>An introduction to systems biology</i></a>, CRC Press (2006). </li>
+</ul>
+
 
 
 <h3>
